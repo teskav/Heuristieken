@@ -5,9 +5,10 @@ This script parses and processes the data from a csv file
 """
 
 import csv
-import pandas as pd 
+import pandas as pd
 import numpy
 import csv
+from operator import itemgetter
 
 # Global constants
 INPUT = "CargoList1.csv"
@@ -32,8 +33,8 @@ class SpaceFreight():
 		Load parcels from csv file.
 		Returns dictionary of 'name': Parcel objects.
 		"""
-		
-		# 
+
+		#
 		with open(INPUT) as in_file:
 			data_frame = csv.reader(in_file, delimiter = ',')
 			next(data_frame)
@@ -53,19 +54,23 @@ class SpaceFreight():
 			spacecraft = self.spacecrafts[spacecraft]
 			for parcel in self.all_parcels:
 				parcel = self.all_parcels[parcel]
-				if ((spacecraft.packed_mass + parcel.mass) < spacecraft.payload_mass) and ((spacecraft.packed_vol + parcel.volume) < spacecraft.payload_vol) and parcel.ID in self.unpacked_parcels:
+				if self.check_mass(spacecraft, parcel) and self.check_vol(spacecraft, parcel) and parcel.ID in self.unpacked_parcels:
 					self.update(spacecraft, parcel)
 			print(spacecraft.packed_parcels)
 		print(self.unpacked_parcels)
+
+	def sort(self, parcels):
+		sorted = {k: parcels[k] for k in sorted(parcels, key=parcels.get)}
+		print(sorted)
 
 	def check_mass(self, spacecraft, parcel):
 		"""
 		Check if the payload mass does not get exceeded
 		Boolean
 		"""
-		fuel = (spacecraft.mass + spacecraft.packed_mass + parcel.mass) * spacecraft.FtW / ( 1 - spacecraft.FtW )
-		mass = fuel + spacecraft.packed_mass + parcel.mass
-		if mass < spacecraft.payload_mass:
+		# fuel = (spacecraft.mass + spacecraft.packed_mass + parcel.mass) * spacecraft.FtW / (1 - spacecraft.FtW)
+		# mass = fuel + spacecraft.packed_mass + parcel.mass
+		if (spacecraft.packed_mass + parcel.mass) < spacecraft.payload_mass:
 			return True
 		else:
 			return False
@@ -115,5 +120,4 @@ class Spacecraft(object):
 if __name__ == "__main__":
 	spacefreight = SpaceFreight()
 	spacefreight.allocate()
-
-
+	spacefreight.sort(spacefreight.all_parcels)
