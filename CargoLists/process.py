@@ -61,17 +61,16 @@ class SpaceFreight():
 		my_randoms = random.sample(range(1, 101), 100)
 
 		for spacecraft in self.spacecrafts:
-			print(spacecraft)
 			spacecraft = self.spacecrafts[spacecraft]
 			for item in my_randoms:
 				parcel_code = 'CL1#' + str(item)
 				parcel = self.all_parcels[parcel_code]
 				if self.check_mass(spacecraft, parcel) and self.check_vol(spacecraft, parcel) and parcel.ID in self.unpacked_parcels:
 					self.update(spacecraft, parcel)
-			print(spacecraft.packed_parcels)
-		print('unpacked:')
+		# 	print(spacecraft.packed_parcels)
+		# print('unpacked:')
+		# print(self.unpacked_parcels)
 		print(self.unpacked_parcels)
-
 		return len(self.unpacked_parcels)
 
 	def allocate(self):
@@ -120,6 +119,7 @@ class SpaceFreight():
 		spacecraft.packed_vol += parcel.volume
 
 		# update unpacked parcels
+		print(self.unpacked_parcels)
 		self.unpacked_parcels.remove(parcel.ID)
 
 
@@ -143,5 +143,13 @@ class Spacecraft(object):
 
 if __name__ == "__main__":
 	spacefreight = SpaceFreight()
-	spacefreight.allocate_random()
+	number_unpacked_parcels = spacefreight.allocate_random()
+	count = 0
+
+	while number_unpacked_parcels > 20:
+		number_unpacked_parcels = spacefreight.allocate_random()
+		count += 1
+
+	print(count)
+
 	# spacefreight.sort(spacefreight.all_parcels)
