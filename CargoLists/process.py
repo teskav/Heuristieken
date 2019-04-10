@@ -9,6 +9,7 @@ import pandas as pd
 import numpy
 import csv
 from operator import itemgetter
+import random
 
 # Global constants
 INPUT = "CargoList1.csv"
@@ -17,9 +18,13 @@ class SpaceFreight():
 	def __init__ (self):
 		# load the parcels
 		self.all_parcels = self.load_parcels(INPUT)
+		print(self.all_parcels)
 
 		# initialize unpacked parcels as all parcels
 		self.unpacked_parcels = list(self.all_parcels.keys())
+
+		my_randoms = random.sample(range(1, 101), 100)
+		print(my_randoms)
 
 		# load spacecraft objects
 		self.spacecrafts = {}
@@ -27,6 +32,8 @@ class SpaceFreight():
 		self.spacecrafts['progress'] = Spacecraft(2400, 7.6, 7020, 175, 0.74)
 		self.spacecrafts['kounotori'] = Spacecraft(5200, 14, 10500, 420, 0.71)
 		self.spacecrafts['dragon'] = Spacecraft(6000, 10, 12200, 347, 0.72)
+
+		# print(self.all_parcels.values()['mass'])
 
 	def load_parcels(self, file):
 		"""
@@ -46,6 +53,21 @@ class SpaceFreight():
 
 		return parcels
 
+	
+	def allocate_random(self):
+		"""
+		Allocate the parcels in spacecrafts
+		"""
+		for spacecraft in self.spacecrafts:
+			spacecraft = self.spacecrafts[spacecraft]
+			for parcel in self.all_parcels:
+				parcel = self.all_parcels[parcel]
+				if self.check_mass(spacecraft, parcel) and self.check_vol(spacecraft, parcel) and parcel.ID in self.unpacked_parcels:
+					self.update(spacecraft, parcel)
+		# 	print(spacecraft.packed_parcels)
+		# print(self.unpacked_parcels)	
+
+
 	def allocate(self):
 		"""
 		Allocate the parcels in spacecrafts
@@ -56,12 +78,8 @@ class SpaceFreight():
 				parcel = self.all_parcels[parcel]
 				if self.check_mass(spacecraft, parcel) and self.check_vol(spacecraft, parcel) and parcel.ID in self.unpacked_parcels:
 					self.update(spacecraft, parcel)
-			print(spacecraft.packed_parcels)
-		print(self.unpacked_parcels)
-
-	def sort(self, parcels):
-		sorted = {k: parcels[k] for k in sorted(parcels, key=parcels.get)}
-		print(sorted)
+		# 	print(spacecraft.packed_parcels)
+		# print(self.unpacked_parcels)
 
 	def check_mass(self, spacecraft, parcel):
 		"""
@@ -120,4 +138,4 @@ class Spacecraft(object):
 if __name__ == "__main__":
 	spacefreight = SpaceFreight()
 	spacefreight.allocate()
-	spacefreight.sort(spacefreight.all_parcels)
+	# spacefreight.sort(spacefreight.all_parcels)
