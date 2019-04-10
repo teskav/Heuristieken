@@ -18,13 +18,12 @@ class SpaceFreight():
 	def __init__ (self):
 		# load the parcels
 		self.all_parcels = self.load_parcels(INPUT)
-		print(self.all_parcels)
 
 		# initialize unpacked parcels as all parcels
 		self.unpacked_parcels = list(self.all_parcels.keys())
 
-		my_randoms = random.sample(range(1, 101), 100)
-		print(my_randoms)
+		# my_randoms = random.sample(range(1, 101), 100)
+		# print(my_randoms)
 
 		# load spacecraft objects
 		self.spacecrafts = {}
@@ -56,17 +55,24 @@ class SpaceFreight():
 	
 	def allocate_random(self):
 		"""
-		Allocate the parcels in spacecrafts
+		Random allocate the parcels in spacecrafts
 		"""
+		# list with random numbers, order in which the parcels are being added
+		my_randoms = random.sample(range(1, 101), 100)
+
 		for spacecraft in self.spacecrafts:
+			print(spacecraft)
 			spacecraft = self.spacecrafts[spacecraft]
-			for parcel in self.all_parcels:
-				parcel = self.all_parcels[parcel]
+			for item in my_randoms:
+				parcel_code = 'CL1#' + str(item)
+				parcel = self.all_parcels[parcel_code]
 				if self.check_mass(spacecraft, parcel) and self.check_vol(spacecraft, parcel) and parcel.ID in self.unpacked_parcels:
 					self.update(spacecraft, parcel)
-		# 	print(spacecraft.packed_parcels)
-		# print(self.unpacked_parcels)	
+			print(spacecraft.packed_parcels)
+		print('unpacked:')
+		print(self.unpacked_parcels)
 
+		return len(self.unpacked_parcels)
 
 	def allocate(self):
 		"""
@@ -137,5 +143,5 @@ class Spacecraft(object):
 
 if __name__ == "__main__":
 	spacefreight = SpaceFreight()
-	spacefreight.allocate()
+	spacefreight.allocate_random()
 	# spacefreight.sort(spacefreight.all_parcels)
