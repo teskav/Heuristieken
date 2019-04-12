@@ -153,14 +153,16 @@ if __name__ == "__main__":
 	while number_unpacked_parcels > 12:
 		number_unpacked_parcels = spacefreight.allocate_random()
 		count += 1
-	print('Number of iterations:')
-	print(count)
-	print('unpacked:')
-	print(len(spacefreight.unpacked_parcels))
+	print('Number of iterations:', count)
+	# print(count)
+	print('Number of unpacked parcels:', len(spacefreight.unpacked_parcels))
 	print(spacefreight.unpacked_parcels)
 	for spacecraft in spacefreight.spacecrafts:
 		print(spacecraft)
 		spacecraft = spacefreight.spacecrafts[spacecraft]
+		print('Current mass load:', spacecraft.packed_mass)
+		print('Current volume load:', spacecraft.packed_vol)
+		# print(spacecraft.mass)
 		print(spacecraft.packed_parcels)
 
 	# spacefreight.sort(spacefreight.all_parcels)
