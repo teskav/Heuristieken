@@ -150,10 +150,10 @@ if __name__ == "__main__":
 	number_unpacked_parcels = spacefreight.allocate_random()
 	count = 0
 
-	while number_unpacked_parcels > 10:
+	while number_unpacked_parcels > 12:
 		number_unpacked_parcels = spacefreight.allocate_random()
 		count += 1
-	print('iterations')
+	print('Number of iterations:')
 	print(count)
 	print('unpacked:')
 	print(len(spacefreight.unpacked_parcels))
