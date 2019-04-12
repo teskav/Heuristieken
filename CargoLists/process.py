@@ -147,14 +147,17 @@ class Spacecraft(object):
 
 if __name__ == "__main__":
 	spacefreight = SpaceFreight()
+	# number_unpacked_parcels = spacefreight.allocate()
 	number_unpacked_parcels = spacefreight.allocate_random()
+
 	count = 0
 
+	# while loop weghalen als je normale first fit runt
 	while number_unpacked_parcels > 12:
 		number_unpacked_parcels = spacefreight.allocate_random()
 		count += 1
+
 	print('Number of iterations:', count)
-	# print(count)
 	print('Number of unpacked parcels:', len(spacefreight.unpacked_parcels))
 	print(spacefreight.unpacked_parcels)
 	for spacecraft in spacefreight.spacecrafts:
