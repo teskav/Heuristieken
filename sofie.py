@@ -1,1 +1,0 @@
-print("Sofie is de beste")

@@ -3,12 +3,22 @@
 """
 This script sets the spacefreight class
 """
+# imports
+import pandas as pd
+import numpy
+import csv
+from operator import itemgetter
+import random
 
 # Global constants
 INPUT = "CargoList1.csv"
 
 class SpaceFreight():
 	def __init__ (self):
+		# get parcel and spacecraft
+		parcel = Parcel()
+		spacecraft = Spacecraft()
+
 		# load the parcels
 		self.all_parcels = self.load_parcels(INPUT)
 
