@@ -42,6 +42,7 @@ class SpaceFreight():
 		return parcels
 
 
+<<<<<<< HEAD
 	def allocate_pseudo_random(self):
 		"""
 		Random allocate the parcels in spacecrafts
@@ -68,6 +69,8 @@ class SpaceFreight():
 		# print(len(self.unpacked_parcels))
 		return len(self.unpacked_parcels)
 
+=======
+>>>>>>> cf8c375e917972508798e870dc90c51f313198a5
 	def allocate_random(self):
 		"""
 		Random allocate the parcels in spacecrafts
@@ -77,11 +80,17 @@ class SpaceFreight():
 		my_randoms = random.sample(range(1, 101), 100)
 		self.unpacked_parcels = list(self.all_parcels.keys())
 
+<<<<<<< HEAD
 		random_spacecrafts = random.sample(range(1,5), 4)
 
 		for spacecraft in random_spacecrafts:
 			spacecraft = self.spacecrafts[spacecraft]
 			# set variables at 0
+=======
+		for spacecraft in self.spacecrafts:
+			# print(spacecraft)
+			spacecraft = self.spacecrafts[spacecraft]
+>>>>>>> cf8c375e917972508798e870dc90c51f313198a5
 			spacecraft.packed_parcels = []
 			spacecraft.packed_mass = 0
 			spacecraft.packed_vol = 0
@@ -90,9 +99,14 @@ class SpaceFreight():
 				parcel = self.all_parcels[parcel_code]
 				if self.check_mass(spacecraft, parcel) and self.check_vol(spacecraft, parcel) and parcel.ID in self.unpacked_parcels:
 					self.update(spacecraft, parcel)
+<<<<<<< HEAD
 			print(spacecraft.packed_parcels)
 		print('unpacked:')
 		print(self.unpacked_parcels)
+=======
+		# 	print(spacecraft.packed_parcels)
+		# print('unpacked:')
+>>>>>>> cf8c375e917972508798e870dc90c51f313198a5
 		# print(len(self.unpacked_parcels))
 		return len(self.unpacked_parcels)
 
@@ -142,4 +156,53 @@ class SpaceFreight():
 		spacecraft.packed_vol += parcel.volume
 
 		# update unpacked parcels
+<<<<<<< HEAD
 		self.unpacked_parcels.remove(parcel.ID)
+=======
+		# print(self.unpacked_parcels)
+		self.unpacked_parcels.remove(parcel.ID)
+		# print(self.unpacked_parcels)
+
+class Parcel(object):
+    def __init__ (self, ID, mass, volume):
+    	self.ID = ID
+    	self.mass = mass
+    	self.volume = volume
+
+class Spacecraft(object):
+    def __init__ (self, payload_mass, payload_vol, mass, base_cost, FtW):
+    	self.payload_mass = payload_mass
+    	self.payload_vol = payload_vol
+    	self.mass = mass
+    	self.base_cost = base_cost
+    	self.FtW = FtW
+    	self.packed_parcels = []
+    	self.packed_mass = 0
+    	self.packed_vol = 0
+
+
+if __name__ == "__main__":
+	spacefreight = SpaceFreight()
+	# number_unpacked_parcels = spacefreight.allocate()
+	number_unpacked_parcels = spacefreight.allocate_random()
+
+	count = 0
+
+	# while loop weghalen als je normale first fit runt
+	while number_unpacked_parcels > 12:
+		number_unpacked_parcels = spacefreight.allocate_random()
+		count += 1
+
+	print('Number of iterations:', count)
+	print('Number of unpacked parcels:', len(spacefreight.unpacked_parcels))
+	print(spacefreight.unpacked_parcels)
+	for spacecraft in spacefreight.spacecrafts:
+		print(spacecraft)
+		spacecraft = spacefreight.spacecrafts[spacecraft]
+		print('Current mass load:', spacecraft.packed_mass)
+		print('Current volume load:', spacecraft.packed_vol)
+		# print(spacecraft.mass)
+		print(spacecraft.packed_parcels)
+
+	# spacefreight.sort(spacefreight.all_parcels)
+>>>>>>> cf8c375e917972508798e870dc90c51f313198a5

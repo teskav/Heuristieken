@@ -5,23 +5,20 @@ This script sets the spacefreight class
 """
 # imports
 import pandas as pd
-import numpy
 import csv
-from operator import itemgetter
-import random
+from parcel import Parcel
+from spacecraft import Spacecraft
 
 # Global constants
-INPUT = "CargoList1.csv"
+INPUT = "Scripts/CargoList1.csv"
 
 class SpaceFreight():
 	def __init__ (self):
-		# get parcel and spacecraft
-		parcel = Parcel()
-		spacecraft = Spacecraft()
 
-		# load the parcels
+		# load the list with all parcel objects
 		self.all_parcels = self.load_parcels(INPUT)
 
+		# make list with all unpacked parcels (only ID)
 		self.unpacked_parcels = []
 		for p in self.all_parcels:
 			self.unpacked_parcels.append(p.ID)
@@ -33,6 +30,7 @@ class SpaceFreight():
 		self.spacecrafts['kounotori'] = Spacecraft(5200, 14, 10500, 420, 0.71)
 		self.spacecrafts['dragon'] = Spacecraft(6000, 10, 12200, 347, 0.72)
 
+		self.spacecrafts_names = list(self.spacecrafts.keys())
 
 	def load_parcels(self, file):
 		"""
@@ -51,81 +49,11 @@ class SpaceFreight():
 
 		return parcels
 
-
-	def allocate_pseudo_random(self):
-		"""
-		Random allocate the parcels in spacecrafts
-		"""
-
-		# list with random numbers, order in which the parcels are being added
-		my_randoms = random.sample(range(1, 101), 100)
-		self.unpacked_parcels = list(self.all_parcels.keys())
-
-		for spacecraft in random_spacecrafts:
-			spacecraft = self.spacecrafts[spacecraft]
-			# set variables at 0
-			spacecraft.packed_parcels = []
-			spacecraft.packed_mass = 0
-			spacecraft.packed_vol = 0
-			for item in my_randoms:
-				parcel_code = 'CL1#' + str(item)
-				parcel = self.all_parcels[parcel_code]
-				if self.check_mass(spacecraft, parcel) and self.check_vol(spacecraft, parcel) and parcel.ID in self.unpacked_parcels:
-					self.update(spacecraft, parcel)
-			print(spacecraft.packed_parcels)
-		print('unpacked:')
-		print(self.unpacked_parcels)
-		# print(len(self.unpacked_parcels))
-		return len(self.unpacked_parcels)
-
-	def allocate_random(self):
-		"""
-		Random allocate the parcels in spacecrafts
-		"""
-
-		# list with random numbers, order in which the parcels are being added
-		my_randoms = random.sample(range(1, 101), 100)
-		self.unpacked_parcels = list(self.all_parcels.keys())
-
-		random_spacecrafts = random.sample(range(1,5), 4)
-
-		for spacecraft in random_spacecrafts:
-			spacecraft = self.spacecrafts[spacecraft]
-			# set variables at 0
-			spacecraft.packed_parcels = []
-			spacecraft.packed_mass = 0
-			spacecraft.packed_vol = 0
-			for item in my_randoms:
-				parcel_code = 'CL1#' + str(item)
-				parcel = self.all_parcels[parcel_code]
-				if self.check_mass(spacecraft, parcel) and self.check_vol(spacecraft, parcel) and parcel.ID in self.unpacked_parcels:
-					self.update(spacecraft, parcel)
-			print(spacecraft.packed_parcels)
-		print('unpacked:')
-		print(self.unpacked_parcels)
-		# print(len(self.unpacked_parcels))
-		return len(self.unpacked_parcels)
-
-	def first_fit(self):
-		"""
-		Allocate the parcels in spacecrafts
-		"""
-		for spacecraft in self.spacecrafts:
-			spacecraft = self.spacecrafts[spacecraft]
-			for parcel in self.all_parcels:
-				parcel = self.all_parcels[parcel]
-				if self.check_mass(spacecraft, parcel) and self.check_vol(spacecraft, parcel) and parcel.ID in self.unpacked_parcels:
-					self.update(spacecraft, parcel)
-		# 	print(spacecraft.packed_parcels)
-		# print(self.unpacked_parcels)
-
 	def check_mass(self, spacecraft, parcel):
 		"""
 		Check if the payload mass does not get exceeded
 		Boolean
 		"""
-		# fuel = (spacecraft.mass + spacecraft.packed_mass + parcel.mass) * spacecraft.FtW / (1 - spacecraft.FtW)
-		# mass = fuel + spacecraft.packed_mass + parcel.mass
 		if (spacecraft.packed_mass + parcel.mass) < spacecraft.payload_mass:
 			return True
 		else:
@@ -153,3 +81,16 @@ class SpaceFreight():
 
 		# update unpacked parcels
 		self.unpacked_parcels.remove(parcel.ID)
+
+	def printing(self):
+		"""
+		Prints the results
+		"""
+		for spacecraft in self.spacecrafts:
+			print(spacecraft + ':')
+			spacecraft = self.spacecrafts[spacecraft]
+			print(spacecraft.packed_parcels)
+		print('unpacked:')
+		print(self.unpacked_parcels)
+		print('number of packed parcels: ', 100-len(self.unpacked_parcels))
+		# also print costs for this sollution
