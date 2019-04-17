@@ -6,6 +6,7 @@ This script sets the spacefreight class
 # imports
 import pandas as pd
 import csv
+import math
 from parcel import Parcel
 from spacecraft import Spacecraft
 
@@ -25,10 +26,10 @@ class SpaceFreight():
 
 		# load spacecraft objects
 		self.spacecrafts = {}
-		self.spacecrafts['cygnus'] = Spacecraft(2000, 18.9, 7400, 390, 0.73)
-		self.spacecrafts['progress'] = Spacecraft(2400, 7.6, 7020, 175, 0.74)
-		self.spacecrafts['kounotori'] = Spacecraft(5200, 14, 10500, 420, 0.71)
-		self.spacecrafts['dragon'] = Spacecraft(6000, 10, 12200, 347, 0.72)
+		self.spacecrafts['cygnus'] = Spacecraft(2000, 18.9, 7400, 390000000, 0.73)
+		self.spacecrafts['progress'] = Spacecraft(2400, 7.6, 7020, 175000000, 0.74)
+		self.spacecrafts['kounotori'] = Spacecraft(5200, 14, 10500, 420000000, 0.71)
+		self.spacecrafts['dragon'] = Spacecraft(6000, 10, 12200, 347000000, 0.72)
 
 		self.spacecrafts_names = list(self.spacecrafts.keys())
 
@@ -82,15 +83,29 @@ class SpaceFreight():
 		# update unpacked parcels
 		self.unpacked_parcels.remove(parcel.ID)
 
+	def calculate_costs(self, spacecraft):
+		"""
+		This function calculates the costs of a spacecraft.
+		"""
+		fuel = (spacecraft.mass + spacecraft.packed_mass) * spacecraft.FtW * (1 - spacecraft.FtW)
+		costs = spacecraft.base_cost + round(fuel * 1000)
+		# of deze? costs = spacecraft.base_cost + math.ceil(fuel * 1000)
+
+		return costs
+
 	def printing(self):
 		"""
 		Prints the results
 		"""
+		total_costs = 0
 		for spacecraft in self.spacecrafts:
 			print(spacecraft + ':')
 			spacecraft = self.spacecrafts[spacecraft]
 			print(spacecraft.packed_parcels)
+			cost_spacecraft = self.calculate_costs(spacecraft)
+			total_costs += cost_spacecraft
+
 		print('unpacked:')
 		print(self.unpacked_parcels)
 		print('number of packed parcels: ', 100-len(self.unpacked_parcels))
-		# also print costs for this sollution
+		print('Costs:', total_costs)

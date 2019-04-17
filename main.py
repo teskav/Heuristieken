@@ -15,15 +15,15 @@ from first_fit_algorithms import *
 
 
 # first fit
-first_fit()
+# first_fit()
 
 # random
-# number_unpacked_parcels = allocate_random()
-# count = 0
-#
-# while number_unpacked_parcels > 15:
-# 	number_unpacked_parcels = allocate_random()
-# 	count += 1
+number_unpacked_parcels = allocate_pseudo_random()
+count = 0
+
+while number_unpacked_parcels > 20:
+	number_unpacked_parcels = allocate_pseudo_random()
+	count += 1
 
 spacefreight.printing()
 
