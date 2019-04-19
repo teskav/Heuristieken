@@ -7,7 +7,7 @@ from spacefreight import SpaceFreight
 import random
 
  # allowed number of parcels to leave behind
-target = 15
+target = 12
 
 spacefreight = SpaceFreight()
 
