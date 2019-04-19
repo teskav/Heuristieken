@@ -23,7 +23,7 @@ class SpaceFreight():
 		self.unpacked_parcels = []
 		for p in self.all_parcels:
 			self.unpacked_parcels.append(p.ID)
-
+		
 		# load spacecraft objects
 		self.spacecrafts = {}
 		self.spacecrafts['cygnus'] = Spacecraft(2000, 18.9, 7400, 390000000, 0.73)

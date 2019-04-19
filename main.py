@@ -13,7 +13,6 @@ from spacefreight import SpaceFreight
 from random_algorithms import *
 from first_fit_algorithms import *
 
-
 # first fit
 # first_fit()
 
@@ -21,10 +20,8 @@ from first_fit_algorithms import *
 number_unpacked_parcels = allocate_pseudo_random()
 count = 0
 
-while number_unpacked_parcels > 20:
+while number_unpacked_parcels > target:
 	number_unpacked_parcels = allocate_pseudo_random()
 	count += 1
-
-spacefreight.printing()
 
 # spacefreight.sort(spacefreight.all_parcels)

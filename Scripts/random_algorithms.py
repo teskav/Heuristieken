@@ -6,6 +6,9 @@ This script contains the different versions (functions) of the random algorithms
 from spacefreight import SpaceFreight
 import random
 
+ # allowed number of parcels to leave behind
+target = 15
+
 spacefreight = SpaceFreight()
 
 def allocate_pseudo_random():
@@ -30,7 +33,10 @@ def allocate_pseudo_random():
             parcel = spacefreight.all_parcels[item]
             if spacefreight.check_mass(spacecraft, parcel) and spacefreight.check_vol(spacecraft, parcel) and parcel.ID in spacefreight.unpacked_parcels:
                 spacefreight.update(spacecraft, parcel)
-    spacefreight.printing()            
+
+    if len(spacefreight.unpacked_parcels) <= target:
+        spacefreight.printing()
+
     return len(spacefreight.unpacked_parcels)
 
 def allocate_random():
