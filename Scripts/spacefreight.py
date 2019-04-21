@@ -103,6 +103,8 @@ class SpaceFreight():
 			spacecraft = self.spacecrafts[spacecraft]
 			print(spacecraft.packed_parcels)
 			cost_spacecraft = self.calculate_costs(spacecraft)
+			print("Mass:", spacecraft.packed_mass)
+			print("Vol:", spacecraft.packed_vol)
 			total_costs += cost_spacecraft
 
 		print('unpacked:')
