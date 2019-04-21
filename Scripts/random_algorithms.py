@@ -7,7 +7,7 @@ from spacefreight import SpaceFreight
 import random
 
  # allowed number of parcels to leave behind
-TARGET = 4
+TARGETR = 4
 
 spacefreight = SpaceFreight()
 
@@ -34,7 +34,7 @@ def allocate_pseudo_random():
             if spacefreight.check_mass(spacecraft, parcel) and spacefreight.check_vol(spacecraft, parcel) and parcel.ID in spacefreight.unpacked_parcels:
                 spacefreight.update(spacecraft, parcel)
 
-    if len(spacefreight.unpacked_parcels) <= TARGET:
+    if len(spacefreight.unpacked_parcels) <= TARGETR:
         spacefreight.printing()
 
     return len(spacefreight.unpacked_parcels)
@@ -63,7 +63,7 @@ def allocate_random():
             if spacefreight.check_mass(spacecraft, parcel) and spacefreight.check_vol(spacecraft, parcel) and parcel.ID in spacefreight.unpacked_parcels:
                 spacefreight.update(spacecraft, parcel)
 
-    if len(spacefreight.unpacked_parcels) <= TARGET:
+    if len(spacefreight.unpacked_parcels) <= TARGETR:
         spacefreight.printing()
 
     return len(spacefreight.unpacked_parcels)
@@ -74,7 +74,7 @@ def sorted_mass_random():
     """
     sorted_mass = sorted(spacefreight.all_parcels, key=lambda x: x.mass)
     spacecraft_randoms = random.sample(range(4), 4)
-    print(spacecraft_randoms)
+
     # every single run of the function sets unpacked_parcels at starting point
     spacefreight.unpacked_parcels = []
     for p in spacefreight.all_parcels:
@@ -94,7 +94,7 @@ def sorted_mass_random():
                 spacefreight.update(spacecraft, parcel)
                 count += 1
 
-    if len(spacefreight.unpacked_parcels) <= TARGET:
+    if len(spacefreight.unpacked_parcels) <= TARGETR:
         spacefreight.printing()
 
     return len(spacefreight.unpacked_parcels)
@@ -125,7 +125,7 @@ def sorted_vol_random():
                 spacefreight.update(spacecraft, parcel)
                 count += 1
 
-    if len(spacefreight.unpacked_parcels) <= TARGET:
+    if len(spacefreight.unpacked_parcels) <= TARGETR:
         spacefreight.printing()
 
     return len(spacefreight.unpacked_parcels)

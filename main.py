@@ -24,14 +24,12 @@ from iterative_algorithms import *
 # sorted_vol_random()
 # spacefreight.printing()
 
-# JONGENS LET OP DAT JE TARGET IN ITERATIVE EN RANDOM ALLEBEI HETZELFDE DOET
-# ANDERS GAAT HIJ SPACEN
 
 # RANDOM
 # number_unpacked_parcels = allocate_random()
 # count = 0
 #
-# while number_unpacked_parcels > TARGET:
+# while number_unpacked_parcels > TARGETR:
 # 	number_unpacked_parcels = allocate_random()
 # 	count += 1
 
@@ -41,8 +39,11 @@ from iterative_algorithms import *
 number_unpacked_parcels = 100
 count = 0
 
-while number_unpacked_parcels > TARGET:
+print(mean_mass)
+print(mean_vol)
+
+while number_unpacked_parcels > TARGETI:
 	count += 1
-	number_unpacked_parcels = iterative_pseudo_random()
+	number_unpacked_parcels = iterative_random()
 
 print("Iterations:", count)
