@@ -45,7 +45,7 @@ def iterative_pseudo_random():
         if (parcel.mass > mean_mass) and (parcel.volume < mean_vol):
             if spacefreight.check_mass(spacefreight.spacecrafts['dragon'], parcel) and spacefreight.check_vol(spacefreight.spacecrafts['dragon'], parcel) and parcel.ID in spacefreight.unpacked_parcels:
                 spacefreight.update(spacefreight.spacecrafts['dragon'], parcel)
-        if (parcel.mass > mean_mass) and (parcel.volume > mean_vol):
+        if (parcel.mass > mean_mass + 30) and (parcel.volume > mean_vol):
             if spacefreight.check_mass(spacefreight.spacecrafts['kounotori'], parcel) and spacefreight.check_vol(spacefreight.spacecrafts['kounotori'], parcel) and parcel.ID in spacefreight.unpacked_parcels:
                 spacefreight.update(spacefreight.spacecrafts['kounotori'], parcel)
         if (parcel.mass < (mean_mass / 2)) and (parcel.volume < mean_vol):
@@ -55,10 +55,6 @@ def iterative_pseudo_random():
     # allocating the rest of the parcels random
     for spacecraft in spacefreight.spacecrafts:
         spacecraft = spacefreight.spacecrafts[spacecraft]
-        # set variables at 0 after run for every spacecraft
-        # spacecraft.packed_parcels = []
-        # spacecraft.packed_mass = 0
-        # spacecraft.packed_vol = 0
         for item in parcel_randoms:
             parcel = spacefreight.all_parcels[item]
             if spacefreight.check_mass(spacecraft, parcel) and spacefreight.check_vol(spacecraft, parcel) and parcel.ID in spacefreight.unpacked_parcels:
