@@ -12,7 +12,7 @@ import copy
 spacefreight = SpaceFreight()
 
  # allowed number of parcels to leave behind
-TARGETI = 4
+TARGETI = 3
 
 # the means of the volumes and the masses
 mean_mass = np.mean([parcel.mass for parcel in spacefreight.all_parcels])
@@ -104,6 +104,9 @@ def iterative_random():
                 if spacefreight.check_mass(spacefreight.spacecrafts['progress'], parcel) and spacefreight.check_vol(spacefreight.spacecrafts['progress'], parcel) and parcel.ID in spacefreight.unpacked_parcels:
                     spacefreight.update(spacefreight.spacecrafts['progress'], parcel)
 
+        # sorted_vol = sorted(spacefreight.all_parcels, key=lambda x: x.volume)
+        # sorted_mass = sorted(spacefreight.all_parcels,  key=lambda x: x.mass)
+
         # allocating the rest of the parcels random
         for spacecraft_number in spacecraft_randoms:
             spacecraft_name = spacefreight.spacecrafts_names[spacecraft_number]
@@ -135,6 +138,7 @@ def iterative_sorted():
 
         # list with random numbers: order in which the parcels are being added
         sorted_vol = sorted(spacefreight.all_parcels, key=lambda x: x.volume)
+
         # every single run of the function sets unpacked_parcels at starting point
         spacefreight.unpacked_parcels = []
         for p in spacefreight.all_parcels:
@@ -142,18 +146,20 @@ def iterative_sorted():
 
         # allocate parcels with iterative constraints
         for parcel in sorted_vol:
-            if (parcel.mass < mean_mass) and (parcel.volume > mean_vol):
-                if spacefreight.check_mass(spacefreight.spacecrafts['cygnus'], parcel) and spacefreight.check_vol(spacefreight.spacecrafts['cygnus'], parcel) and parcel.ID in spacefreight.unpacked_parcels:
-                    spacefreight.update(spacefreight.spacecrafts['cygnus'], parcel)
+            if (parcel.mass < mean_mass / 2) and (parcel.volume < mean_vol):
+                if spacefreight.check_mass(spacefreight.spacecrafts['progress'], parcel) and spacefreight.check_vol(spacefreight.spacecrafts['progress'], parcel) and parcel.ID in spacefreight.unpacked_parcels:
+                    spacefreight.update(spacefreight.spacecrafts['progress'], parcel)
             if (parcel.mass > mean_mass) and (parcel.volume < mean_vol):
                 if spacefreight.check_mass(spacefreight.spacecrafts['dragon'], parcel) and spacefreight.check_vol(spacefreight.spacecrafts['dragon'], parcel) and parcel.ID in spacefreight.unpacked_parcels:
                     spacefreight.update(spacefreight.spacecrafts['dragon'], parcel)
             if (parcel.mass > mean_mass) and (parcel.volume > mean_vol):
                 if spacefreight.check_mass(spacefreight.spacecrafts['kounotori'], parcel) and spacefreight.check_vol(spacefreight.spacecrafts['kounotori'], parcel) and parcel.ID in spacefreight.unpacked_parcels:
                     spacefreight.update(spacefreight.spacecrafts['kounotori'], parcel)
-            if (parcel.mass < mean_mass) and (parcel.volume < mean_vol):
-                if spacefreight.check_mass(spacefreight.spacecrafts['progress'], parcel) and spacefreight.check_vol(spacefreight.spacecrafts['progress'], parcel) and parcel.ID in spacefreight.unpacked_parcels:
-                    spacefreight.update(spacefreight.spacecrafts['progress'], parcel)
+            if (parcel.mass < mean_mass) and (parcel.volume > mean_vol):
+                if spacefreight.check_mass(spacefreight.spacecrafts['cygnus'], parcel) and spacefreight.check_vol(spacefreight.spacecrafts['cygnus'], parcel) and parcel.ID in spacefreight.unpacked_parcels:
+                    spacefreight.update(spacefreight.spacecrafts['cygnus'], parcel)
+
+
 
         # allocating the rest of the parcels random
         for spacecraft_number in spacecraft_randoms:
