@@ -47,3 +47,11 @@ while number_unpacked_parcels > TARGETI:
 	number_unpacked_parcels = iterative_random()
 
 print("Iterations:", count)
+
+#
+# number_unpacked_parcels = 100
+# count = 0
+#
+# while number_unpacked_parcels > TARGETI:
+# 	count += 1
+# 	number_unpacked_parcels = sorted_mass_vol_iterative()
