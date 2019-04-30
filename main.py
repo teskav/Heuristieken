@@ -13,6 +13,7 @@ from spacefreight import SpaceFreight
 from random_algorithms import *
 from first_fit_algorithms import *
 from iterative_algorithms import *
+import time
 
 # FIRST FIT
 # first_fit()
@@ -42,9 +43,13 @@ count = 0
 print(mean_mass)
 print(mean_vol)
 
-while number_unpacked_parcels > TARGETI:
-	count += 1
-	number_unpacked_parcels = iterative_random()
+timeout_start = time.time()
+runningtime = 60 * 20 #seconds
+
+while time.time() < timeout_start + runningtime:
+	while number_unpacked_parcels > TARGETI:
+		count += 1
+		number_unpacked_parcels = iterative_random()
 
 print("Iterations:", count)
 

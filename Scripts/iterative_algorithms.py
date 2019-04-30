@@ -12,7 +12,7 @@ import copy
 spacefreight = SpaceFreight()
 
  # allowed number of parcels to leave behind
-TARGETI = 3
+TARGETI = 4
 
 # the means of the volumes and the masses
 mean_mass = np.mean([parcel.mass for parcel in spacefreight.all_parcels])
