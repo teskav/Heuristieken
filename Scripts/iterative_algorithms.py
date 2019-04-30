@@ -159,8 +159,6 @@ def iterative_sorted():
                 if spacefreight.check_mass(spacefreight.spacecrafts['cygnus'], parcel) and spacefreight.check_vol(spacefreight.spacecrafts['cygnus'], parcel) and parcel.ID in spacefreight.unpacked_parcels:
                     spacefreight.update(spacefreight.spacecrafts['cygnus'], parcel)
 
-
-
         # allocating the rest of the parcels random
         for spacecraft_number in spacecraft_randoms:
             spacecraft_name = spacefreight.spacecrafts_names[spacecraft_number]

@@ -11,7 +11,7 @@ from parcel import Parcel
 from spacecraft import Spacecraft
 
 # Global constants
-INPUT = "Scripts/CargoList1.csv"
+INPUT = "CargoLists/CargoList1.csv"
 
 class SpaceFreight():
 	def __init__ (self):

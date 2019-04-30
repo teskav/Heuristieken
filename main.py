@@ -39,17 +39,14 @@ import time
 # ITERATIVE
 number_unpacked_parcels = 100
 count = 0
+max_iterations = 2
 
 print(mean_mass)
 print(mean_vol)
 
-timeout_start = time.time()
-runningtime = 60 * 20 #seconds
-
-while time.time() < timeout_start + runningtime:
-	while number_unpacked_parcels > TARGETI:
-		count += 1
-		number_unpacked_parcels = iterative_random()
+while number_unpacked_parcels > TARGETI and count < max_iterations:
+	count += 1
+	number_unpacked_parcels = iterative_random()
 
 print("Iterations:", count)
 
