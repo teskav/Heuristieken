@@ -128,3 +128,21 @@ class SpaceFreight():
 
 
 	# def current_solution(spacecrafts):
+
+	def swap_items(self, spacecraft1, spacecraft2, item1, item2):
+		"""
+		Swaps an item of an spacecraft with an item of another spacecraft if possible.
+		"""
+		# ik ga er hier weer van uit dat de items objecten zijn
+
+		# Remove item from spacecrafts
+		spacecraft1.remove_item(item1)
+		spacecraft2.remove_item(item2)
+
+		# Swap items if possible (check payload volume and mass)
+		if self.check_vol(spacecraft1, item2) and self.check_mass(spacecraft1, item2) and self.check_vol(spacecraft2, item1) and self.check_mass(spacecraft2, item1):
+			spacecraft1.add_item(item2)
+			spacecraft2.add_item(item1)
+		else:
+			spacecraft1.add_item(item1)
+			spacecraft2.add_item(item2)

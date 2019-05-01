@@ -4,10 +4,11 @@
 This script contains the different versions (functions) of the random algorithms
 """
 from spacefreight import SpaceFreight
+from solution import Solution
 import random
 
  # allowed number of parcels to leave behind
-TARGETR = 4
+TARGETR = 20
 
 spacefreight = SpaceFreight()
 
@@ -66,7 +67,13 @@ def allocate_random():
     if len(spacefreight.unpacked_parcels) <= TARGETR:
         spacefreight.printing()
 
-    return len(spacefreight.unpacked_parcels)
+    # calculate cost for solution
+    costs = spacefreight.calculate_costs()
+
+    # save solution
+    current_solution = Solution(len(spacefreight.unpacked_parcels), spacefreight.unpacked_parcels, costs, spacefreight.spacecrafts['cygnus'].packed_parcels, spacefreight.spacecrafts['progress'].packed_parcels, spacefreight.spacecrafts['kounotori'].packed_parcels, spacefreight.spacecrafts['dragon'].packed_parcels)
+
+    return current_solution
 
 def sorted_mass_random():
     """

@@ -61,4 +61,4 @@ def check():
     Checks if payload mass and volume is not exceeded
     """
     # bijvoorbeeld
-    #
+    # dit gebeurt nu dus al in de swap functie

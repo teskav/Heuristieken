@@ -18,3 +18,35 @@ class Spacecraft(object):
         self.packed_parcels = []
         self.packed_mass = 0
         self.packed_vol = 0
+
+    def remove_item(self, item):
+        """
+		Removes an item from the packed parcel list of an spacecraft
+		"""
+        # volgens mij hoeven we dus hier niet een spacecraft als input te doen,
+        # omdat dit in de spacecraft class is en dan moet je in de andere class
+        # (waar de swap komt) gewoon doen: spacecraftobject.remove_item(item)
+
+        # ik ga er nu even van uit dat item een object is, maar moeten even
+        # kijken hoe we dat gaan doen als dat niet lukt
+
+        # we moeten denk ik wel al de massa en volume aanpassen in de remove en
+        # add, want dan kan je in de swap checken of er uberhaupt geswapt kan worden
+
+        # Remove item from the list
+        self.packed_parcels.remove(item.ID)
+
+        # Update mass and volume of spacecraft
+        self.packed_mass -= item.mass
+        self.packed_vol -= item.volume
+
+    def add_item(self, spacecraft, item):
+        """
+		Adds an item from the packed parcel list of an spacecraft
+		"""
+        # Add item to the list
+        self.packed_parcels.add(item.ID)
+
+        # Update mass and volume of spacecraft
+        self.packed_mass += item.mass
+        self.packed_vol += item.volume
