@@ -76,7 +76,7 @@ class SpaceFreight():
 		Update list of unpacked parcels
 		"""
 		# update spacecraft specifications
-		global self.spacecrafts[spacecraft.name]
+		self.spacecrafts[spacecraft.name]
 		self.spacecrafts[spacecraft.name].packed_parcels.append(parcel.ID)
 		self.spacecrafts[spacecraft.name].packed_mass += parcel.mass
 		self.spacecrafts[spacecraft.name].packed_vol += parcel.volume
