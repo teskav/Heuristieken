@@ -26,10 +26,10 @@ class SpaceFreight():
 
 		# load spacecraft objects
 		self.spacecrafts = {}
-		self.spacecrafts['cygnus'] = Spacecraft(2000, 18.9, 7400, 390000000, 0.73)
-		self.spacecrafts['progress'] = Spacecraft(2400, 7.6, 7020, 175000000, 0.74)
-		self.spacecrafts['kounotori'] = Spacecraft(5200, 14, 10500, 420000000, 0.71)
-		self.spacecrafts['dragon'] = Spacecraft(6000, 10, 12200, 347000000, 0.72)
+		self.spacecrafts['cygnus'] = Spacecraft('cygnus', 2000, 18.9, 7400, 390000000, 0.73)
+		self.spacecrafts['progress'] = Spacecraft('progress', 2400, 7.6, 7020, 175000000, 0.74)
+		self.spacecrafts['kounotori'] = Spacecraft('kounotori', 5200, 14, 10500, 420000000, 0.71)
+		self.spacecrafts['dragon'] = Spacecraft('dragon', 6000, 10, 12200, 347000000, 0.72)
 
 		self.spacecrafts_names = list(self.spacecrafts.keys())
 
@@ -76,9 +76,10 @@ class SpaceFreight():
 		Update list of unpacked parcels
 		"""
 		# update spacecraft specifications
-		spacecraft.packed_parcels.append(parcel.ID)
-		spacecraft.packed_mass += parcel.mass
-		spacecraft.packed_vol += parcel.volume
+		global self.spacecrafts[spacecraft.name]
+		self.spacecrafts[spacecraft.name].packed_parcels.append(parcel.ID)
+		self.spacecrafts[spacecraft.name].packed_mass += parcel.mass
+		self.spacecrafts[spacecraft.name].packed_vol += parcel.volume
 
 		# update unpacked parcels
 		self.unpacked_parcels.remove(parcel.ID)
@@ -88,9 +89,8 @@ class SpaceFreight():
 		This function calculates the costs of a spacecraft.
 		"""
 		fuel = (spacecraft.mass + spacecraft.packed_mass) * spacecraft.FtW * (1 - spacecraft.FtW)
-		costs = spacecraft.base_cost + round(fuel * 1000)
-		# of deze? costs = spacecraft.base_cost + math.ceil(fuel * 1000)
-
+		costs = spacecraft.base_cost + math.ceil(fuel * 1000)
+		# niet deze costs = spacecraft.base_cost + round(fuel * 1000)
 		return costs
 
 	def printing(self):

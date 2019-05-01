@@ -5,7 +5,7 @@ Main script
 """
 # set import location
 import sys
-sys.path[0] = sys.path[0] + '/Scripts'
+sys.path[0] = sys.path[0] + '/Code'
 # import
 from parcel import Parcel
 from spacecraft import Spacecraft
@@ -13,6 +13,7 @@ from spacefreight import SpaceFreight
 from random_algorithms import *
 from first_fit_algorithms import *
 from iterative_algorithms import *
+from hill_climber import *
 import time
 
 # FIRST FIT
@@ -27,33 +28,29 @@ import time
 
 
 # RANDOM
-# number_unpacked_parcels = allocate_random()
-# count = 0
-#
-# while number_unpacked_parcels > TARGETR:
-# 	number_unpacked_parcels = allocate_random()
-# 	count += 1
-
-# spacefreight.printing()
-
-# ITERATIVE
-number_unpacked_parcels = 100
+number_unpacked_parcels = allocate_random()
 count = 0
-max_iterations = 2
 
-print(mean_mass)
-print(mean_vol)
-
-while number_unpacked_parcels > TARGETI and count < max_iterations:
+while number_unpacked_parcels > TARGETR:
+	number_unpacked_parcels = allocate_random()
 	count += 1
-	number_unpacked_parcels = iterative_random()
 
-print("Iterations:", count)
+spacefreight.printing()
 
-#
+# # ITERATIVE
 # number_unpacked_parcels = 100
 # count = 0
+# max_iterations = 2
 #
-# while number_unpacked_parcels > TARGETI:
+# print(mean_mass)
+# print(mean_vol)
+#
+# while number_unpacked_parcels > TARGETI and count < max_iterations:
 # 	count += 1
-# 	number_unpacked_parcels = sorted_mass_vol_iterative()
+# 	number_unpacked_parcels = iterative_random()
+#
+# print("Iterations:", count)
+
+
+# HILL CLIMBER
+# hill_climber_random()
