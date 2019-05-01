@@ -4,6 +4,7 @@
 This script contains the different versions (functions) of the random algorithms
 """
 from spacefreight import SpaceFreight
+from solution import Solution
 import random
 
  # allowed number of parcels to leave behind
@@ -55,18 +56,24 @@ def allocate_random():
         spacecraft_name = spacefreight.spacecrafts_names[spacecraft_number]
         spacecraft = spacefreight.spacecrafts[spacecraft_name]
         # set variables at 0
-        spacefreight.spacecrafts[spacecraft_name].packed_parcels = []
-        spacefreight.spacecrafts[spacecraft_name].packed_mass = 0
-        spacefreight.spacecrafts[spacecraft_name].packed_vol = 0
+        spacecraft.packed_parcels = []
+        spacecraft.packed_mass = 0
+        spacecraft.packed_vol = 0
         for parcel_number in parcel_randoms:
             parcel = spacefreight.all_parcels[parcel_number]
-            if spacefreight.check_mass(spacefreight.spacecrafts[spacecraft_name], parcel) and spacefreight.check_vol(spacefreight.spacecrafts[spacecraft_name], parcel) and parcel.ID in spacefreight.unpacked_parcels:
-                spacefreight.update(spacefreight.spacecrafts[spacecraft_name], parcel)
+            if spacefreight.check_mass(spacecraft, parcel) and spacefreight.check_vol(spacecraft, parcel) and parcel.ID in spacefreight.unpacked_parcels:
+                spacefreight.update(spacecraft, parcel)
 
     if len(spacefreight.unpacked_parcels) <= TARGETR:
         spacefreight.printing()
 
-    return len(spacefreight.unpacked_parcels)
+    # calculate cost for solution
+    costs = spacefreight.calculate_costs()
+
+    # save solution
+    current_solution = Solution(len(spacefreight.unpacked_parcels), spacefreight.unpacked_parcels, costs, spacefreight.spacecrafts['cygnus'].packed_parcels, spacefreight.spacecrafts['progress'].packed_parcels, spacefreight.spacecrafts['kounotori'].packed_parcels, spacefreight.spacecrafts['dragon'].packed_parcels)
+
+    return current_solution
 
 def sorted_mass_random():
     """

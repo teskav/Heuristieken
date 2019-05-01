@@ -28,14 +28,14 @@ import time
 
 
 # RANDOM
-number_unpacked_parcels = allocate_random()
-count = 0
-
-while number_unpacked_parcels > TARGETR:
-	number_unpacked_parcels = allocate_random()
-	count += 1
-
-spacefreight.printing()
+# number_unpacked_parcels = allocate_random().not_bring
+# count = 0
+#
+# while number_unpacked_parcels > TARGETR:
+# 	number_unpacked_parcels = allocate_random().not_bring
+# 	count += 1
+#
+# spacefreight.printing()
 
 # # ITERATIVE
 # number_unpacked_parcels = 100
@@ -53,4 +53,4 @@ spacefreight.printing()
 
 
 # HILL CLIMBER
-# hill_climber_random()
+hill_climber_random()

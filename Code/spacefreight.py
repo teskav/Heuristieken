@@ -16,6 +16,8 @@ INPUT = "CargoLists/CargoList1.csv"
 class SpaceFreight():
 	def __init__ (self):
 
+		global current_solution
+
 		# load the list with all parcel objects
 		self.all_parcels = self.load_parcels(INPUT)
 
@@ -76,22 +78,34 @@ class SpaceFreight():
 		Update list of unpacked parcels
 		"""
 		# update spacecraft specifications
-		self.spacecrafts[spacecraft.name]
-		self.spacecrafts[spacecraft.name].packed_parcels.append(parcel.ID)
-		self.spacecrafts[spacecraft.name].packed_mass += parcel.mass
-		self.spacecrafts[spacecraft.name].packed_vol += parcel.volume
+		spacecraft.packed_parcels.append(parcel.ID)
+		spacecraft.packed_mass += parcel.mass
+		spacecraft.packed_vol += parcel.volume
 
 		# update unpacked parcels
 		self.unpacked_parcels.remove(parcel.ID)
 
-	def calculate_costs(self, spacecraft):
+	def calculate_costs_spacecraft(self, spacecraft):
 		"""
 		This function calculates the costs of a spacecraft.
 		"""
-		fuel = (spacecraft.mass + spacecraft.packed_mass) * spacecraft.FtW * (1 - spacecraft.FtW)
-		costs = spacecraft.base_cost + math.ceil(fuel * 1000)
+		fuel_spacecraft = (spacecraft.mass + spacecraft.packed_mass) * spacecraft.FtW * (1 - spacecraft.FtW)
+		costs_spacecraft = spacecraft.base_cost + math.ceil(fuel_spacecraft * 1000)
 		# niet deze costs = spacecraft.base_cost + round(fuel * 1000)
-		return costs
+		return costs_spacecraft
+
+	def calculate_costs(self):
+		"""
+		This function calculates the total costs.
+		"""
+		total_costs = 0
+		for spacecraft in self.spacecrafts:
+			spacecraft = self.spacecrafts[spacecraft]
+			fuel_spacecraft = (spacecraft.mass + spacecraft.packed_mass) * spacecraft.FtW * (1 - spacecraft.FtW)
+			costs_spacecraft = spacecraft.base_cost + math.ceil(fuel_spacecraft * 1000)
+			total_costs += costs_spacecraft
+		# niet deze costs = spacecraft.base_cost + round(fuel * 1000)
+		return total_costs
 
 	def printing(self):
 		"""
@@ -102,12 +116,15 @@ class SpaceFreight():
 			print(spacecraft + ':')
 			spacecraft = self.spacecrafts[spacecraft]
 			print(spacecraft.packed_parcels)
-			cost_spacecraft = self.calculate_costs(spacecraft)
+			cost_spacecraft = self.calculate_costs_spacecraft(spacecraft)
 			print("Mass:", spacecraft.packed_mass)
 			print("Vol:", spacecraft.packed_vol)
 			total_costs += cost_spacecraft
-
+#
 		print('unpacked:')
 		print(self.unpacked_parcels)
 		print('number of packed parcels: ', 100-len(self.unpacked_parcels))
 		print('Costs:', total_costs/1000000000, 'billion')
+
+
+	# def current_solution(spacecrafts):

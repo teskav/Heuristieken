@@ -11,21 +11,54 @@ import copy
 
 spacefreight = SpaceFreight()
 
- # allowed number of parcels to leave behind
-TARGETI = 4
 
 def hill_climber_random():
 
     # starting solution
-    allocate_random()
-    print(spacefreight.spacecrafts['cygnus'].packed_parcels)
+    current_solution = allocate_random()
+
+    # while count < ITER:
+        # select neighbouring solution
+    neighbour = neighbour_random_parcel_switch(current_solution)
+
+        #copare costs & check of hij geen error geeft
+        # if cost(neig) < cost (current) and not neighbour == 'error':
+        #     current sol = neighbour
 
 
-    # select the switching parcels and spacecrafts random
-    spacecraft_random_1 = random.randrange(4)
+
+def neighbour_random_parcel_switch(current_solution):
+    """
+    Returns the neighbouring solution in a Solution class
+    """
+    # select the spacecrafts random
+    spacecraft_random_1 = random.randrange(4) # kan ook gelijk in onderstaande line
     spacecraft_random_2 = random.randrange(4)
-    spacecraft_1 = spacefreight.spacecrafts[spacefreight.spacecrafts_names[spacecraft_random_1]]
-    spacecraft_2 = spacefreight.spacecrafts[spacefreight.spacecrafts_names[spacecraft_random_2]]
-    print(spacecraft_1.mass)
 
-    parcel_random_1 = random.randrange(len(spacecraft_1.packed_parcels))
+    # selecting the spacecrafts
+    spacecraft_1_name = spacefreight.spacecrafts_names[spacecraft_random_1]
+    spacecraft_2_name = spacefreight.spacecrafts_names[spacecraft_random_2]
+
+    spacecraft_1_packed = getattr(current_solution, spacecraft_1_name)
+    spacecraft_2_packed = getattr(current_solution, spacecraft_2_name)
+
+    # select the parcels from the spacecrafts random
+    parcel_random_1 = random.randrange(len(spacecraft_1_packed))
+    parcel_random_2 = random.randrange(len(spacecraft_2_packed))
+
+    # switch parcels in spacecraft
+    temp = current_solution[spacecraft_1_name][parcel_random_1]
+    current_solution[spacecraft_1_name][parcel_random_1] = current_solution[spacecraft_2_name][parcel_random_2]
+    current_solution[spacecraft_2_name][parcel_random_2] = temp
+
+    # if # check of de massa en volume van de spacecrafts wordt overschreden
+    # return 'error' # als wel overschreden, niet de swap uitvoeren en error geven zodat hij doorkan naar volgende neighbour
+    # else:
+        # swap
+
+def check():
+    """
+    Checks if payload mass and volume is not exceeded
+    """
+    # bijvoorbeeld
+    #
