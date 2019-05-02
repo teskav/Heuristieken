@@ -3,15 +3,12 @@
 """
 This script sets the class solution
 """
-from spacefreight import SpaceFreight
-
-spacefreight = SpaceFreight()
 
 class Solution(object):
     """
     Representation of the current solution
     """
-    def __init__ (self, not_bring, unpacked_parcels, costs, cygnus, progress, kounotori, dragon):
+    def __init__ (self, not_bring, unpacked_parcels, costs, used_spacecrafts):
 
         # number of unpacked parcels
         self.not_bring = not_bring
@@ -19,11 +16,8 @@ class Solution(object):
         self.unpacked_parcels = unpacked_parcels
         # costs
         self.costs = costs
-        # list of parcels in every spacecraft
-        self.cygnus = cygnus
-        self.progress = progress
-        self.kounotori = kounotori
-        self.dragon = dragon
+        # list of used spacecrafts objects
+        self.used_spacecrafts = used_spacecrafts
 
     #
     # def __getitem__(self, key):

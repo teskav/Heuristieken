@@ -18,8 +18,9 @@ class Spacecraft(object):
         self.packed_parcels = []
         self.packed_mass = 0
         self.packed_vol = 0
+        self.costs = 0
 
-    def remove_item(self, item):
+    def remove_parcel(self, parcel):
         """
 		Removes an item from the packed parcel list of an spacecraft
 		"""
@@ -34,19 +35,19 @@ class Spacecraft(object):
         # add, want dan kan je in de swap checken of er uberhaupt geswapt kan worden
 
         # Remove item from the list
-        self.packed_parcels.remove(item.ID)
+        self.packed_parcels.remove(parcel)
 
         # Update mass and volume of spacecraft
-        self.packed_mass -= item.mass
-        self.packed_vol -= item.volume
+        self.packed_mass -= parcel.mass
+        self.packed_vol -= parcel.volume
 
-    def add_item(self, spacecraft, item):
+    def add_parcel(self, spacecraft, parcel):
         """
 		Adds an item from the packed parcel list of an spacecraft
 		"""
         # Add item to the list
-        self.packed_parcels.add(item.ID)
+        self.packed_parcels.add(parcel)
 
         # Update mass and volume of spacecraft
-        self.packed_mass += item.mass
-        self.packed_vol += item.volume
+        self.packed_mass += parcel.mass
+        self.packed_vol += parcel.volume

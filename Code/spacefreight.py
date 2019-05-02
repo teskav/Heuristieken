@@ -9,7 +9,7 @@ import csv
 import math
 from parcel import Parcel
 from spacecraft import Spacecraft
-
+from solution import Solution
 # Global constants
 INPUT = "CargoLists/CargoList1.csv"
 
@@ -27,13 +27,13 @@ class SpaceFreight():
 			self.unpacked_parcels.append(p.ID)
 
 		# load spacecraft objects
-		self.spacecrafts = {}
-		self.spacecrafts['cygnus'] = Spacecraft('cygnus', 2000, 18.9, 7400, 390000000, 0.73)
-		self.spacecrafts['progress'] = Spacecraft('progress', 2400, 7.6, 7020, 175000000, 0.74)
-		self.spacecrafts['kounotori'] = Spacecraft('kounotori', 5200, 14, 10500, 420000000, 0.71)
-		self.spacecrafts['dragon'] = Spacecraft('dragon', 6000, 10, 12200, 347000000, 0.72)
+		self.spacecrafts = []
+		self.spacecrafts.append(Spacecraft('cygnus', 2000, 18.9, 7400, 390000000, 0.73))
+		self.spacecrafts.append(Spacecraft('progress', 2400, 7.6, 7020, 175000000, 0.74))
+		self.spacecrafts.append(Spacecraft('kounotori', 5200, 14, 10500, 420000000, 0.71))
+		self.spacecrafts.append(Spacecraft('dragon', 6000, 10, 12200, 347000000, 0.72))
 
-		self.spacecrafts_names = list(self.spacecrafts.keys())
+		# self.spacecrafts_names = list(self.spacecrafts.keys())
 
 	def load_parcels(self, file):
 		"""
@@ -52,22 +52,12 @@ class SpaceFreight():
 
 		return parcels
 
-	def check_mass(self, spacecraft, parcel):
+	def check(self, spacecraft, parcel):
 		"""
-		Check if the payload mass does not get exceeded
+		Check if the payload mass and volume does not get exceeded
 		Boolean
 		"""
-		if (spacecraft.packed_mass + parcel.mass) < spacecraft.payload_mass:
-			return True
-		else:
-			return False
-
-	def check_vol(self, spacecraft, parcel):
-		"""
-		Check if the payload volume does not get exceeded
-		Boolean
-		"""
-		if (spacecraft.packed_vol + parcel.volume) < spacecraft.payload_vol:
+		if (spacecraft.packed_mass + parcel.mass) < spacecraft.payload_mass and (spacecraft.packed_vol + parcel.volume) < spacecraft.payload_vol:
 			return True
 		else:
 			return False
@@ -78,7 +68,7 @@ class SpaceFreight():
 		Update list of unpacked parcels
 		"""
 		# update spacecraft specifications
-		spacecraft.packed_parcels.append(parcel.ID)
+		spacecraft.packed_parcels.append(parcel)
 		spacecraft.packed_mass += parcel.mass
 		spacecraft.packed_vol += parcel.volume
 
@@ -100,49 +90,47 @@ class SpaceFreight():
 		"""
 		total_costs = 0
 		for spacecraft in self.spacecrafts:
-			spacecraft = self.spacecrafts[spacecraft]
 			fuel_spacecraft = (spacecraft.mass + spacecraft.packed_mass) * spacecraft.FtW * (1 - spacecraft.FtW)
 			costs_spacecraft = spacecraft.base_cost + math.ceil(fuel_spacecraft * 1000)
 			total_costs += costs_spacecraft
 		# niet deze costs = spacecraft.base_cost + round(fuel * 1000)
 		return total_costs
 
-	def printing(self):
+	def printing(self, solution):
 		"""
 		Prints the results
 		"""
-		total_costs = 0
 		for spacecraft in self.spacecrafts:
-			print(spacecraft + ':')
-			spacecraft = self.spacecrafts[spacecraft]
-			print(spacecraft.packed_parcels)
-			cost_spacecraft = self.calculate_costs_spacecraft(spacecraft)
+			print(spacecraft.name + ':')
+			parcels = []
+			for parcel in spacecraft.packed_parcels:
+				parcels.append(parcel.ID)
+			print(parcels)
 			print("Mass:", spacecraft.packed_mass)
 			print("Vol:", spacecraft.packed_vol)
-			total_costs += cost_spacecraft
 #
 		print('unpacked:')
 		print(self.unpacked_parcels)
 		print('number of packed parcels: ', 100-len(self.unpacked_parcels))
-		print('Costs:', total_costs/1000000000, 'billion')
+		print('Costs:', solution.costs/1000000000, 'billion')
 
 
 	# def current_solution(spacecrafts):
 
-	def swap_items(self, spacecraft1, spacecraft2, item1, item2):
+	def swap_parcel(self, spacecraft1, spacecraft2, parcel1, parcel2):
 		"""
 		Swaps an item of an spacecraft with an item of another spacecraft if possible.
 		"""
 		# ik ga er hier weer van uit dat de items objecten zijn
 
 		# Remove item from spacecrafts
-		spacecraft1.remove_item(item1)
-		spacecraft2.remove_item(item2)
+		spacecraft1.remove_parcel(parcel1)
+		spacecraft2.remove_parcel(parcel2)
 
 		# Swap items if possible (check payload volume and mass)
-		if self.check_vol(spacecraft1, item2) and self.check_mass(spacecraft1, item2) and self.check_vol(spacecraft2, item1) and self.check_mass(spacecraft2, item1):
-			spacecraft1.add_item(item2)
-			spacecraft2.add_item(item1)
+		if self.check(spacecraft1, parcel2) and self.check(spacecraft2, parcel1):
+			spacecraft1.add_parcel(parcel2)
+			spacecraft2.add_parcel(parcel1)
 		else:
-			spacecraft1.add_item(item1)
-			spacecraft2.add_item(item2)
+			spacecraft1.add_parcel(parcel1)
+			spacecraft2.add_parcel(parcel2)

@@ -10,9 +10,8 @@ sys.path[0] = sys.path[0] + '/Code'
 from parcel import Parcel
 from spacecraft import Spacecraft
 from spacefreight import SpaceFreight
-from random_algorithms import *
+from random_algorithms_new import *
 from first_fit_algorithms import *
-from iterative_algorithms import *
 from hill_climber import *
 import time
 
@@ -28,14 +27,22 @@ import time
 
 
 # RANDOM
-# number_unpacked_parcels = allocate_random().not_bring
+# number_unpacked_parcels = random_constraints().not_bring
 # count = 0
 #
 # while number_unpacked_parcels > TARGETR:
-# 	number_unpacked_parcels = allocate_random().not_bring
+# 	number_unpacked_parcels = random_constraints().not_bring
 # 	count += 1
-#
+
 # spacefreight.printing()
+
+# ALLE 100 MEE
+random_all_parcels()
+
+
+
+
+
 
 # # ITERATIVE
 # number_unpacked_parcels = 100
@@ -53,4 +60,4 @@ import time
 
 
 # HILL CLIMBER
-hill_climber_random()
+# hill_climber_random()

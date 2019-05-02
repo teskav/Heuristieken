@@ -4,7 +4,7 @@
 This script contains the different versions (functions) of the HILL CLIMBER algorithms
 """
 from spacefreight import SpaceFreight
-from random_algorithms import *
+from random_algorithms_new import *
 import random
 import numpy as np
 import copy
@@ -15,7 +15,7 @@ spacefreight = SpaceFreight()
 def hill_climber_random():
 
     # starting solution
-    current_solution = allocate_random()
+    current_solution = random()
 
     # while count < ITER:
         # select neighbouring solution
@@ -55,10 +55,3 @@ def neighbour_random_parcel_switch(current_solution):
     # return 'error' # als wel overschreden, niet de swap uitvoeren en error geven zodat hij doorkan naar volgende neighbour
     # else:
         # swap
-
-def check():
-    """
-    Checks if payload mass and volume is not exceeded
-    """
-    # bijvoorbeeld
-    # dit gebeurt nu dus al in de swap functie
