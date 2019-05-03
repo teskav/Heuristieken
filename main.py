@@ -19,14 +19,14 @@ spacefreight = SpaceFreight()
 
 # RANDOM
 # start solution
-best_solution = random_constraints()
+best_solution = random_greedy()
 count = 0
-max_iterations = 3900
+max_iterations = 100
 
 # RUN NOT ALL PARCELS
 while count < max_iterations:
     count += 1
-    solution = random_constraints()
+    solution = random_greedy()
     # check if costs better
     if solution.not_bring < best_solution.not_bring:
         best_solution = solution
@@ -34,15 +34,14 @@ while count < max_iterations:
         best_solution = solution
 
 # RUN ALL PARCELS
-while count < max_iterations:
-    count += 1
-    solution = random_constraints()
-    # check if costs better
-    if solution.costs < best_solution.costs:
-        best_solution = solution
+# while count < max_iterations:
+#     count += 1
+#     solution = random_all_parcels()
+#     # check if costs better
+#     if solution.costs < best_solution.costs:
+#         best_solution = solution
 
 print("Iterations:", count)
-
 spacefreight.printing_all(best_solution)
 
 # HILL CLIMBER

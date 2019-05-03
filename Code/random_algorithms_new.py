@@ -33,18 +33,19 @@ def random_greedy():
         spacefreight.unpacked_parcels.append(p.ID)
 
     for spacecraft_number in spacecraft_randoms:
-        spacecraft = spacefreight.spacecrafts[spacecraft_number]
-
+        spacecraft = copy.copy(spacefreight.spacecrafts[spacecraft_number])
+        # print("Unpacked: " + spacefrei)
         # set variables at 0
         spacecraft.packed_parcels = []
         spacecraft.packed_mass = 0
         spacecraft.packed_vol = 0
+
         for parcel_number in parcel_randoms:
             parcel = spacefreight.all_parcels[parcel_number]
             if spacefreight.check(spacecraft, parcel) and parcel.ID in spacefreight.unpacked_parcels:
                 spacefreight.update(spacecraft, parcel)
 
-        #calculate costs spacecraft
+        # calculate costs spacecraft
         spacecraft.costs = spacefreight.calculate_costs_spacecraft(spacecraft)
         total_costs += spacecraft.costs
 
@@ -54,8 +55,8 @@ def random_greedy():
     # save solution
     current_solution = Solution(len(spacefreight.unpacked_parcels), spacefreight.unpacked_parcels, total_costs, used_spacecrafts)
 
-    if len(spacefreight.unpacked_parcels) <= TARGETR:
-        spacefreight.printing(current_solution)
+    # if len(spacefreight.unpacked_parcels) <= TARGETR:
+    #     spacefreight.printing(current_solution)
 
     return current_solution
 
@@ -70,7 +71,7 @@ def random_constraints():
 
     # set variables at 0 after run for every spacecraft
     for spacecraft_number in spacecraft_randoms:
-        spacecraft = spacefreight.spacecrafts[spacecraft_number]
+        spacecraft = copy.copy(spacefreight.spacecrafts[spacecraft_number])
         spacecraft.packed_parcels = []
         spacecraft.packed_mass = 0
         spacecraft.packed_vol = 0
@@ -169,7 +170,8 @@ def random_constraints_all():
 
     # set variables at 0 after run for every spacecraft
     for spacecraft_number in spacecraft_randoms:
-        spacecraft = spacefreight.spacecrafts[spacecraft_number]
+        spacecraft = copy.copy(spacefreight.spacecrafts[spacecraft_number])
+        
         spacecraft.packed_parcels = []
         spacecraft.packed_mass = 0
         spacecraft.packed_vol = 0
