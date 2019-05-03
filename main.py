@@ -23,6 +23,7 @@ best_solution = random_constraints()
 count = 0
 max_iterations = 3900
 
+# RUN NOT ALL PARCELS
 while count < max_iterations:
     count += 1
     solution = random_constraints()
@@ -30,6 +31,14 @@ while count < max_iterations:
     if solution.not_bring < best_solution.not_bring:
         best_solution = solution
     elif solution.not_bring == best_solution.not_bring and solution.costs < best_solution.costs:
+        best_solution = solution
+
+# RUN ALL PARCELS
+while count < max_iterations:
+    count += 1
+    solution = random_constraints()
+    # check if costs better
+    if solution.costs < best_solution.costs:
         best_solution = solution
 
 print("Iterations:", count)
