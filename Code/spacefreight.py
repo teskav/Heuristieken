@@ -75,6 +75,8 @@ class SpaceFreight():
 		# update unpacked parcels
 		self.unpacked_parcels.remove(parcel.ID)
 
+		return spacecraft
+
 	def calculate_costs_spacecraft(self, spacecraft):
 		"""
 		This function calculates the costs of a spacecraft.
@@ -108,14 +110,27 @@ class SpaceFreight():
 			print(parcels)
 			print("Mass:", spacecraft.packed_mass)
 			print("Vol:", spacecraft.packed_vol)
-#
+
 		print('unpacked:')
 		print(self.unpacked_parcels)
 		print('number of packed parcels: ', 100-len(self.unpacked_parcels))
 		print('Costs:', solution.costs/1000000000, 'billion')
 
+	def printing_all(self, solution):
 
-	# def current_solution(spacecrafts):
+		for spacecraft in solution.used_spacecrafts:
+			print(spacecraft.name + ':')
+			parcels = []
+			for parcel in spacecraft.packed_parcels:
+			    parcels.append(parcel.ID)
+			print(parcels)
+			print("Mass:", spacecraft.packed_mass)
+			print("Vol:", spacecraft.packed_vol)
+
+		print('unpacked:')
+		print(solution.unpacked_parcels)
+		print('number of packed parcels: ', 100-solution.not_bring)
+		print('Costs:', solution.costs/1000000000, 'billion')
 
 	def swap_parcel(self, spacecraft1, spacecraft2, parcel1, parcel2):
 		"""

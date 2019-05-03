@@ -15,49 +15,26 @@ from first_fit_algorithms import *
 from hill_climber import *
 import time
 
-# FIRST FIT
-# first_fit()
-
-# SORTED
-# sorted_mass_first_fit()
-# sorted_vol_first_fit()
-# sorted_mass_random()
-# sorted_vol_random()
-# spacefreight.printing()
-
+spacefreight = SpaceFreight()
 
 # RANDOM
-# number_unpacked_parcels = random_constraints().not_bring
-# count = 0
-#
-# while number_unpacked_parcels > TARGETR:
-# 	number_unpacked_parcels = random_constraints().not_bring
-# 	count += 1
+# start solution
+best_solution = random_constraints()
+count = 0
+max_iterations = 3900
 
-# spacefreight.printing()
+while count < max_iterations:
+    count += 1
+    solution = random_constraints()
+    # check if costs better
+    if solution.not_bring < best_solution.not_bring:
+        best_solution = solution
+    elif solution.not_bring == best_solution.not_bring and solution.costs < best_solution.costs:
+        best_solution = solution
 
-# ALLE 100 MEE
-random_all_parcels()
+print("Iterations:", count)
 
-
-
-
-
-
-# # ITERATIVE
-# number_unpacked_parcels = 100
-# count = 0
-# max_iterations = 2
-#
-# print(mean_mass)
-# print(mean_vol)
-#
-# while number_unpacked_parcels > TARGETI and count < max_iterations:
-# 	count += 1
-# 	number_unpacked_parcels = iterative_random()
-#
-# print("Iterations:", count)
-
+spacefreight.printing_all(best_solution)
 
 # HILL CLIMBER
 # hill_climber_random()
