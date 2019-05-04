@@ -53,7 +53,7 @@ def random_greedy():
         used_spacecrafts.append(spacecraft)
 
     # save solution
-    current_solution = Solution(len(spacefreight.unpacked_parcels), spacefreight.unpacked_parcels, total_costs, used_spacecrafts)
+    current_solution = Solution('random', len(spacefreight.unpacked_parcels), spacefreight.unpacked_parcels, total_costs, used_spacecrafts)
 
     # if len(spacefreight.unpacked_parcels) <= TARGETR:
     #     spacefreight.printing(current_solution)
@@ -114,7 +114,7 @@ def random_constraints():
         used_spacecrafts.append(spacecraft)
 
     # save solution
-    current_solution = Solution(len(spacefreight.unpacked_parcels), spacefreight.unpacked_parcels, total_costs, used_spacecrafts)
+    current_solution = Solution('random constraints', len(spacefreight.unpacked_parcels), spacefreight.unpacked_parcels, total_costs, used_spacecrafts)
 
     if len(spacefreight.unpacked_parcels) <= TARGETR:
         spacefreight.printing(current_solution)
@@ -155,7 +155,7 @@ def random_all_parcels():
         used_spacecrafts.append(spacecraft)
 
     # save solution
-    current_solution = Solution(len(spacefreight.unpacked_parcels), spacefreight.unpacked_parcels, total_costs, used_spacecrafts)
+    current_solution = Solution('random all', len(spacefreight.unpacked_parcels), spacefreight.unpacked_parcels, total_costs, used_spacecrafts)
 
     return current_solution
 
@@ -171,7 +171,7 @@ def random_constraints_all():
     # set variables at 0 after run for every spacecraft
     for spacecraft_number in spacecraft_randoms:
         spacecraft = copy.copy(spacefreight.spacecrafts[spacecraft_number])
-        
+
         spacecraft.packed_parcels = []
         spacecraft.packed_mass = 0
         spacecraft.packed_vol = 0
@@ -233,6 +233,6 @@ def random_constraints_all():
         used_spacecrafts.append(spacecraft)
 
     # save solution
-    current_solution = Solution(len(spacefreight.unpacked_parcels), spacefreight.unpacked_parcels, total_costs, used_spacecrafts)
+    current_solution = Solution('constraints all', len(spacefreight.unpacked_parcels), spacefreight.unpacked_parcels, total_costs, used_spacecrafts)
 
     return current_solution

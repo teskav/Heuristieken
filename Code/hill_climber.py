@@ -12,10 +12,10 @@ import copy
 spacefreight = SpaceFreight()
 
 
-def hill_climber_random():
+def hill_climber():
 
     # starting solution
-    current_solution = random()
+    current_solution = random_greedy()
 
     # while count < ITER:
         # select neighbouring solution

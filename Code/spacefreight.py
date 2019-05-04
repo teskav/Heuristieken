@@ -149,3 +149,28 @@ class SpaceFreight():
 		else:
 			spacecraft1.add_parcel(parcel1)
 			spacecraft2.add_parcel(parcel2)
+
+	def save_iteration(self, solution, count):
+		"""
+		Save the solution from an iteration in a dataframe
+		"""
+		column_names = ['algorithm_name', 'iteration', 'costs_solution', 'number_unpacked_parcels', 'unpacked_parcels']
+		data = [solution.name, count, solution.costs, solution.not_bring, solution.unpacked_parcels]
+		# append to dataframe
+		for spacecraft in solution.used_spacecrafts:
+			# append data
+			data.append(spacecraft.name)
+			data.append(len(spacecraft.packed_parcels))
+			parcels = []
+			for parcel in spacecraft.packed_parcels:
+				parcels.append(parcel.ID)
+			data.append(parcels)
+			data.append(spacecraft.costs)
+			data.append(spacecraft.packed_mass)
+			data.append(spacecraft.packed_vol)
+			# append column names
+			column_names.extend(['name', 'number_packed_parcels', 'packed_parcels', 'spacecraft_costs', 'spacecraft_packed_mass', 'spacecraft_packed_vol'])
+
+		row = pd.DataFrame([data])
+
+		return row

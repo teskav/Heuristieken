@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+##!/usr/bin/env python
 # Name: Sofie, Teska Wies
 """
 This script sets the class solution
@@ -8,8 +8,10 @@ class Solution(object):
     """
     Representation of the current solution
     """
-    def __init__ (self, not_bring, unpacked_parcels, costs, used_spacecrafts):
+    def __init__ (self, name, not_bring, unpacked_parcels, costs, used_spacecrafts):
 
+        # algorithm name
+        self.name = name
         # number of unpacked parcels
         self.not_bring = not_bring
         # list of unpacked_parcels
