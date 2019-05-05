@@ -28,10 +28,12 @@ class SpaceFreight():
 
 		# load spacecraft objects
 		self.spacecrafts = []
-		self.spacecrafts.append(Spacecraft('cygnus', 2000, 18.9, 7400, 390000000, 0.73))
-		self.spacecrafts.append(Spacecraft('progress', 2400, 7.6, 7020, 175000000, 0.74))
-		self.spacecrafts.append(Spacecraft('kounotori', 5200, 14, 10500, 420000000, 0.71))
-		self.spacecrafts.append(Spacecraft('dragon', 6000, 10, 12200, 347000000, 0.72))
+		self.spacecrafts.append(Spacecraft('Cygnus', 2000, 18.9, 7400, 390000000, 0.73))
+		self.spacecrafts.append(Spacecraft('Progress', 2400, 7.6, 7020, 175000000, 0.74))
+		self.spacecrafts.append(Spacecraft('Kounotori', 5200, 14, 10500, 420000000, 0.71))
+		self.spacecrafts.append(Spacecraft('Dragon', 6000, 10, 12200, 347000000, 0.72))
+		# self.spacecrafts.append(Spacecraft('TianZhou', 6500, 15, 13500, 412000000, 0.75))
+		# self.spacecrafts.append(Spacecraft('Verne ATV', 7500, 48, 20500, 1080000000, 0.72))
 
 		# self.spacecrafts_names = list(self.spacecrafts.keys())
 
@@ -124,8 +126,8 @@ class SpaceFreight():
 			for parcel in spacecraft.packed_parcels:
 			    parcels.append(parcel.ID)
 			print(parcels)
-			print("Mass:", spacecraft.packed_mass)
-			print("Vol:", spacecraft.packed_vol)
+			print("Mass:", "{0:.3f}".format(spacecraft.packed_mass))
+			print("Vol:", "{0:.3f}".format(spacecraft.packed_vol))
 
 		print('unpacked:')
 		print(solution.unpacked_parcels)
@@ -155,6 +157,7 @@ class SpaceFreight():
 		Save the solution from an iteration in a dataframe
 		"""
 		column_names = ['algorithm_name', 'iteration', 'costs_solution', 'number_unpacked_parcels', 'unpacked_parcels']
+		# columns = ['algorithm_name', 'iteration', 'costs_solution', 'number_unpacked_parcels', 'unpacked_parcels']
 		data = [solution.name, count, solution.costs, solution.not_bring, solution.unpacked_parcels]
 		# append to dataframe
 		for spacecraft in solution.used_spacecrafts:
@@ -166,11 +169,36 @@ class SpaceFreight():
 				parcels.append(parcel.ID)
 			data.append(parcels)
 			data.append(spacecraft.costs)
-			data.append(spacecraft.packed_mass)
-			data.append(spacecraft.packed_vol)
+			data.append("{0:.3f}".format(spacecraft.packed_mass))
+			# print("{0:.3f}".format(spacecraft.packed_mass))
+			data.append("{0:.3f}".format(spacecraft.packed_vol))
 			# append column names
 			column_names.extend(['name', 'number_packed_parcels', 'packed_parcels', 'spacecraft_costs', 'spacecraft_packed_mass', 'spacecraft_packed_vol'])
 
 		row = pd.DataFrame([data])
 
 		return row
+
+	def max_costs(self):
+		"""
+		This function calculates the maximal costs.
+		"""
+		costs_max = 0
+		for spacecraft in self.spacecrafts:
+			fuel_spacecraft = (spacecraft.mass + spacecraft.payload_mass) * spacecraft.FtW * (1 - spacecraft.FtW)
+			costs_spacecraft = spacecraft.base_cost + math.ceil(fuel_spacecraft * 1000)
+			costs_max += costs_spacecraft
+		# niet deze costs = spacecraft.base_cost + round(fuel * 1000)
+		return costs_max
+
+	def min_costs(self):
+		"""
+		This function calculates the minimal costs.
+		"""
+		costs_min = 0
+		for spacecraft in self.spacecrafts:
+			fuel_spacecraft = (spacecraft.mass + 0) * spacecraft.FtW * (1 - spacecraft.FtW)
+			costs_spacecraft = spacecraft.base_cost + math.ceil(fuel_spacecraft * 1000)
+			costs_min += costs_spacecraft
+		# niet deze costs = spacecraft.base_cost + round(fuel * 1000)
+		return costs_min

@@ -13,7 +13,6 @@ from spacefreight import SpaceFreight
 from random_algorithms_new import *
 from first_fit_algorithms import *
 from hill_climber import *
-import time
 import pandas as pd
 
 spacefreight = SpaceFreight()
@@ -57,7 +56,13 @@ while count < max_iterations:
 print("Iterations:", count)
 spacefreight.printing_all(best_solution)
 
-iterations_dataframe.to_csv(r'../Heuristieken/Outputs/Output1.csv')
+iterations_dataframe.to_csv(r'../Heuristieken/Outputs/Output3.csv')
+
+# Minimale en maximale kosten printen
+# maximum = spacefreight.max_costs()
+# print("Maximal costs", maximum/1000000000, "billion")
+# minimum = spacefreight.min_costs()
+# print("Minimal costs", minimum/1000000000, "billion")
 
 # HILL CLIMBER
 # hill_climber_random()
