@@ -1,0 +1,6 @@
+pandas
+csv
+math
+random
+numpy
+copy
