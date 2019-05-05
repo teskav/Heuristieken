@@ -5,6 +5,7 @@ This script contains the different versions (functions) of the random algorithms
 """
 from spacefreight import SpaceFreight
 from solution import Solution
+from helpers import *
 import random
 import numpy as np
 import copy
@@ -27,6 +28,7 @@ def random_greedy():
     # list with random numbers: order in which the parcels and spacecrafts are being added
     parcel_randoms = random.sample(range(100), 100)
     spacecraft_randoms = random.sample(range(4), 4)
+
     # every single run of the function: set unpacked_parcels at starting point
     spacefreight.unpacked_parcels = []
     for p in spacefreight.all_parcels:
@@ -34,11 +36,8 @@ def random_greedy():
 
     for spacecraft_number in spacecraft_randoms:
         spacecraft = copy.copy(spacefreight.spacecrafts[spacecraft_number])
-        # print("Unpacked: " + spacefrei)
         # set variables at 0
-        spacecraft.packed_parcels = []
-        spacecraft.packed_mass = 0
-        spacecraft.packed_vol = 0
+        empty_single_spacecraft(spacecraft)
 
         for parcel_number in parcel_randoms:
             parcel = spacefreight.all_parcels[parcel_number]
@@ -70,19 +69,15 @@ def random_constraints():
     spacecraft_randoms = random.sample(range(4), 4)
 
     # set variables at 0 after run for every spacecraft
-    for spacecraft_number in spacecraft_randoms:
-        spacecraft = copy.copy(spacefreight.spacecrafts[spacecraft_number])
-        spacecraft.packed_parcels = []
-        spacecraft.packed_mass = 0
-        spacecraft.packed_vol = 0
+    empty_spacecrafts(spacecraft_randoms)
 
-    # list with random numbers: order in which the parcels are being added
-    parcel_randoms = random.sample(range(100), 100)
     # every single run of the function sets unpacked_parcels at starting point
     spacefreight.unpacked_parcels = []
     for p in spacefreight.all_parcels:
         spacefreight.unpacked_parcels.append(p.ID)
 
+    # list with random numbers: order in which the parcels are being added
+    parcel_randoms = random.sample(range(100), 100)
     # allocate parcels with iterative constraints
     for parcel_number in parcel_randoms:
         parcel = spacefreight.all_parcels[parcel_number]
@@ -169,12 +164,7 @@ def random_constraints_all():
     spacecraft_randoms = random.sample(range(4), 4)
 
     # set variables at 0 after run for every spacecraft
-    for spacecraft_number in spacecraft_randoms:
-        spacecraft = copy.copy(spacefreight.spacecrafts[spacecraft_number])
-
-        spacecraft.packed_parcels = []
-        spacecraft.packed_mass = 0
-        spacecraft.packed_vol = 0
+    empty_spacecrafts(spacecraft_randoms)
 
     # list with random numbers: order in which the parcels are being added
     parcel_randoms = random.sample(range(100), 100)
@@ -217,9 +207,7 @@ def random_constraints_all():
         spacecraft = copy.copy(random.choice(spacefreight.spacecrafts))
 
         # set variables at 0
-        spacecraft.packed_parcels = []
-        spacecraft.packed_mass = 0
-        spacecraft.packed_vol = 0
+        empty_single_spacecraft(spacecraft)
         for parcel_number in parcel_randoms:
             parcel = spacefreight.all_parcels[parcel_number]
             if spacefreight.check(spacecraft, parcel) and parcel.ID in spacefreight.unpacked_parcels:

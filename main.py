@@ -12,6 +12,7 @@ from spacecraft import Spacecraft
 from spacefreight import SpaceFreight
 from random_algorithms_new import *
 from first_fit_algorithms import *
+from iterative_algorithms_new import *
 from hill_climber import *
 import pandas as pd
 
@@ -23,7 +24,8 @@ iterations_dataframe = pd.DataFrame()
 # RANDOM
 # start solution
 max_iterations = 3
-best_solution = random_all_parcels()
+# best_solution = random_all_parcels()
+best_solution = iterative_random()
 count = 0
 
 # save to dataframe
@@ -33,7 +35,8 @@ iterations_dataframe = iterations_dataframe.append(dataframe_row, ignore_index=T
 # RUN NOT ALL PARCELS
 while count < max_iterations:
     count += 1
-    solution = random_all_parcels()
+    # solution = random_all_parcels()
+    solution = iterative_random()
 
     # save to dataframe
     dataframe_row = spacefreight.save_iteration(solution, count)
