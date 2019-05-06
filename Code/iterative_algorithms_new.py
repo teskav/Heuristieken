@@ -5,6 +5,8 @@ This script contains the different versions (functions) of the random algorithms
 Iteratief verbeterd
 """
 from spacefreight import SpaceFreight
+from solution import Solution
+import numpy as np
 import random
 
 spacefreight = SpaceFreight()

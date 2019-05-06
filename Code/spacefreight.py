@@ -7,6 +7,7 @@ This script sets the spacefreight class
 import pandas as pd
 import csv
 import math
+import matplotlib.pyplot as plt
 from parcel import Parcel
 from spacecraft import Spacecraft
 from solution import Solution
@@ -35,6 +36,7 @@ class SpaceFreight():
 		# self.spacecrafts.append(Spacecraft('TianZhou', 6500, 15, 13500, 412000000, 0.75))
 		# self.spacecrafts.append(Spacecraft('Verne ATV', 7500, 48, 20500, 1080000000, 0.72))
 
+		number_spacecrafts = len(self.spacecrafts)
 		# self.spacecrafts_names = list(self.spacecrafts.keys())
 
 	def load_parcels(self, file):
