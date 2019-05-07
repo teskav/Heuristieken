@@ -28,12 +28,10 @@ def random_greedy():
 
     # every single run of the function: set unpacked_parcels at starting point
     spacefreight.unpacked_parcels = set_up_unpacked()
-    # spacefreight.unpacked_parcels = []
-    # for p in spacefreight.all_parcels:
-    #     spacefreight.unpacked_parcels.append(p.ID)
 
     for spacecraft_number in spacecraft_randoms:
         spacecraft = copy.copy(spacefreight.spacecrafts[spacecraft_number])
+
         # set variables at 0
         empty_single_spacecraft(spacecraft)
 
@@ -52,31 +50,23 @@ def random_greedy():
     # save solution
     current_solution = Solution('random', len(spacefreight.unpacked_parcels), spacefreight.unpacked_parcels, total_costs, used_spacecrafts)
 
-    # if len(spacefreight.unpacked_parcels) <= TARGETR:
-    #     spacefreight.printing(current_solution)
-
     return current_solution
 
 def random_constraints():
     """
     Random allocate the parcels in random spacecrafts with constraints
     """
-    # used_spacecrafts = []
-    # total_costs = 0
+    # set starting settings random
     used_spacecrafts, total_costs, parcel_randoms, spacecraft_randoms = set_up_random()
-    # spacecraft_randoms = random.sample(range(4), 4)
 
     # set variables at 0 after run for every spacecraft
-    empty_spacecrafts(spacecraft_randoms)
+    for spacecraft_number in spacecraft_randoms:
+        spacecraft = spacefreight.spacecrafts[spacecraft_number]
+        empty_single_spacecraft(spacecraft)
 
     # every single run of the function sets unpacked_parcels at starting point
-    # spacefreight.unpacked_parcels = []
-    # for p in spacefreight.all_parcels:
-    #     spacefreight.unpacked_parcels.append(p.ID)
     spacefreight.unpacked_parcels = set_up_unpacked()
 
-    # list with random numbers: order in which the parcels are being added
-    # parcel_randoms = random.sample(range(100), 100)
     # allocate parcels with iterative constraints
     for parcel_number in parcel_randoms:
         parcel = spacefreight.all_parcels[parcel_number]
@@ -95,7 +85,8 @@ def random_constraints():
 
     # allocating the rest of the parcels random
     for spacecraft_number in spacecraft_randoms:
-        spacecraft = spacefreight.spacecrafts[spacecraft_number]
+        spacecraft = copy.copy(spacefreight.spacecrafts[spacecraft_number])
+        # spacecraft = spacefreight.spacecrafts[spacecraft_number]
         for parcel_number in parcel_randoms:
             parcel = spacefreight.all_parcels[parcel_number]
             if spacefreight.check(spacecraft, parcel) and parcel.ID in spacefreight.unpacked_parcels:
@@ -106,12 +97,10 @@ def random_constraints():
 
         # add spacecraft to used_spacecrafts
         used_spacecrafts.append(spacecraft)
+    # allocate_random(spacecraft_randoms, parcel_randoms, used_spacecrafts, total_costs)
 
     # save solution
     current_solution = Solution('random constraints', len(spacefreight.unpacked_parcels), spacefreight.unpacked_parcels, total_costs, used_spacecrafts)
-
-    if len(spacefreight.unpacked_parcels) <= TARGETR:
-        spacefreight.printing(current_solution)
 
     return current_solution
 
@@ -119,25 +108,18 @@ def random_all_parcels():
     """
     Random allocate the parcels in spacecrafts
     """
+    # set starting settings random
     used_spacecrafts, total_costs, parcel_randoms, spacecraft_randoms = set_up_random()
-    # used_spacecrafts = []
-    # total_costs = 0
-    # list with random numbers: order in which the parcels and spacecrafts are being added
-    # parcel_randoms = random.sample(range(100), 100)
-    # spacecraft_randoms = random.sample(range(4), 4)
-    # every single run of the function: set unpacked_parcels at starting point
-    # spacefreight.unpacked_parcels = []
-    # for p in spacefreight.all_parcels:
-    #     spacefreight.unpacked_parcels.append(p.ID)
+
+    # every single run of the function sets unpacked_parcels at starting point
     spacefreight.unpacked_parcels = set_up_unpacked()
 
     while len(spacefreight.unpacked_parcels) > 0:
         spacecraft = copy.copy(random.choice(spacefreight.spacecrafts))
 
         # set variables at 0
-        spacecraft.packed_parcels = []
-        spacecraft.packed_mass = 0
-        spacecraft.packed_vol = 0
+        empty_single_spacecraft(spacecraft)
+
         for parcel_number in parcel_randoms:
             parcel = spacefreight.all_parcels[parcel_number]
             if spacefreight.check(spacecraft, parcel) and parcel.ID in spacefreight.unpacked_parcels:
@@ -159,21 +141,15 @@ def random_constraints_all():
     """
     Random allocate the parcels in random spacecrafts with constraints
     """
+    # set starting settings random
     used_spacecrafts, total_costs, parcel_randoms, spacecraft_randoms = set_up_random()
-    # used_spacecrafts = []
-    # total_costs = 0
-    #
-    # spacecraft_randoms = random.sample(range(4), 4)
 
     # set variables at 0 after run for every spacecraft
-    empty_spacecrafts(spacecraft_randoms)
+    for spacecraft_number in spacecraft_randoms:
+        spacecraft = spacefreight.spacecrafts[spacecraft_number]
+        empty_single_spacecraft(spacecraft)
 
-    # list with random numbers: order in which the parcels are being added
-    # parcel_randoms = random.sample(range(100), 100)
     # every single run of the function sets unpacked_parcels at starting point
-    # spacefreight.unpacked_parcels = []
-    # for p in spacefreight.all_parcels:
-    #     spacefreight.unpacked_parcels.append(p.ID)
     spacefreight.unpacked_parcels = set_up_unpacked()
 
     # allocate parcels with iterative constraints
@@ -194,7 +170,7 @@ def random_constraints_all():
 
     # allocating the rest of the parcels random
     for spacecraft_number in spacecraft_randoms:
-        spacecraft = spacefreight.spacecrafts[spacecraft_number]
+        spacecraft = copy.copy(spacefreight.spacecrafts[spacecraft_number])
         for parcel_number in parcel_randoms:
             parcel = spacefreight.all_parcels[parcel_number]
             if spacefreight.check(spacecraft, parcel) and parcel.ID in spacefreight.unpacked_parcels:

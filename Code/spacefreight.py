@@ -36,9 +36,6 @@ class SpaceFreight():
 		# self.spacecrafts.append(Spacecraft('TianZhou', 6500, 15, 13500, 412000000, 0.75))
 		# self.spacecrafts.append(Spacecraft('Verne ATV', 7500, 48, 20500, 1080000000, 0.72))
 
-		number_spacecrafts = len(self.spacecrafts)
-		# self.spacecrafts_names = list(self.spacecrafts.keys())
-
 	def load_parcels(self, file):
 		"""
 		Load parcels from csv file.
@@ -102,24 +99,6 @@ class SpaceFreight():
 		return total_costs
 
 	def printing(self, solution):
-		"""
-		Prints the results
-		"""
-		for spacecraft in self.spacecrafts:
-			print(spacecraft.name + ':')
-			parcels = []
-			for parcel in spacecraft.packed_parcels:
-				parcels.append(parcel.ID)
-			print(parcels)
-			print("Mass:", spacecraft.packed_mass)
-			print("Vol:", spacecraft.packed_vol)
-
-		print('unpacked:')
-		print(self.unpacked_parcels)
-		print('number of packed parcels: ', 100-len(self.unpacked_parcels))
-		print('Costs:', solution.costs/1000000000, 'billion')
-
-	def printing_all(self, solution):
 
 		for spacecraft in solution.used_spacecrafts:
 			print(spacecraft.name + ':')
@@ -132,7 +111,7 @@ class SpaceFreight():
 
 		print('unpacked:')
 		print(solution.unpacked_parcels)
-		print('number of packed parcels: ', 100-solution.not_bring)
+		print('number of packed parcels: ', 100 - solution.not_bring)
 		print('Costs:', solution.costs/1000000000, 'billion')
 
 	def swap_parcel(self, spacecraft_1, spacecraft_2, parcel_1, parcel_2):
