@@ -14,14 +14,13 @@ spacefreight = SpaceFreight()
 
 def hill_climber(iterations_dataframe, max_iterations):
     count = 0
-    # starting solution
-    current_solution = random_greedy()
+    # starting solution -> buiten hill climber
+    current_solution = random_all_parcels()
 
     # select neighbouring solution
     while count < max_iterations:
 
         check, neighbour_solution = neighbour_random_parcel_switch(current_solution)
-        print(neighbour_solution.costs)
 
         # compare costs & check of hij geen error geeft
         if neighbour_solution.costs <= current_solution.costs and check == True:
@@ -38,10 +37,10 @@ def neighbour_random_parcel_switch(current_solution):
     """
     Returns the neighbouring solution in a Solution class
     """
-
+    neighbour_solution = copy.copy(current_solution)
     # selecting the spacecrafts
-    spacecraft_1 = random.choice(current_solution.used_spacecrafts)
-    spacecraft_2 = random.choice(current_solution.used_spacecrafts)
+    spacecraft_1 = random.choice(neighbour_solution.used_spacecrafts)
+    spacecraft_2 = random.choice(neighbour_solution.used_spacecrafts)
 
     # select the parcels from the spacecrafts random
     parcel_1 = random.choice(spacecraft_1.packed_parcels)
@@ -52,10 +51,9 @@ def neighbour_random_parcel_switch(current_solution):
         return False, current_solution
     else:
         check = spacefreight.swap_parcel(spacecraft_1, spacecraft_2, parcel_1, parcel_2)
-        print('hoi')
         # update costs
-        current_solution.costs = spacefreight.calculate_costs(current_solution)
+        neighbour_solution.costs = spacefreight.calculate_costs(neighbour_solution)
 
 
     # switch parcels in spacecraft
-    return check, current_solution
+    return check, neighbour_solution
