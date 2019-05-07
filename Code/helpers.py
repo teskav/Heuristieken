@@ -31,16 +31,18 @@ def empty_single_spacecraft(spacecraft_item):
 
 # # Deze werkt niet in de algoritmes zoals die nu is geschreven
 # # misschien kunnen we hier samen naar kijken
-# def set_up_unpacked():
-#     spacefreight.unpacked_parcels = []
-#     for p in spacefreight.all_parcels:
-#         spacefreight.unpacked_parcels.append(p.ID)
-# pass
+def set_up_unpacked():
+    unpacked = []
+    for p in spacefreight.all_parcels:
+        unpacked.append(p.ID)
+
+    return unpacked
 
 # # Deze geldt hetzelfde voor
-# def set_up_random():
-#     used_spacecrafts = []
-#     total_costs = 0
-#     parcel_randoms = random.sample(range(100), 100)
-#     spacecraft_randoms = random.sample(range(4), 4)
-# pass
+def set_up_random():
+    used_spacecrafts = []
+    total_costs = 0
+    parcel_randoms = random.sample(range(100), 100)
+    spacecraft_randoms = random.sample(range(4), 4)
+
+    return used_spacecrafts, total_costs, parcel_randoms, spacecraft_randoms

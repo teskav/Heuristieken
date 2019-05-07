@@ -90,15 +90,14 @@ class SpaceFreight():
 		# niet deze costs = spacecraft.base_cost + round(fuel * 1000)
 		return costs_spacecraft
 
-	def calculate_costs(self):
+	def calculate_costs(self, solution):
 		"""
 		This function calculates the total costs.
 		"""
 		total_costs = 0
-		for spacecraft in self.spacecrafts:
-			fuel_spacecraft = (spacecraft.mass + spacecraft.packed_mass) * spacecraft.FtW * (1 - spacecraft.FtW)
-			costs_spacecraft = spacecraft.base_cost + math.ceil(fuel_spacecraft * 1000)
-			total_costs += costs_spacecraft
+		for spacecraft in solution.used_spacecrafts:
+			spacecraft_costs = self.calculate_costs_spacecraft(spacecraft)
+			total_costs += spacecraft_costs
 		# niet deze costs = spacecraft.base_cost + round(fuel * 1000)
 		return total_costs
 
@@ -136,23 +135,24 @@ class SpaceFreight():
 		print('number of packed parcels: ', 100-solution.not_bring)
 		print('Costs:', solution.costs/1000000000, 'billion')
 
-	def swap_parcel(self, spacecraft1, spacecraft2, parcel1, parcel2):
+	def swap_parcel(self, spacecraft_1, spacecraft_2, parcel_1, parcel_2):
 		"""
 		Swaps an item of an spacecraft with an item of another spacecraft if possible.
 		"""
-		# ik ga er hier weer van uit dat de items objecten zijn
 
 		# Remove item from spacecrafts
-		spacecraft1.remove_parcel(parcel1)
-		spacecraft2.remove_parcel(parcel2)
+		spacecraft_1.remove_parcel(parcel_1)
+		spacecraft_2.remove_parcel(parcel_2)
 
 		# Swap items if possible (check payload volume and mass)
-		if self.check(spacecraft1, parcel2) and self.check(spacecraft2, parcel1):
-			spacecraft1.add_parcel(parcel2)
-			spacecraft2.add_parcel(parcel1)
+		if self.check(spacecraft_1, parcel_2) and self.check(spacecraft_2, parcel_1):
+			spacecraft_1.add_parcel(parcel_2)
+			spacecraft_2.add_parcel(parcel_1)
+			return True
 		else:
-			spacecraft1.add_parcel(parcel1)
-			spacecraft2.add_parcel(parcel2)
+			spacecraft_1.add_parcel(parcel_1)
+			spacecraft_2.add_parcel(parcel_2)
+			return False
 
 	def save_iteration(self, solution, count):
 		"""
