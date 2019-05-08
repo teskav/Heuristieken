@@ -14,8 +14,9 @@ spacefreight = SpaceFreight()
 
 def hill_climber(iterations_dataframe, max_iterations):
     count = 0
+    solutions = []
     # starting solution -> buiten hill climber
-    current_solution = random_constraints_all()
+    current_solution = random_all_parcels()
 
     # select neighbouring solution
     while count < max_iterations:
@@ -28,9 +29,10 @@ def hill_climber(iterations_dataframe, max_iterations):
 
         dataframe_row = spacefreight.save_iteration(current_solution, count)
         iterations_dataframe = iterations_dataframe.append(dataframe_row, ignore_index=True)
+        solutions.append(current_solution.costs)
         count += 1
 
-    return iterations_dataframe, count, current_solution
+    return iterations_dataframe, count, current_solution, solutions
 
 
 def neighbour_random_parcel_switch(current_solution):

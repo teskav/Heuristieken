@@ -19,6 +19,8 @@ def empty_single_spacecraft(spacecraft_item):
     spacecraft_item.packed_mass = 0
     spacecraft_item.packed_vol = 0
 
+    return spacecraft_item
+
 def set_up_unpacked():
     """
     Update unpacked parcels
@@ -46,10 +48,20 @@ def allocate_random(spacecraft_randoms, parcel_randoms, used_spacecrafts, total_
     """
     for spacecraft_number in spacecraft_randoms:
         spacecraft = spacefreight.spacecrafts[spacecraft_number]
+        print(spacecraft.packed_mass)
         for parcel_number in parcel_randoms:
             parcel = spacefreight.all_parcels[parcel_number]
             if spacefreight.check(spacecraft, parcel) and parcel.ID in spacefreight.unpacked_parcels:
                 spacefreight.update(spacecraft, parcel)
+                # print(spacecraft.packed_mass)
+        parcels = []
+        for parcel in spacecraft.packed_parcels:
+            parcels.append(parcel.ID)
+
+        # print(parcels)
+        # print(spacecraft.packed_parcels)
+        # print(spacecraft.packed_mass)
+
         #calculate costs spacecraft
         spacecraft.costs = spacefreight.calculate_costs_spacecraft(spacecraft)
         total_costs += spacecraft.costs
@@ -57,7 +69,7 @@ def allocate_random(spacecraft_randoms, parcel_randoms, used_spacecrafts, total_
         # add spacecraft to used_spacecrafts
         used_spacecrafts.append(spacecraft)
 
-    return used_spacecrafts
+    # for s in used_spacecrafts:
+    #     print(s)
 
-# def iterative_constraints():
-#     pass
+    return used_spacecrafts, total_costs

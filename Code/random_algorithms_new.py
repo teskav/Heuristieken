@@ -62,7 +62,7 @@ def random_constraints():
     # set variables at 0 after run for every spacecraft
     for spacecraft_number in spacecraft_randoms:
         spacecraft = spacefreight.spacecrafts[spacecraft_number]
-        empty_single_spacecraft(spacecraft)
+        spacefreight.spacecrafts[spacecraft_number] = empty_single_spacecraft(spacecraft)
 
     # every single run of the function sets unpacked_parcels at starting point
     spacefreight.unpacked_parcels = set_up_unpacked()
@@ -97,10 +97,10 @@ def random_constraints():
 
         # add spacecraft to used_spacecrafts
         used_spacecrafts.append(spacecraft)
-    # allocate_random(spacecraft_randoms, parcel_randoms, used_spacecrafts, total_costs)
+    # used_spacecrafts, total_costs = allocate_random(spacecraft_randoms, parcel_randoms, used_spacecrafts, total_costs)
 
     # save solution
-    current_solution = Solution('random constraints', len(spacefreight.unpacked_parcels), spacefreight.unpacked_parcels, total_costs, used_spacecrafts)
+    current_solution = Solution('random constrained', len(spacefreight.unpacked_parcels), spacefreight.unpacked_parcels, total_costs, used_spacecrafts)
 
     return current_solution
 

@@ -14,6 +14,7 @@ from random_algorithms_new import *
 from first_fit_algorithms import *
 from iterative_algorithms_new import *
 from hill_climber import *
+from plot import *
 import pandas as pd
 import matplotlib.pyplot as plt
 from aanroepen import *
@@ -41,16 +42,19 @@ if text == 'constrained all':
 if text == 'hill climber':
     iterations_dataframe = aanroepen_hill_climber()
 
-# iterations_dataframe.to_csv(r'../Heuristieken/Outputs/Output5.csv')
+if text == 'simulated annealing':
+    iterations_dataframe = aanroepen_simulated_annealing()
 
-# PLOT
+# iterations_dataframe.to_csv(r'../Heuristieken/Outputs/hillclimber_1000x5000.csv')
+
 # plot costs of iterations FROM DATAFRAME
-plt.plot(list(range(len(iterations_dataframe.iloc[:,2]))), iterations_dataframe.iloc[:,2])
-plt.xlabel('Iterations')
-plt.ylabel('Costs (in billion dollars)')
-plt.show()
+# plot_costs(iterations_dataframe)
 
-# # histogram of number of parcels packed
+
+# histogram of number of parcels packed -> nog niet als functie gemaakt
+# plot_histogram()
+
+
 # n_bins=max(plot_parcels)-min(plot_parcels)
 # plt.hist(plot_parcels, bins=n_bins, align='left')
 # plt.xticks(range(min(plot_parcels), max(plot_parcels)))

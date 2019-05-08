@@ -5,6 +5,8 @@ from random_algorithms_new import *
 from first_fit_algorithms import *
 from iterative_algorithms_new import *
 from hill_climber import *
+from simulated_annealing import *
+from plot import *
 import pandas as pd
 
 spacefreight = SpaceFreight()
@@ -123,10 +125,50 @@ def aanroepen_constrained_all():
 
 def aanroepen_hill_climber():
     iterations_dataframe = pd.DataFrame()
-    max_iterations = 1000
-    # HILL CLIMBER
-    iterations_dataframe, count, current_solution = hill_climber(iterations_dataframe, max_iterations)
+    max_iterations = 5000
+
+    # # HILL CLIMBER 1 keer
+    # iterations_dataframe, count, current_solution = hill_climber(iterations_dataframe, max_iterations)
+    #
+    # print("Iterations:", count)
+    # spacefreight.printing(current_solution)
+
+    # HILL CLIMBER max_runnings aantal keer en per running max_iterations aantal iteraties
+    runnings = 0
+    max_runnings = 50
+    solutions_runnings = []
+    solutions = []
+    while runnings < max_runnings:
+        iterations_dataframe, count, current_solution, solution = hill_climber(iterations_dataframe, max_iterations)
+        solutions_runnings.append(current_solution.costs)
+        solutions.append(solution)
+        runnings += 1
+
+    x = list(range(max_iterations))
+    plt.plot(list(range(max_runnings)), solutions_runnings, color='skyblue')
+    plt.xlabel('Runnings')
+    plt.ylabel('Costs (in billion dollars)')
+    plt.title('Distributions of costs over the hill_climbers')
+    plt.show()
+
+    for i in list(range(max_runnings)):
+        plt.plot(x, solutions[i])
+    plt.xlabel('Iterations')
+    plt.ylabel('Costs (in billion dollars)')
+    plt.title('Behaviour of the hillclimber in different solutions')
+    plt.show()
+    return iterations_dataframe
+
+def aanroepen_simulated_annealing():
+    iterations_dataframe = pd.DataFrame()
+    max_iterations = 50
+
+    # SIMULATED ANNEALING
+    iterations_dataframe, count, current_solution = simulated_annealing(iterations_dataframe, max_iterations)
+
     print("Iterations:", count)
     spacefreight.printing(current_solution)
+
+    plot_costs(iterations_dataframe)
 
     return iterations_dataframe

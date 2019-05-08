@@ -8,11 +8,12 @@ from random_algorithms_new import *
 import random
 import numpy as np
 import copy
+import math
 
 spacefreight = SpaceFreight()
 
 
-def hill_climber(iterations_dataframe, max_iterations):
+def simulated_annealing(iterations_dataframe, max_iterations):
     count = 0
     # starting solution -> buiten hill climber
     current_solution = random_all_parcels()
@@ -21,16 +22,20 @@ def hill_climber(iterations_dataframe, max_iterations):
     while count < max_iterations:
 
         check, neighbour_solution = neighbour_random_parcel_switch(current_solution)
-
+        print(check)
+        print(neighbour_solution.costs)
+        print(current_solution.costs)
         # compare costs & check of hij geen error geeft
-        if neighbour_solution.costs <= current_solution.costs and check == True:
+        if neighbour_solution.costs < current_solution.costs and check == True:
+            current_solution = neighbour_solution
+        elif acceptatie(current_solution, neighbour_solution, count, max_iterations):
             current_solution = neighbour_solution
 
         dataframe_row = spacefreight.save_iteration(current_solution, count)
         iterations_dataframe = iterations_dataframe.append(dataframe_row, ignore_index=True)
         count += 1
 
-    return iterations_dataframe
+    return iterations_dataframe, count, current_solution
 
 
 def neighbour_random_parcel_switch(current_solution):
@@ -54,6 +59,40 @@ def neighbour_random_parcel_switch(current_solution):
         # update costs
         neighbour_solution.costs = spacefreight.calculate_costs(neighbour_solution)
 
+        # switch parcels in spacecraft
+        return check, neighbour_solution
 
-    # switch parcels in spacecraft
-    return check, neighbour_solution
+def acceptatie(current_solution, neighbour_solution, count, max_iterations):
+    """
+    Returns True if neighbour solution gets accepted, False if not
+    """
+    # bereken verkorting
+    verkorting = -1 * (neighbour_solution.costs - current_solution.costs)
+    # bereken temperature
+    temperature = cooling_scheme(count, max_iterations)
+
+    # bereken acceptatiekans
+    acceptatie_kans = math.exp(verkorting/temperature)
+    # random number between 0 and 1
+    random_number = random.random()
+    # if random number
+    if random_number < acceptatie_kans:
+        return True
+    else:
+        return False
+
+
+def cooling_scheme(count, max_iterations):
+    """
+    Returns the temperature
+    """
+    # LINEAIR
+
+    # set begin temperature
+    # heb nu aantal iteraties maar idk???
+    T_0 = max_iterations
+    T_N = 0
+
+    T_i = T_0 - count * ( T_0 - T_N ) / max_iterations
+
+    return T_i
