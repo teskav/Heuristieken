@@ -123,7 +123,7 @@ def aanroepen_constrained_all():
 
 def aanroepen_hill_climber():
     iterations_dataframe = pd.DataFrame()
-    max_iterations = 100
+    max_iterations = 1000
     # HILL CLIMBER
     iterations_dataframe, count, current_solution = hill_climber(iterations_dataframe, max_iterations)
     print("Iterations:", count)
