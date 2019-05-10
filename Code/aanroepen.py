@@ -73,7 +73,7 @@ def aanroepen_constrained():
 
 def aanroepen_random_all():
     iterations_dataframe = pd.DataFrame()
-    max_iterations = 100
+    max_iterations = 1000000
     # run all parcels random
     best_solution = random_all_parcels()
     count = 0
@@ -170,7 +170,7 @@ def aanroepen_hill_climber():
 
 def aanroepen_simulated_annealing():
     iterations_dataframe = pd.DataFrame()
-    max_iterations = 50
+    max_iterations = 1000
 
     # SIMULATED ANNEALING
     iterations_dataframe, count, current_solution = simulated_annealing(iterations_dataframe, max_iterations)

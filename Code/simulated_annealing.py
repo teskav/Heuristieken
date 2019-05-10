@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # Name: Sofie, Teska Wies
 """
-This script contains the different versions (functions) of the HILL CLIMBER algorithms
+This script contains the different versions (functions) of the SIMULATED ANNEALING algorithms
 """
 from spacefreight import SpaceFreight
 from random_algorithms_new import *
@@ -27,6 +27,7 @@ def simulated_annealing(iterations_dataframe, max_iterations):
         print(current_solution.costs)
         # compare costs & check of hij geen error geeft
         if neighbour_solution.costs < current_solution.costs and check == True:
+            print('Hoi')
             current_solution = neighbour_solution
         elif acceptatie(current_solution, neighbour_solution, count, max_iterations):
             current_solution = neighbour_solution
