@@ -24,7 +24,7 @@ def hill_climber(iterations_dataframe, max_iterations):
         check, neighbour_solution = neighbour_random_parcel_switch(current_solution)
 
         # compare costs & check of hij geen error geeft
-        if neighbour_solution.costs <= current_solution.costs and check == True:
+        if neighbour_solution.costs < current_solution.costs and check == True:
             current_solution = neighbour_solution
 
         dataframe_row = spacefreight.save_iteration(current_solution, count)

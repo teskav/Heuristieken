@@ -11,7 +11,7 @@ def plot_costs(iterations_dataframe):
     plt.plot(list(range(len(iterations_dataframe.iloc[:,2]))), iterations_dataframe.iloc[:,2])
     plt.xlabel('Iterations')
     plt.ylabel('Costs (in billion dollars)')
-    plt.title('Distributions of costs over the solutions')
+    plt.title('Distributions of solutions per running')
     plt.show()
 
 

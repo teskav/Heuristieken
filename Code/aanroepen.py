@@ -125,7 +125,7 @@ def aanroepen_constrained_all():
 
 def aanroepen_hill_climber():
     iterations_dataframe = pd.DataFrame()
-    max_iterations = 5000
+    max_iterations = 2000
 
     # # HILL CLIMBER 1 keer
     # iterations_dataframe, count, current_solution = hill_climber(iterations_dataframe, max_iterations)
@@ -135,16 +135,21 @@ def aanroepen_hill_climber():
 
     # HILL CLIMBER max_runnings aantal keer en per running max_iterations aantal iteraties
     runnings = 0
-    max_runnings = 50
+    max_runnings = 30
     solutions_runnings = []
     solutions = []
+    x = list(range(max_iterations))
     while runnings < max_runnings:
         iterations_dataframe, count, current_solution, solution = hill_climber(iterations_dataframe, max_iterations)
+        plt.plot(x, solution)
+        plt.xlabel('Iterations')
+        plt.ylabel('Costs (in billion dollars)')
+        plt.title('Distribution of solutions per running')
+        plt.show()
         solutions_runnings.append(current_solution.costs)
         solutions.append(solution)
         runnings += 1
 
-    x = list(range(max_iterations))
     plt.plot(list(range(max_runnings)), solutions_runnings, color='skyblue')
     plt.xlabel('Runnings')
     plt.ylabel('Costs (in billion dollars)')
@@ -157,6 +162,10 @@ def aanroepen_hill_climber():
     plt.ylabel('Costs (in billion dollars)')
     plt.title('Behaviour of the hillclimber in different solutions')
     plt.show()
+
+
+
+
     return iterations_dataframe
 
 def aanroepen_simulated_annealing():

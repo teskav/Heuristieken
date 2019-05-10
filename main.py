@@ -45,7 +45,7 @@ if text == 'hill climber':
 if text == 'simulated annealing':
     iterations_dataframe = aanroepen_simulated_annealing()
 
-# iterations_dataframe.to_csv(r'../Heuristieken/Outputs/hillclimber_1000x5000.csv')
+iterations_dataframe.to_csv(r'../Heuristieken/Outputs/hillclimber_30x2000.csv')
 
 # plot costs of iterations FROM DATAFRAME
 # plot_costs(iterations_dataframe)
