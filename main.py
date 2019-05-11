@@ -12,7 +12,6 @@ from spacecraft import Spacecraft
 from spacefreight import SpaceFreight
 from random_algorithms_new import *
 from first_fit_algorithms import *
-from iterative_algorithms_new import *
 from hill_climber import *
 from plot import *
 import pandas as pd
@@ -42,14 +41,19 @@ if text == 'constrained all':
 if text == 'hill climber':
     iterations_dataframe = aanroepen_hill_climber()
 
+if text == 'hill climber spacecrafts':
+    iterations_dataframe = aanroepen_hill_climber_spacecrafts()
+
+if text == 'hill climber combined':
+    iterations_dataframe = aanroepen_hill_climber_combined()
+
 if text == 'simulated annealing':
     iterations_dataframe = aanroepen_simulated_annealing()
 
-iterations_dataframe.to_csv(r'../Heuristieken/Outputs/hillclimber_30x2000.csv')
+# iterations_dataframe.to_csv(r'../Heuristieken/Outputs/constrained_all_10000.csv')
 
 # plot costs of iterations FROM DATAFRAME
 plot_costs(iterations_dataframe)
-
 
 # histogram of number of parcels packed -> nog niet als functie gemaakt
 # plot_histogram()

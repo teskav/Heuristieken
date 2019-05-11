@@ -20,19 +20,32 @@ def simulated_annealing(iterations_dataframe, max_iterations):
 
     # select neighbouring solution
     while count < max_iterations:
-
+        # Generate neighbour solution
         check, neighbour_solution = neighbour_random_parcel_switch(current_solution)
         print(check)
         print(neighbour_solution.costs)
         print(current_solution.costs)
+
+        # get the temperature and the acceptatie kans and generate a random number
+        temperature, acceptatie_kans = acceptatie(current_solution, neighbour_solution, count, max_iterations)
+        random_number = random.random()
+        print('Random number: ', random_number)
+        print('Acceptatie kans: ', acceptatie_kans)
+        print('Temperatuur: ', temperature)
+
         # compare costs & check of hij geen error geeft
-        if neighbour_solution.costs < current_solution.costs and check == True:
+        if neighbour_solution.costs <= current_solution.costs and check == True:
             print('Hoi')
             current_solution = neighbour_solution
-        elif acceptatie(current_solution, neighbour_solution, count, max_iterations):
+            acceptatie_kans = None
+        elif random_number < acceptatie_kans and check == True:
+            print('Doei')
             current_solution = neighbour_solution
+        # elif acceptatie(current_solution, neighbour_solution, count, max_iterations):
+        #     print('Doei')
+        #     current_solution = neighbour_solution
 
-        dataframe_row = spacefreight.save_iteration(current_solution, count)
+        dataframe_row = spacefreight.save_iteration_SA(current_solution, count, temperature, acceptatie_kans)
         iterations_dataframe = iterations_dataframe.append(dataframe_row, ignore_index=True)
         count += 1
 
@@ -74,26 +87,35 @@ def acceptatie(current_solution, neighbour_solution, count, max_iterations):
 
     # bereken acceptatiekans
     acceptatie_kans = math.exp(verkorting/temperature)
-    # random number between 0 and 1
-    random_number = random.random()
-    # if random number
-    if random_number < acceptatie_kans:
-        return True
-    else:
-        return False
+
+    return temperature, acceptatie_kans
+
+    # # random number between 0 and 1
+    # random_number = random.random()
+    # # if random number
+    # if random_number < acceptatie_kans:
+    #     return True
+    # else:
+    #     return False
 
 
 def cooling_scheme(count, max_iterations):
     """
     Returns the temperature
     """
+
+    # set begin temperature and end temperature
+    # heb nu temperatuur bepaald over wat ze in college zeiden
+    T_0 = 10000
+    T_N = 40
+
     # LINEAIR
+    # T_i = T_0 - count * ( T_0 - T_N ) / max_iterations
 
-    # set begin temperature
-    # heb nu aantal iteraties maar idk???
-    T_0 = max_iterations
-    T_N = 0
+    # EXPONENTIAL
+    T_i = T_0 * (T_N / T_0) ** (count / max_iterations)
 
-    T_i = T_0 - count * ( T_0 - T_N ) / max_iterations
+    # SIGMOIDAL
+    # T_i = T_N + (T_0 - T_N) / (1 + math.exp(0.3 * (count - max_iterations / 2)))
 
     return T_i

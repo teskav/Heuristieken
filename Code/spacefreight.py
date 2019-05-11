@@ -8,9 +8,11 @@ import pandas as pd
 import csv
 import math
 import matplotlib.pyplot as plt
+import copy
 from parcel import Parcel
 from spacecraft import Spacecraft
 from solution import Solution
+
 # Global constants
 INPUT = "CargoLists/CargoList1.csv"
 
@@ -133,6 +135,16 @@ class SpaceFreight():
 			spacecraft_2.add_parcel(parcel_2)
 			return False
 
+	def swap_spacecraft(self, spacecraft_1, spacecraft_2):
+		"Swaps the whole payload of one spacecraft to another spacecraft"
+		spacecraft_2.packed_mass = copy.copy(spacecraft_1.packed_mass)
+		spacecraft_2.packed_vol = copy.copy(spacecraft_1.packed_vol)
+		spacecraft_2.packed_parcels = copy.copy(spacecraft_1.packed_parcels)
+
+		spacecraft_2.costs = self.calculate_costs_spacecraft(spacecraft_2)
+
+		return spacecraft_2
+
 	def save_iteration(self, solution, count):
 		"""
 		Save the solution from an iteration in a dataframe
@@ -140,6 +152,33 @@ class SpaceFreight():
 		column_names = ['algorithm_name', 'iteration', 'costs_solution', 'number_unpacked_parcels', 'unpacked_parcels']
 		# columns = ['algorithm_name', 'iteration', 'costs_solution', 'number_unpacked_parcels', 'unpacked_parcels']
 		data = [solution.name, count, solution.costs, solution.not_bring, solution.unpacked_parcels]
+		# append to dataframe
+		for spacecraft in solution.used_spacecrafts:
+			# append data
+			data.append(spacecraft.name)
+			data.append(len(spacecraft.packed_parcels))
+			parcels = []
+			for parcel in spacecraft.packed_parcels:
+				parcels.append(parcel.ID)
+			data.append(parcels)
+			data.append(spacecraft.costs)
+			data.append("{0:.3f}".format(spacecraft.packed_mass))
+			# print("{0:.3f}".format(spacecraft.packed_mass))
+			data.append("{0:.3f}".format(spacecraft.packed_vol))
+			# append column names
+			column_names.extend(['name', 'number_packed_parcels', 'packed_parcels', 'spacecraft_costs', 'spacecraft_packed_mass', 'spacecraft_packed_vol'])
+
+		row = pd.DataFrame([data])
+
+		return row
+
+	def save_iteration_SA(self, solution, count, temperature, acceptatiekans):
+		"""
+		Save the solution from an iteration in a dataframe
+		"""
+		column_names = ['algorithm_name', 'iteration', 'costs_solution', 'number_unpacked_parcels', 'unpacked_parcels', 'temperature', 'acceptatiekans']
+		# columns = ['algorithm_name', 'iteration', 'costs_solution', 'number_unpacked_parcels', 'unpacked_parcels']
+		data = [solution.name, count, solution.costs, solution.not_bring, solution.unpacked_parcels, temperature, acceptatiekans]
 		# append to dataframe
 		for spacecraft in solution.used_spacecrafts:
 			# append data
