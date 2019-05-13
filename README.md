@@ -81,12 +81,29 @@ Our random algorithm is not greedy. This algorithm basically does the same as ou
 
 With this algorithm you can make every solution in the state space. Which is not optimal, since it will take forever to find the most optimal solution.
 
-#### iterative random
-niet goede naam, bedenken wat een goede naam is goede stap richting waarom is deze beter
+#### Pseudo greedy and random
+This algorithm first uses a pseudo greedy heuristic (multiple constraints) to fill the first 4 spacecrafts. After that it uses a random algorithm to allocate the rest of the parcels.
 
-#### hill climber
+##### Pseudo greedy
+For this part we looked at the properties of the spacecrafts. We saw for example that the Cygnus spacecraft can bring relatively few mass, but relatively a lot of volume. So we made a constraint that the big, light-weight parcels will be allocated in a Cygnus spacecraft. We did this for every spacecraft and came up with the following constraints:
 
-#### greedy
+if parcel mass < mean mass and parcel volume > mean volume:
+    parcel in Cygnus
+if parcel mass < mean mass / 2 and parcel volume < mean volume:
+    parcel in Progress
+if parcel mass > mean mass and parcel volume > mean volume:
+    parcel in Kounotori
+if parcel mass > mean mass and parcel volume < mean volume:
+    parcel in Dragon
+
+After filling the first 4 spacecrafts with these constraints, the unpacked parcels will be random allocated in random spacecrafts (just as in the random algorithm).
+
+With this algorithm you at least use every spacecraft once.
+
+#### Hill Climber
+
+
+#### Simulated Annealing
 
 
 Met iterative random is het gelukt om 96 parcels mee te nemen.

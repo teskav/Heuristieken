@@ -134,7 +134,7 @@ def aanroepen_hill_climber():
 
     # HILL CLIMBER max_runnings aantal keer en per running max_iterations aantal iteraties
     runnings = 0
-    max_runnings = 30
+    max_runnings = 2
     solutions_runnings = []
     solutions = []
     x = list(range(max_iterations))
@@ -243,6 +243,23 @@ def aanroepen_hill_climber_combined():
     return iterations_dataframe
 
 def aanroepen_simulated_annealing():
+    iterations_dataframe = pd.DataFrame()
+    max_iterations = 100
+
+    # SIMULATED ANNEALING
+    iterations_dataframe, count, current_solution = simulated_annealing(iterations_dataframe, max_iterations)
+    # temperature = cooling_scheme(count, max_iterations)
+
+    print("Iterations:", count)
+    spacefreight.printing(current_solution)
+
+    plot_costs(iterations_dataframe)
+    plot_cooling(iterations_dataframe)
+    plot_acceptatie(iterations_dataframe)
+
+    return iterations_dataframe
+
+def aanroepen_simulated_annealing_combined():
     iterations_dataframe = pd.DataFrame()
     max_iterations = 100
 

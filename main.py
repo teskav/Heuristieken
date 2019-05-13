@@ -50,6 +50,9 @@ if text == 'hill climber combined':
 if text == 'simulated annealing':
     iterations_dataframe = aanroepen_simulated_annealing()
 
+if text == 'simulated annealing combined':
+    iterations_dataframe = aanroepen_simulated_annealing_combined()
+
 # iterations_dataframe.to_csv(r'../Heuristieken/Outputs/constrained_all_10000.csv')
 
 # plot costs of iterations FROM DATAFRAME
