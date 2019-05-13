@@ -244,7 +244,7 @@ def aanroepen_hill_climber_combined():
 
 def aanroepen_simulated_annealing():
     iterations_dataframe = pd.DataFrame()
-    max_iterations = 10000
+    max_iterations = 100
 
     # SIMULATED ANNEALING
     iterations_dataframe, count, current_solution = simulated_annealing(iterations_dataframe, max_iterations)

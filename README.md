@@ -1,5 +1,5 @@
 # Space Freight
-Teska Vaessen,
+Teska Vaessen, 11046341
 Wies de Wit, 10727078
 Sofie Löhr, 11038926
 
@@ -9,7 +9,7 @@ documentatie heel belangrijk
 ## Usage
 
 ## Problem
-The case Spacefreight is a constraint optimization problem (COP). The constraint that needs to be met is to ship all parcels from the cargolist(s). Multiple spacecrafts can be deployed to ship all parcels to the International Space Station (ISS).
+The case Spacefreight is a constraint optimization problem (COP). The constraint that needs to be met is to ship all parcels from the cargolist(s). Other constraints are the maximum payload mass and the maximum payload volume of the spacecrafts. Each spacecraft has their own specifications. We can't exceed the maximum payloads of the spacecrafts while allocating the parcels. Multiple spacecrafts can be deployed to ship all parcels to the International Space Station (ISS).
 The transportation costs need to be minimized, so the parcels from the cargolist(s) need to be distributed optimally to minimize costs.
 
 The costs are divided in two categories, base costs and fuel costs. Every spacecraft has different base costs, the initial costs for the use of the spacecraft. Fuel costs depend on the mass of the spacecraft, the used payload mass and the Fuel-to-Weight ratio (FtW) of the spacecraft.
@@ -23,22 +23,41 @@ Base cost + roundup(F x 1000)
 #### Upper & lower bound costs
 When deploying all four spacecrafts once, we get the following upper- and lowerbound for the costs.
 
-Lowerbound = 1.339430662 mld. dollar
-Upperbound = 1.342566901 mld. dollar
+Lower bound = 1.339430662 mld. dollar
+Upper bound = 1.342566901 mld. dollar
 
-The lowerbound is calculated by using a payload mass of 0 kg, which comes down to deploying the spacecraft without any payload.
+The lower bound is calculated by using a payload mass of 0 kg, which comes down to deploying the spacecraft without any payload.
 
-The upperbound is calculated by using the maximum payloas mass of the spacecraft, which comes down to deploying the spacecraft with full capacity.
+The upper bound is calculated by using the maximum payloas mass of the spacecraft, which comes down to deploying the spacecraft with full capacity.
 
 When deploying all six spacecrafts once, we get the following upper- and lowerbound for the costs calculated similarly.
 
-Lowerbound = 2.838094712 mld. dollar
-Upperbound = 2.843961701 mld. dollar
+Lower bound = 2.838094712 mld. dollar
+Upper bound = 2.843961701 mld. dollar
 
 #### State Space
-##### 100 parcels in 4 spacecrafts
-5^100
+##### General
+For the statespace we looked at the properties of each cargolist. We calculated the minimum amount of spacecrafts needed to bring all parcels and the (reasonal) maximum amount of spacecrafts needed. With this information we calculate the lower bound and upper bound of the state space as follows:
 
+Lower bound = (Minimum amount of spacecrafts)^(number of parcels in cargolist)
+
+##### Cargolist 1
+So the state space for cargolist 1 is:
+
+Lower bound = 4^100 = 1,61 * 10^60
+Upper bound = 8^100 = 2,04 * 10^90
+
+##### Cargolist 2
+So the state space for cargolist 2 is:
+
+Lower bound = 5^100 = 7,89 * 10^69
+Upper bound = 8^100 = 2,04 * 10^90
+
+##### Cargolist 3
+So the state space for cargolist 3 is:
+
+Lower bound = 46^1000 = 1,89 * 10^166
+Upper bound = 84^1000 = 2,68 * 10^192
 
 #### Data
 Structure:
@@ -51,6 +70,16 @@ mean parcel volume = 0.53474 m3
 
 # Algorithms
 iets dat state space kleiner maakt
+
+#### First fit
+The first fit algorithm is a greedy algorithm. With this algorithm we loop over the spacecrafts in the order they are loaded and then loop over the parcels in the order they are loaded. So we take the first spacecraft and place the first parcel in this spacecrafts. Then for every parcel we check if it still fits in the first spacecraft and if it fits, it goes in the first spacecraft. Then if we checked every parcel, we do the same for the second spacecraft. Here we also check if the parcel is still unpacked. Then we do this for the third spacecraft and so on.
+
+This algorithm only has 1 solution. So this is of course not optimal.
+
+#### Random
+Our random algorithm is not greedy. This algorithm basically does the same as our first fit algorithm, though the random algorithm does everything in random order. So it first picks a random spacecraft, then the cargolist will be in a random order and it fills the spacecrafts. Then it picks another random spacecraft (which can be the same as the first one) and fills this one. This goes on untill all parcels are packed.
+
+With this algorithm you can make every solution in the state space. Which is not optimal, since it will take forever to find the most optimal solution.
 
 #### iterative random
 niet goede naam, bedenken wat een goede naam is goede stap richting waarom is deze beter
