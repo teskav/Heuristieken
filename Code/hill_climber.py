@@ -110,8 +110,8 @@ def neighbour_random_parcel_switch(current_solution):
     parcel_1 = random.choice(spacecraft_1.packed_parcels)
     parcel_2 = random.choice(spacecraft_2.packed_parcels)
 
-    # check if the to swap parcels are not the same
-    if spacecraft_1 == spacecraft_2 and parcel_1 == parcel_2:
+    # check if the spacecrafts where the swap takes place are not the same
+    if spacecraft_1 == spacecraft_2:
         return False, current_solution
     else:
         check = spacefreight.swap_parcel(spacecraft_1, spacecraft_2, parcel_1, parcel_2)

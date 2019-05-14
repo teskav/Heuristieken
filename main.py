@@ -53,7 +53,7 @@ if text == 'simulated annealing combined':
 # iterations_dataframe.to_csv(r'../Heuristieken/Outputs/constrained_all_10000.csv')
 
 # plot costs of iterations FROM DATAFRAME
-plot_costs(iterations_dataframe)
+# plot_costs(iterations_dataframe)
 
 # histogram of number of parcels packed -> nog niet als functie gemaakt
 # plot_histogram()
