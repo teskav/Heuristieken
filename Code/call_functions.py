@@ -143,8 +143,8 @@ def call_hill_climber():
         solutions.append(solution)
         runs += 1
 
-    solutions_runs = sorted(solutions_runs, key=lambda x: x.costs)
-    
+    solutions_stores = sorted(spacefreight.all_parcels, key=lambda x: x.mass)
+
     plt.plot(list(range(max_runs)), solutions_runs, color='skyblue')
     plt.xlabel('Runs')
     plt.ylabel('Costs (in billion dollars)')

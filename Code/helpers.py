@@ -78,10 +78,32 @@ def allocate_random(spacecraft_randoms, parcel_randoms, used_spacecrafts, total_
 
     return used_spacecrafts, total_costs
 
-def check_cygnus1(parcel):
-    # dit was een test maar doet het niet
-    return ((parcel.mass < mean_mass) and (parcel.volume > mean_vol))
+def check_constraints_spacecraft(parcel, number):
+    """
+    Checks the constraint for respectively Cygnus, Progress, Kounotori, Dragon,
+    TianZhou and Verne ATV
+    """
+    if number == 0:
+        # very light-weight and very big
+        return ((parcel.mass < (mean_mass/2)) and (parcel.volume > mean_vol*2))
+    elif number == 1:
+        # light-weight and very small
+        return ((parcel.mass < mean_mass) and (parcel.volume < (mean_vol/2)))
+    elif number == 2:
+        # heavy and big
+        return ((parcel.mass > mean_mass) and (parcel.volume > mean_vol))
+    elif number == 3:
+        # heavy and small
+        return ((parcel.mass > mean_mass) and (parcel.volume < mean_vol))
+    elif number == 4:
+        # very heavy and big
+        return ((parcel.mass > mean_mass*2) and (parcel.volume > mean_vol))
+    elif number == 5:
+        # very heavy and very big
+        return ((parcel.mass > mean_mass*2) and (parcel.volume > mean_vol*2))
 
-def check_cygnus2(parcel):
-    # dit was een test maar deot het niet
-    return (spacefreight.check(spacefreight.spacecrafts[0], parcel) and parcel.ID in spacefreight.unpacked_parcels)
+def check_constraints(parcel, spacefreight, number):
+    """
+    Checks if parcel fits in a particular spacecraft and is not yet packed
+    """
+    return (spacefreight.check(spacefreight.spacecrafts[number], parcel) and parcel.ID in spacefreight.unpacked_parcels)

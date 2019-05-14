@@ -16,6 +16,8 @@ from solution import Solution
 # Global constants
 INPUT = "CargoLists/CargoList1.csv"
 
+billion = 1000000000
+
 class SpaceFreight():
 	def __init__ (self):
 
@@ -35,9 +37,9 @@ class SpaceFreight():
 		self.spacecrafts.append(Spacecraft('Progress', 2400, 7.6, 7020, 175000000, 0.74))
 		self.spacecrafts.append(Spacecraft('Kounotori', 5200, 14, 10500, 420000000, 0.71))
 		self.spacecrafts.append(Spacecraft('Dragon', 6000, 10, 12200, 347000000, 0.72))
-		# self.spacecrafts.append(Spacecraft('TianZhou', 6500, 15, 13500, 412000000, 0.75))
-		# self.spacecrafts.append(Spacecraft('Verne ATV', 7500, 48, 20500, 1080000000, 0.72))
-		
+		self.spacecrafts.append(Spacecraft('TianZhou', 6500, 15, 13500, 412000000, 0.75))
+		self.spacecrafts.append(Spacecraft('Verne ATV', 7500, 48, 20500, 1080000000, 0.72))
+
 	def load_parcels(self, file):
 		"""
 		Load parcels from csv file.
@@ -116,7 +118,7 @@ class SpaceFreight():
 		print('unpacked:')
 		print(solution.unpacked_parcels)
 		print('number of packed parcels: ', len(self.all_parcels) - solution.not_bring)
-		print('Costs:', solution.costs/1000000000, 'billion')
+		print('Costs:', solution.costs/billion, 'billion')
 
 	def swap_parcel(self, spacecraft_1, spacecraft_2, parcel_1, parcel_2):
 		"""
