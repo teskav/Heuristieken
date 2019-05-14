@@ -11,6 +11,10 @@ import copy
 
 spacefreight = SpaceFreight()
 
+mean_mass = np.mean([parcel.mass for parcel in spacefreight.all_parcels])
+mean_vol = np.mean([parcel.volume for parcel in spacefreight.all_parcels])
+
+
 def empty_single_spacecraft(spacecraft_item):
     """
     Set variables at 0 after run for one spacecraft
@@ -73,3 +77,11 @@ def allocate_random(spacecraft_randoms, parcel_randoms, used_spacecrafts, total_
     #     print(s)
 
     return used_spacecrafts, total_costs
+
+def check_cygnus1(parcel):
+    # dit was een test maar doet het niet
+    return ((parcel.mass < mean_mass) and (parcel.volume > mean_vol))
+
+def check_cygnus2(parcel):
+    # dit was een test maar deot het niet
+    return (spacefreight.check(spacefreight.spacecrafts[0], parcel) and parcel.ID in spacefreight.unpacked_parcels)

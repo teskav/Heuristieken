@@ -37,13 +37,12 @@ class SpaceFreight():
 		self.spacecrafts.append(Spacecraft('Dragon', 6000, 10, 12200, 347000000, 0.72))
 		# self.spacecrafts.append(Spacecraft('TianZhou', 6500, 15, 13500, 412000000, 0.75))
 		# self.spacecrafts.append(Spacecraft('Verne ATV', 7500, 48, 20500, 1080000000, 0.72))
-
+		
 	def load_parcels(self, file):
 		"""
 		Load parcels from csv file.
 		Returns dictionary of 'name': Parcel objects.
 		"""
-
 		with open(INPUT) as in_file:
 			data_frame = csv.reader(in_file, delimiter = ',')
 			next(data_frame)
@@ -101,7 +100,10 @@ class SpaceFreight():
 		return total_costs
 
 	def printing(self, solution):
-
+		"""
+		This functions prints the spacecrafts, packed parcels, packed mass and
+		volume, the unpacked parcels, number of packed parcels and the total costs.
+		"""
 		for spacecraft in solution.used_spacecrafts:
 			print(spacecraft.name + ':')
 			parcels = []
@@ -113,14 +115,13 @@ class SpaceFreight():
 
 		print('unpacked:')
 		print(solution.unpacked_parcels)
-		print('number of packed parcels: ', 100 - solution.not_bring)
+		print('number of packed parcels: ', len(self.all_parcels) - solution.not_bring)
 		print('Costs:', solution.costs/1000000000, 'billion')
 
 	def swap_parcel(self, spacecraft_1, spacecraft_2, parcel_1, parcel_2):
 		"""
-		Swaps an item of an spacecraft with an item of another spacecraft if possible.
+		Swaps an item of an spacecraft with an item of another spacecraft, if possible.
 		"""
-
 		# Remove item from spacecrafts
 		spacecraft_1.remove_parcel(parcel_1)
 		spacecraft_2.remove_parcel(parcel_2)
@@ -136,12 +137,26 @@ class SpaceFreight():
 			return False
 
 	def swap_spacecraft(self, spacecraft_1, spacecraft_2):
-		"Swaps the whole payload of one spacecraft to another spacecraft"
+		"""
+		Swaps the whole payload of one spacecraft to another spacecraft
+		"""
 		spacecraft_2.packed_mass = copy.copy(spacecraft_1.packed_mass)
 		spacecraft_2.packed_vol = copy.copy(spacecraft_1.packed_vol)
 		spacecraft_2.packed_parcels = copy.copy(spacecraft_1.packed_parcels)
-
 		spacecraft_2.costs = self.calculate_costs_spacecraft(spacecraft_2)
+
+		# if spacecraft_2.payload_vol >= spacecraft_2.packed_vol and spacecraft_2.payload_mass >= spacecraft_2.packed_mass:
+		# 	spacecraft_1.packed_mass = 0
+		# 	spacecraft_1.packed_vol = 0
+		# 	spacecraft_1.packed_parcels = []
+		# 	spacecraft_1.costs = self.calculate_costs_spacecraft(spacecraft_1)
+		# 	return True
+		# else:
+		# 	spacecraft_2.packed_mass = 0
+		# 	spacecraft_2.packed_vol = 0
+		# 	spacecraft_2.packed_parcels = []
+		# 	spacecraft_2.costs = self.calculate_costs_spacecraft(spacecraft_2)
+		# 	return False
 
 		return spacecraft_2
 

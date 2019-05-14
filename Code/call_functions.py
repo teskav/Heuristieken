@@ -10,9 +10,9 @@ import pandas as pd
 
 spacefreight = SpaceFreight()
 
-def aanroepen_random():
+def call_random():
     iterations_dataframe = pd.DataFrame()
-    max_iterations = 100
+    max_iterations = 1000
     count = 0
     best_solution = random_greedy()
     dataframe_row = spacefreight.save_iteration(best_solution, count)
@@ -26,9 +26,6 @@ def aanroepen_random():
         dataframe_row = spacefreight.save_iteration(solution, count)
         iterations_dataframe = iterations_dataframe.append(dataframe_row, ignore_index=True)
 
-        # add number of packed parcels of solution to list to plot
-        # plot_parcels.append(len(spacefreight.all_parcels)-solution.not_bring)
-
         # check if costs better
         if solution.not_bring < best_solution.not_bring:
             best_solution = solution
@@ -40,9 +37,9 @@ def aanroepen_random():
 
     return iterations_dataframe
 
-def aanroepen_constrained():
+def call_constrained():
     iterations_dataframe = pd.DataFrame()
-    max_iterations = 100
+    max_iterations = 1000
     count = 0
     best_solution = random_constraints()
     dataframe_row = spacefreight.save_iteration(best_solution, count)
@@ -56,9 +53,6 @@ def aanroepen_constrained():
         dataframe_row = spacefreight.save_iteration(solution, count)
         iterations_dataframe = iterations_dataframe.append(dataframe_row, ignore_index=True)
 
-        # add number of packed parcels of solution to list to plot
-        # plot_parcels.append(len(spacefreight.all_parcels)-solution.not_bring)
-
         # check if costs better
         if solution.not_bring < best_solution.not_bring:
             best_solution = solution
@@ -70,7 +64,7 @@ def aanroepen_constrained():
 
     return iterations_dataframe
 
-def aanroepen_random_all():
+def call_random_all():
     iterations_dataframe = pd.DataFrame()
     max_iterations = 1000
     # run all parcels random
@@ -96,7 +90,7 @@ def aanroepen_random_all():
 
     return iterations_dataframe
 
-def aanroepen_constrained_all():
+def call_constrained_all():
     iterations_dataframe = pd.DataFrame()
     max_iterations = 1000
     # run all parcels constrained
@@ -122,7 +116,7 @@ def aanroepen_constrained_all():
 
     return iterations_dataframe
 
-def aanroepen_hill_climber():
+def call_hill_climber():
     iterations_dataframe = pd.DataFrame()
     max_iterations = 2000
 
@@ -132,30 +126,32 @@ def aanroepen_hill_climber():
     # print("Iterations:", count)
     # spacefreight.printing(current_solution)
 
-    # HILL CLIMBER max_runnings aantal keer en per running max_iterations aantal iteraties
-    runnings = 0
-    max_runnings = 2
-    solutions_runnings = []
+    # HILL CLIMBER max_runs aantal keer en per running max_iterations aantal iteraties
+    runs = 0
+    max_runs = 2
+    solutions_runs = []
     solutions = []
     x = list(range(max_iterations))
-    while runnings < max_runnings:
+    while runs < max_runs:
         iterations_dataframe, count, current_solution, solution = hill_climber(iterations_dataframe, max_iterations)
         plt.plot(x, solution)
         plt.xlabel('Iterations')
         plt.ylabel('Costs (in billion dollars)')
-        plt.title('Distribution of solutions per running')
+        plt.title('Distribution of solutions per run')
         plt.show()
-        solutions_runnings.append(current_solution.costs)
+        solutions_runs.append(current_solution.costs)
         solutions.append(solution)
-        runnings += 1
+        runs += 1
 
-    plt.plot(list(range(max_runnings)), solutions_runnings, color='skyblue')
-    plt.xlabel('Runnings')
+    solutions_runs = sorted(solutions_runs, key=lambda x: x.costs)
+    
+    plt.plot(list(range(max_runs)), solutions_runs, color='skyblue')
+    plt.xlabel('Runs')
     plt.ylabel('Costs (in billion dollars)')
     plt.title('Distributions of costs over the hill_climbers')
     plt.show()
 
-    for i in list(range(max_runnings)):
+    for i in list(range(max_runs)):
         plt.plot(x, solutions[i])
     plt.xlabel('Iterations')
     plt.ylabel('Costs (in billion dollars)')
@@ -164,37 +160,37 @@ def aanroepen_hill_climber():
 
     return iterations_dataframe
 
-def aanroepen_hill_climber_spacecrafts():
+def call_hill_climber_spacecrafts():
     iterations_dataframe = pd.DataFrame()
     max_iterations = 1000
 
-    # HILL CLIMBER max_runnings aantal keer en per running max_iterations aantal iteraties
-    runnings = 0
-    max_runnings = 1
-    solutions_runnings = []
+    # HILL CLIMBER max_runs aantal keer en per running max_iterations aantal iteraties
+    runs = 0
+    max_runs = 2
+    solutions_runs = []
     solutions = []
     x = list(range(max_iterations))
-    while runnings < max_runnings:
+    while runs < max_runs:
         iterations_dataframe, count, current_solution, solution = hill_climber_spacecrafts(iterations_dataframe, max_iterations)
         plt.plot(x, solution)
         plt.xlabel('Iterations')
         plt.ylabel('Costs')
         plt.title('Distribution of solutions per run')
         plt.show()
-        solutions_runnings.append(current_solution.costs)
+        solutions_runs.append(current_solution.costs)
         solutions.append(solution)
-        runnings += 1
+        runs += 1
 
-    # print("Iterations:", count)
-    # spacefreight.printing(current_solution)
+    print("Iterations:", count)
+    spacefreight.printing(current_solution)
 
-    plt.plot(list(range(max_runnings)), solutions_runnings, color='skyblue')
+    plt.plot(list(range(max_runs)), solutions_runs, color='skyblue')
     plt.xlabel('Runs')
     plt.ylabel('Costs')
     plt.title('Distributions of costs over the hill_climbers')
     plt.show()
 
-    for i in list(range(max_runnings)):
+    for i in list(range(max_runs)):
         plt.plot(x, solutions[i])
     plt.xlabel('Iterations')
     plt.ylabel('Costs (in billion dollars)')
@@ -203,37 +199,37 @@ def aanroepen_hill_climber_spacecrafts():
 
     return iterations_dataframe
 
-def aanroepen_hill_climber_combined():
+def call_hill_climber_combined():
     iterations_dataframe = pd.DataFrame()
     max_iterations = 1000
 
-    # HILL CLIMBER max_runnings aantal keer en per running max_iterations aantal iteraties
-    runnings = 0
-    max_runnings = 20
-    solutions_runnings = []
+    # HILL CLIMBER max_runs aantal keer en per running max_iterations aantal iteraties
+    runs = 0
+    max_runs = 20
+    solutions_runs = []
     solutions = []
     x = list(range(max_iterations))
-    while runnings < max_runnings:
+    while runs < max_runs:
         iterations_dataframe, count, current_solution, solution = hill_climber_combined(iterations_dataframe, max_iterations)
         plt.plot(x, solution)
         plt.xlabel('Iterations')
         plt.ylabel('Costs')
         plt.title('Distribution of solutions per run')
         plt.show()
-        solutions_runnings.append(current_solution.costs)
+        solutions_runs.append(current_solution.costs)
         solutions.append(solution)
-        runnings += 1
+        runs += 1
 
     print("Iterations:", count)
     spacefreight.printing(current_solution)
 
-    plt.plot(list(range(max_runnings)), solutions_runnings, color='skyblue')
+    plt.plot(list(range(max_runs)), solutions_runs, color='skyblue')
     plt.xlabel('Runs')
     plt.ylabel('Costs')
     plt.title('Distributions of costs over the hill_climbers')
     plt.show()
 
-    for i in list(range(max_runnings)):
+    for i in list(range(max_runs)):
         plt.plot(x, solutions[i])
     plt.xlabel('Iterations')
     plt.ylabel('Costs (in billion dollars)')
@@ -242,7 +238,7 @@ def aanroepen_hill_climber_combined():
 
     return iterations_dataframe
 
-def aanroepen_simulated_annealing():
+def call_simulated_annealing():
     iterations_dataframe = pd.DataFrame()
     max_iterations = 100
 
@@ -259,7 +255,7 @@ def aanroepen_simulated_annealing():
 
     return iterations_dataframe
 
-def aanroepen_simulated_annealing_combined():
+def call_simulated_annealing_combined():
     iterations_dataframe = pd.DataFrame()
     max_iterations = 100
 

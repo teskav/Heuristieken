@@ -11,7 +11,6 @@ import copy
 
 spacefreight = SpaceFreight()
 
-
 def hill_climber(iterations_dataframe, max_iterations):
     count = 0
     solutions = []
@@ -44,9 +43,9 @@ def hill_climber_spacecrafts(iterations_dataframe, max_iterations):
     while count < max_iterations:
 
         check, neighbour_solution = neighbour_random_spacecraft_switch(current_solution)
-        print(check)
-        print(neighbour_solution.costs)
-        print(current_solution.costs)
+        # print(check)
+        # print(neighbour_solution.costs)
+        # print(current_solution.costs)
 
         # compare costs & check of hij geen error geeft
         if neighbour_solution.costs < current_solution.costs and check == True:
@@ -57,8 +56,8 @@ def hill_climber_spacecrafts(iterations_dataframe, max_iterations):
         solutions.append(current_solution.costs)
         count += 1
 
-        print("Iterations:", count)
-        spacefreight.printing(current_solution)
+        # print("Iterations:", count)
+        # spacefreight.printing(current_solution)
 
     return iterations_dataframe, count, current_solution, solutions
 
@@ -74,10 +73,10 @@ def hill_climber_combined(iterations_dataframe, max_iterations):
         # generate neighbour solution
         random_number = random.random()
         if random_number < 0.5:
-            print('Neighbor: spacecraft')
+            print('Neighbour: spacecraft')
             check, neighbour_solution = neighbour_random_spacecraft_switch(current_solution)
         else:
-            print('Neighbor: parcel')
+            print('Neighbour: parcel')
             check, neighbour_solution = neighbour_random_parcel_switch(current_solution)
 
         print(check)
@@ -119,7 +118,6 @@ def neighbour_random_parcel_switch(current_solution):
         # update costs
         neighbour_solution.costs = spacefreight.calculate_costs(neighbour_solution)
 
-
     # switch parcels in spacecraft
     return check, neighbour_solution
 
@@ -146,8 +144,18 @@ def neighbour_random_spacecraft_switch(current_solution):
         # update costs
         neighbour_solution.costs = spacefreight.calculate_costs(neighbour_solution)
         return check, neighbour_solution
+    # volgens mij kan dit gewoon zijn:
+    # else:
+    #     return False, current_solution
     elif spacecraft_new.payload_vol < spacecraft_new.packed_vol or spacecraft_new.payload_mass < spacecraft_new.packed_mass:
         return False, current_solution
+
+    # else:
+    #     check = spacefreight.swap_spacecraft(spacecraft_1, spacecraft_2)
+    #     neighbour_solution.used_spacecrafts.remove(spacecraft_1)
+    #     neighbour_solution.used_spacecrafts.add(spacecraft_2)
+    #     neighbour_solution.costs = spacefreight.calculate_costs(neighbour_solution)
+    #     return check, neighbour_solution
 
     # return neighbour solution
     # return check, neighbour_solution

@@ -72,6 +72,7 @@ def random_constraints():
         parcel = spacefreight.all_parcels[parcel_number]
         if (parcel.mass < mean_mass) and (parcel.volume > mean_vol):
             if spacefreight.check(spacefreight.spacecrafts[0], parcel) and parcel.ID in spacefreight.unpacked_parcels:
+        # if check_cygnus1(parcel) == True and check_cygnus2(parcel) == True:
                 spacefreight.update(spacefreight.spacecrafts[0], parcel)
         if (parcel.mass < (mean_mass / 2)) and (parcel.volume < mean_vol):
             if spacefreight.check(spacefreight.spacecrafts[1], parcel) and parcel.ID in spacefreight.unpacked_parcels:
@@ -155,6 +156,7 @@ def random_constraints_all():
     # allocate parcels with iterative constraints
     for parcel_number in parcel_randoms:
         parcel = spacefreight.all_parcels[parcel_number]
+        # if check_cygnus1(parcel) == True and check_cygnus2(parcel) == True:
         if (parcel.mass < mean_mass) and (parcel.volume > mean_vol):
             if spacefreight.check(spacefreight.spacecrafts[0], parcel) and parcel.ID in spacefreight.unpacked_parcels:
                 spacefreight.update(spacefreight.spacecrafts[0], parcel)
