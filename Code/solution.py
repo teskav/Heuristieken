@@ -1,5 +1,7 @@
-##!/usr/bin/env python
-# Name: Sofie, Teska Wies
+# HEURISTIEKEN
+# April - Mei 2019
+# Space Freight
+# Sofie Löhr, Teska Vaessen & Wies de Wit
 """
 This script sets the class solution
 """
@@ -20,10 +22,3 @@ class Solution(object):
         self.costs = costs
         # list of used spacecrafts objects
         self.used_spacecrafts = used_spacecrafts
-
-    #
-    # def __getitem__(self, key):
-    # # loop over spacecrafts tot je de goeie vindt die key is
-    # # dan deze list returnen
-    #
-    #     return self.Solution[key]

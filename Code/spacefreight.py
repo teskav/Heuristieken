@@ -1,8 +1,11 @@
-#!/usr/bin/env python
-# Name: Sofie, Teska Wies
+# HEURISTIEKEN
+# April - Mei 2019
+# Space Freight
+# Sofie Löhr, Teska Vaessen & Wies de Wit
 """
 This script sets the spacefreight class
 """
+
 # imports
 import pandas as pd
 import csv
@@ -13,7 +16,6 @@ from parcel import Parcel
 from spacecraft import Spacecraft
 from solution import Solution
 
-# Global constants
 INPUT = "CargoLists/CargoList1.csv"
 
 billion = 1000000000
@@ -37,8 +39,8 @@ class SpaceFreight():
 		self.spacecrafts.append(Spacecraft('Progress', 2400, 7.6, 7020, 175000000, 0.74))
 		self.spacecrafts.append(Spacecraft('Kounotori', 5200, 14, 10500, 420000000, 0.71))
 		self.spacecrafts.append(Spacecraft('Dragon', 6000, 10, 12200, 347000000, 0.72))
-		self.spacecrafts.append(Spacecraft('TianZhou', 6500, 15, 13500, 412000000, 0.75))
-		self.spacecrafts.append(Spacecraft('Verne ATV', 7500, 48, 20500, 1080000000, 0.72))
+		# self.spacecrafts.append(Spacecraft('TianZhou', 6500, 15, 13500, 412000000, 0.75))
+		# self.spacecrafts.append(Spacecraft('Verne ATV', 7500, 48, 20500, 1080000000, 0.72))
 
 	def load_parcels(self, file):
 		"""
@@ -147,19 +149,6 @@ class SpaceFreight():
 		spacecraft_2.packed_parcels = copy.copy(spacecraft_1.packed_parcels)
 		spacecraft_2.costs = self.calculate_costs_spacecraft(spacecraft_2)
 
-		# if spacecraft_2.payload_vol >= spacecraft_2.packed_vol and spacecraft_2.payload_mass >= spacecraft_2.packed_mass:
-		# 	spacecraft_1.packed_mass = 0
-		# 	spacecraft_1.packed_vol = 0
-		# 	spacecraft_1.packed_parcels = []
-		# 	spacecraft_1.costs = self.calculate_costs_spacecraft(spacecraft_1)
-		# 	return True
-		# else:
-		# 	spacecraft_2.packed_mass = 0
-		# 	spacecraft_2.packed_vol = 0
-		# 	spacecraft_2.packed_parcels = []
-		# 	spacecraft_2.costs = self.calculate_costs_spacecraft(spacecraft_2)
-		# 	return False
-
 		return spacecraft_2
 
 	def save_iteration(self, solution, count):
@@ -180,7 +169,6 @@ class SpaceFreight():
 			data.append(parcels)
 			data.append(spacecraft.costs)
 			data.append("{0:.3f}".format(spacecraft.packed_mass))
-			# print("{0:.3f}".format(spacecraft.packed_mass))
 			data.append("{0:.3f}".format(spacecraft.packed_vol))
 			# append column names
 			column_names.extend(['name', 'number_packed_parcels', 'packed_parcels', 'spacecraft_costs', 'spacecraft_packed_mass', 'spacecraft_packed_vol'])
@@ -194,7 +182,6 @@ class SpaceFreight():
 		Save the solution from an iteration in a dataframe
 		"""
 		column_names = ['algorithm_name', 'iteration', 'costs_solution', 'number_unpacked_parcels', 'unpacked_parcels', 'temperature', 'acceptatiekans']
-		# columns = ['algorithm_name', 'iteration', 'costs_solution', 'number_unpacked_parcels', 'unpacked_parcels']
 		data = [solution.name, count, solution.costs, solution.not_bring, solution.unpacked_parcels, temperature, acceptatiekans]
 		# append to dataframe
 		for spacecraft in solution.used_spacecrafts:
@@ -225,7 +212,6 @@ class SpaceFreight():
 			fuel_spacecraft = (spacecraft.mass + spacecraft.payload_mass) * spacecraft.FtW * (1 - spacecraft.FtW)
 			costs_spacecraft = spacecraft.base_cost + math.ceil(fuel_spacecraft * 1000)
 			costs_max += costs_spacecraft
-		# niet deze costs = spacecraft.base_cost + round(fuel * 1000)
 		return costs_max
 
 	def min_costs(self):
@@ -237,5 +223,4 @@ class SpaceFreight():
 			fuel_spacecraft = (spacecraft.mass + 0) * spacecraft.FtW * (1 - spacecraft.FtW)
 			costs_spacecraft = spacecraft.base_cost + math.ceil(fuel_spacecraft * 1000)
 			costs_min += costs_spacecraft
-		# niet deze costs = spacecraft.base_cost + round(fuel * 1000)
 		return costs_min

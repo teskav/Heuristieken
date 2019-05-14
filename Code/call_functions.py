@@ -1,5 +1,11 @@
-from parcel import Parcel
-from spacecraft import Spacecraft
+# HEURISTIEKEN
+# April - Mei 2019
+# Space Freight
+# Sofie Löhr, Teska Vaessen & Wies de Wit
+"""
+This script is used for calling functions from the main
+"""
+
 from spacefreight import SpaceFreight
 from random_algorithms_new import *
 from first_fit_algorithms import *
@@ -11,6 +17,9 @@ import pandas as pd
 spacefreight = SpaceFreight()
 
 def call_random():
+    """
+    Calls the random algorithm, not taking all parcels
+    """
     iterations_dataframe = pd.DataFrame()
     max_iterations = 1000
     count = 0
@@ -38,6 +47,9 @@ def call_random():
     return iterations_dataframe
 
 def call_constrained():
+    """
+    Calls the constrained algorithm, not taking all parcels
+    """
     iterations_dataframe = pd.DataFrame()
     max_iterations = 1000
     count = 0
@@ -65,6 +77,9 @@ def call_constrained():
     return iterations_dataframe
 
 def call_random_all():
+    """
+    Calls the random algorithm, taking all parcels
+    """
     iterations_dataframe = pd.DataFrame()
     max_iterations = 1000
     # run all parcels random
@@ -91,6 +106,9 @@ def call_random_all():
     return iterations_dataframe
 
 def call_constrained_all():
+    """
+    Calls the constrained algorithm, taking all parcels
+    """
     iterations_dataframe = pd.DataFrame()
     max_iterations = 1000
     # run all parcels constrained
@@ -117,6 +135,9 @@ def call_constrained_all():
     return iterations_dataframe
 
 def call_hill_climber():
+    """
+    Calls the hill climber algorithm swapping parcels
+    """
     iterations_dataframe = pd.DataFrame()
     max_iterations = 2000
 
@@ -161,6 +182,9 @@ def call_hill_climber():
     return iterations_dataframe
 
 def call_hill_climber_spacecrafts():
+    """
+    Calls the hill climber algorithm swapping spacecrafts
+    """
     iterations_dataframe = pd.DataFrame()
     max_iterations = 1000
 
@@ -200,6 +224,9 @@ def call_hill_climber_spacecrafts():
     return iterations_dataframe
 
 def call_hill_climber_combined():
+    """
+    Calls the hill climber swapping spacecrafts and parcels
+    """
     iterations_dataframe = pd.DataFrame()
     max_iterations = 1000
 
@@ -239,6 +266,9 @@ def call_hill_climber_combined():
     return iterations_dataframe
 
 def call_simulated_annealing():
+    """
+    Calls the simulated annealing algorithm
+    """
     iterations_dataframe = pd.DataFrame()
     max_iterations = 100
 
@@ -256,6 +286,9 @@ def call_simulated_annealing():
     return iterations_dataframe
 
 def call_simulated_annealing_combined():
+    """
+    Calls the simulated annealing swapping spacecrafts and parcels
+    """
     iterations_dataframe = pd.DataFrame()
     max_iterations = 100
 

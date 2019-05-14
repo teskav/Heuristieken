@@ -1,8 +1,12 @@
-#!/usr/bin/env python
-# Name: Sofie, Teska Wies
+# HEURISTIEKEN
+# April - Mei 2019
+# Space Freight
+# Sofie Löhr, Teska Vaessen & Wies de Wit
+
 """
 This script contains the different versions (functions) of the random algorithms
 """
+
 from spacefreight import SpaceFreight
 from solution import Solution
 from helpers import *
@@ -14,10 +18,6 @@ import copy
 TARGETR = 4
 
 spacefreight = SpaceFreight()
-
-# the means of the volumes and the masses
-mean_mass = np.mean([parcel.mass for parcel in spacefreight.all_parcels])
-mean_vol = np.mean([parcel.volume for parcel in spacefreight.all_parcels])
 
 def random_greedy():
     """
@@ -88,7 +88,6 @@ def random_constraints():
 
         # add spacecraft to used_spacecrafts
         used_spacecrafts.append(spacecraft)
-    # used_spacecrafts, total_costs = allocate_random(spacecraft_randoms, parcel_randoms, used_spacecrafts, total_costs)
 
     # save solution
     current_solution = Solution('random constrained', len(spacefreight.unpacked_parcels), spacefreight.unpacked_parcels, total_costs, used_spacecrafts)
