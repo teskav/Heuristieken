@@ -70,19 +70,9 @@ def random_constraints():
     # allocate parcels with iterative constraints
     for parcel_number in parcel_randoms:
         parcel = spacefreight.all_parcels[parcel_number]
-        if (parcel.mass < mean_mass) and (parcel.volume > mean_vol):
-            if spacefreight.check(spacefreight.spacecrafts[0], parcel) and parcel.ID in spacefreight.unpacked_parcels:
-        # if check_cygnus1(parcel) == True and check_cygnus2(parcel) == True:
-                spacefreight.update(spacefreight.spacecrafts[0], parcel)
-        if (parcel.mass < (mean_mass / 2)) and (parcel.volume < mean_vol):
-            if spacefreight.check(spacefreight.spacecrafts[1], parcel) and parcel.ID in spacefreight.unpacked_parcels:
-                spacefreight.update(spacefreight.spacecrafts[1], parcel)
-        if (parcel.mass > mean_mass) and (parcel.volume > mean_vol):
-            if spacefreight.check(spacefreight.spacecrafts[2], parcel) and parcel.ID in spacefreight.unpacked_parcels:
-                spacefreight.update(spacefreight.spacecrafts[2], parcel)
-        if (parcel.mass > mean_mass) and (parcel.volume < mean_vol):
-            if spacefreight.check(spacefreight.spacecrafts[3], parcel) and parcel.ID in spacefreight.unpacked_parcels:
-                spacefreight.update(spacefreight.spacecrafts[3], parcel)
+        for number in range(len(spacefreight.spacecrafts)):
+            if check_constraints_spacecraft(parcel, number) == True and check_constraints(parcel, spacefreight, number) == True:
+                spacefreight.update(spacefreight.spacecrafts[number], parcel)
 
     # allocating the rest of the parcels random
     for spacecraft_number in spacecraft_randoms:
@@ -156,19 +146,9 @@ def random_constraints_all():
     # allocate parcels with iterative constraints
     for parcel_number in parcel_randoms:
         parcel = spacefreight.all_parcels[parcel_number]
-        # if check_cygnus1(parcel) == True and check_cygnus2(parcel) == True:
-        if (parcel.mass < mean_mass) and (parcel.volume > mean_vol):
-            if spacefreight.check(spacefreight.spacecrafts[0], parcel) and parcel.ID in spacefreight.unpacked_parcels:
-                spacefreight.update(spacefreight.spacecrafts[0], parcel)
-        if (parcel.mass < (mean_mass / 2)) and (parcel.volume < mean_vol):
-            if spacefreight.check(spacefreight.spacecrafts[1], parcel) and parcel.ID in spacefreight.unpacked_parcels:
-                spacefreight.update(spacefreight.spacecrafts[1], parcel)
-        if (parcel.mass > mean_mass) and (parcel.volume > mean_vol):
-            if spacefreight.check(spacefreight.spacecrafts[2], parcel) and parcel.ID in spacefreight.unpacked_parcels:
-                spacefreight.update(spacefreight.spacecrafts[2], parcel)
-        if (parcel.mass > mean_mass) and (parcel.volume < mean_vol):
-            if spacefreight.check(spacefreight.spacecrafts[3], parcel) and parcel.ID in spacefreight.unpacked_parcels:
-                spacefreight.update(spacefreight.spacecrafts[3], parcel)
+        for number in range(len(spacefreight.spacecrafts)):
+            if check_constraints_spacecraft(parcel, number) == True and check_constraints(parcel, spacefreight, number) == True:
+                spacefreight.update(spacefreight.spacecrafts[number], parcel)
 
     # allocating the rest of the parcels random
     for spacecraft_number in spacecraft_randoms:

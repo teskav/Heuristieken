@@ -151,7 +151,7 @@ def acceptatie(current_solution, neighbour_solution, count, max_iterations):
     Returns True if neighbour solution gets accepted, False if not
     """
     # bereken verkorting
-    verkorting = -1 * (neighbour_solution.costs - current_solution.costs)
+    verkorting = current_solution.costs - neighbour_solution.costs
     # bereken temperature
     temperature = cooling_scheme(count, max_iterations)
 
