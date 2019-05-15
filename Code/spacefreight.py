@@ -158,8 +158,10 @@ class SpaceFreight():
 		# column_names = ['algorithm_name', 'iteration', 'costs_solution', 'number_unpacked_parcels', 'unpacked_parcels']
 		# columns = ['algorithm_name', 'iteration', 'costs_solution', 'number_unpacked_parcels', 'unpacked_parcels']
 		data = [solution.name, count, solution.costs, solution.not_bring, solution.unpacked_parcels]
+		vloot = []
 		# append to dataframe
 		for spacecraft in solution.used_spacecrafts:
+			vloot.append(spacecraft.name)
 			# append data
 			data.append(spacecraft.name)
 			data.append(len(spacecraft.packed_parcels))
@@ -172,7 +174,7 @@ class SpaceFreight():
 			data.append("{0:.3f}".format(spacecraft.packed_vol))
 			# append column names
 			# column_names.extend(['name', 'number_packed_parcels', 'packed_parcels', 'spacecraft_costs', 'spacecraft_packed_mass', 'spacecraft_packed_vol'])
-
+		
 		row = pd.DataFrame([data])
 
 		return row

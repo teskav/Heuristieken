@@ -323,15 +323,8 @@ def call_simulated_annealing_combined():
 def call_political_constraints():
 
     runs_dataframe = pd.DataFrame()
-    max_runs = 100
+    max_runs = 1000
     count = 0
-
-    # ik bewaar nu niet meer de 'beste solution' die dan geprint word
-    # doe dit later vanuit de dataframe waar ik zoek naar de minimale kosten
-    # run all parcels random
-    # best_solution = political_constraints(countries)
-    # dataframe_row = spacefreight.save_iteration(best_solution, count)
-    # iterations_dataframe = iterations_dataframe.append(dataframe_row, ignore_index=True)
 
     while count < max_runs:
 
@@ -351,6 +344,7 @@ def call_political_constraints():
     # plot alle oplossingen samen
     plot_costs(runs_dataframe)
     # plot per verschillende floot
-    print(runs_dataframe)
+    runs_high_costs = runs_dataframe[runs_dataframe.iloc[:, 2]>2460000000]
+    plot_costs(runs_high_costs)
 
     return runs_dataframe

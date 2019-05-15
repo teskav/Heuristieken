@@ -51,4 +51,4 @@ if text == 'political constraints':
 iterations_dataframe.to_csv(r'../Heuristieken/Outputs/political_constraints_CL1_1000.csv')
 
 # plot costs of iterations FROM DATAFRAME
-plot_costs(iterations_dataframe)
+# plot_costs(iterations_dataframe)
