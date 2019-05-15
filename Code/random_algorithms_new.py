@@ -185,3 +185,46 @@ def random_constraints_all():
     current_solution = Solution('constraints all', len(spacefreight.unpacked_parcels), spacefreight.unpacked_parcels, total_costs, used_spacecrafts)
 
     return current_solution
+
+def political_constraints(countries):
+    """
+    Random allocate the parcels in spacecrafts with the political constraints
+    The difference between the number of spacecrafts of countries can be at most 1
+    """
+    # set starting settings random
+    used_spacecrafts, total_costs, parcel_randoms, spacecraft_randoms = set_up_random()
+
+    # every single run of the function sets unpacked_parcels at starting point
+    spacefreight.unpacked_parcels = set_up_unpacked()
+
+    while len(spacefreight.unpacked_parcels) > 0:
+        # select random spacecraft
+        spacecraft = copy.copy(random.choice(spacefreight.spacecrafts))
+
+        # add 1 to dataframe
+        countries.loc[countries['country'] == spacecraft.country, ['spacecrafts']] += 1
+
+        # check if political constraints are not violated
+        if not countries['spacecrafts'].min() >= (countries['spacecrafts'].max() - 1):
+            # change number of spacecrafts back and
+            countries.loc[countries['country'] == spacecraft.country, ['spacecrafts']] -= 1
+        else:
+            # set variables at 0
+            empty_single_spacecraft(spacecraft)
+
+            for parcel_number in parcel_randoms:
+                parcel = spacefreight.all_parcels[parcel_number]
+                if spacefreight.check(spacecraft, parcel) and parcel.ID in spacefreight.unpacked_parcels:
+                    spacecraft = spacefreight.update(spacecraft, parcel)
+
+            #calculate costs spacecraft
+            spacecraft.costs = spacefreight.calculate_costs_spacecraft(spacecraft)
+            total_costs += spacecraft.costs
+
+            # add spacecraft to used_spacecrafts
+            used_spacecrafts.append(spacecraft)
+
+    # save solution
+    current_solution = Solution('random all', len(spacefreight.unpacked_parcels), spacefreight.unpacked_parcels, total_costs, used_spacecrafts)
+
+    return current_solution

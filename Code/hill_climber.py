@@ -43,9 +43,6 @@ def hill_climber_spacecrafts(iterations_dataframe, max_iterations):
     while count < max_iterations:
 
         check, neighbour_solution = neighbour_random_spacecraft_switch(current_solution)
-        # print(check)
-        # print(neighbour_solution.costs)
-        # print(current_solution.costs)
 
         # compare costs & check of hij geen error geeft
         if neighbour_solution.costs < current_solution.costs and check == True:

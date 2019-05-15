@@ -7,14 +7,7 @@ Main script
 import sys
 sys.path[0] = sys.path[0] + '/Code'
 # import
-# from parcel import Parcel
-# from spacecraft import Spacecraft
 from spacefreight import SpaceFreight
-# from random_algorithms_new import *
-# from first_fit_algorithms import *
-# from hill_climber import *
-# from plot import *
-# import pandas as pd
 import matplotlib.pyplot as plt
 from call_functions import *
 
@@ -50,7 +43,10 @@ if text == 'simulated annealing':
 if text == 'simulated annealing combined':
     iterations_dataframe = call_simulated_annealing_combined()
 
-# iterations_dataframe.to_csv(r'../Heuristieken/Outputs/constrained_all_10000.csv')
+if text == 'political constraints':
+    iterations_dataframe = call_political_constraints()
+
+iterations_dataframe.to_csv(r'../Heuristieken/Outputs/political_constraints_CL1_1000.csv')
 
 # plot costs of iterations FROM DATAFRAME
 # plot_costs(iterations_dataframe)

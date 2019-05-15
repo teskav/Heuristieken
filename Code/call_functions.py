@@ -128,7 +128,7 @@ def call_hill_climber():
 
     # HILL CLIMBER max_runs aantal keer en per running max_iterations aantal iteraties
     runs = 0
-    max_runs = 200
+    max_runs = 1
     solutions_runs = []
     solutions = []
     sorted_list = []
@@ -286,3 +286,38 @@ def call_simulated_annealing_combined():
     plot_acceptatie(iterations_dataframe)
 
     return iterations_dataframe
+
+def call_political_constraints():
+
+    runs_dataframe = pd.DataFrame()
+    max_runs = 100
+    count = 0
+
+    # ik bewaar nu niet meer de 'beste solution' die dan geprint word
+    # doe dit later vanuit de dataframe waar ik zoek naar de minimale kosten
+    # run all parcels random
+    # best_solution = political_constraints(countries)
+    # dataframe_row = spacefreight.save_iteration(best_solution, count)
+    # iterations_dataframe = iterations_dataframe.append(dataframe_row, ignore_index=True)
+
+    while count < max_runs:
+
+        # set up dataframe with all countries and number of spacecrafts used
+        data = [['USA', 0], ['Russia', 0], ['Japan', 0], ['China', 0], ['Europe', 0]]
+        countries = pd.DataFrame(data, columns = ['country', 'spacecrafts'])
+
+        solution = political_constraints(countries)
+
+        dataframe_row = spacefreight.save_iteration(solution, count)
+        runs_dataframe = runs_dataframe.append(dataframe_row, ignore_index=True)
+
+        count +=1
+
+    print(runs_dataframe.iloc[:, 2].min())
+
+    # plot alle oplossingen samen
+    plot_costs(runs_dataframe)
+    # plot per verschillende floot
+    print(runs_dataframe)
+
+    return runs_dataframe

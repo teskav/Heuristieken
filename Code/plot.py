@@ -7,21 +7,13 @@ Script with plot functions
 import matplotlib.pyplot as plt
 
 def plot_costs(iterations_dataframe):
-
+    "This function plots the outcome of multiple runs in 1 graph"
     plt.plot(list(range(len(iterations_dataframe.iloc[:,2]))), iterations_dataframe.iloc[:,2])
-    plt.xlabel('Iterations')
+    plt.xlabel('Runs')
     plt.ylabel('Costs')
     plt.title('Distributions of solutions per run')
     plt.show()
 
-
-def plot_histogram():
-    n_bins=max(plot_parcels)-min(plot_parcels)
-    plt.hist(plot_parcels, bins=n_bins, align='left')
-    plt.xticks(range(min(plot_parcels), max(plot_parcels)))
-    plt.xlabel('Number of parcels packed')
-    plt.ylabel('Times')
-    plt.show()
 
 def plot_cooling(iterations_dataframe):
     "This function plots the cooling schedule (course of the temperature) of 1 run of the simulated annealing"

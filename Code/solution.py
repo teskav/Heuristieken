@@ -20,10 +20,3 @@ class Solution(object):
         self.costs = costs
         # list of used spacecrafts objects
         self.used_spacecrafts = used_spacecrafts
-
-    #
-    # def __getitem__(self, key):
-    # # loop over spacecrafts tot je de goeie vindt die key is
-    # # dan deze list returnen
-    #
-    #     return self.Solution[key]
