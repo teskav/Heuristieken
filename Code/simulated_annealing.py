@@ -1,8 +1,11 @@
-#!/usr/bin/env python
-# Name: Sofie, Teska Wies
+# HEURISTIEKEN
+# April - Mei 2019
+# Space Freight
+# Sofie Löhr, Teska Vaessen & Wies de Wit
 """
 This script contains the different versions (functions) of the SIMULATED ANNEALING algorithms
 """
+
 from spacefreight import SpaceFreight
 from random_algorithms_new import *
 import random
@@ -14,6 +17,9 @@ spacefreight = SpaceFreight()
 
 
 def simulated_annealing(iterations_dataframe, max_iterations):
+    """
+    The simulated annealing algorithm swapping
+    """
     count = 0
     # starting solution -> buiten hill climber
     current_solution = random_all_parcels()
@@ -35,11 +41,9 @@ def simulated_annealing(iterations_dataframe, max_iterations):
 
         # compare costs & check of hij geen error geeft
         if neighbour_solution.costs <= current_solution.costs and check == True:
-            print('Hoi')
             current_solution = neighbour_solution
             acceptatie_kans = None
         elif random_number < acceptatie_kans and check == True:
-            print('Doei')
             current_solution = neighbour_solution
         # elif acceptatie(current_solution, neighbour_solution, count, max_iterations):
         #     print('Doei')
@@ -59,7 +63,6 @@ def simulated_annealing_combined(iterations_dataframe, max_iterations):
     # select neighbouring solution
     while count < max_iterations:
         # Generate neighbour solution
-        # generate neighbour solution
         random_number = random.random()
         if random_number < 0.3:
             print('Neighbor: spacecraft')

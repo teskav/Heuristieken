@@ -1,8 +1,11 @@
-#!/usr/bin/env python
-# Name: Sofie, Teska Wies
+# HEURISTIEKEN
+# April - Mei 2019
+# Space Freight
+# Sofie Löhr, Teska Vaessen & Wies de Wit
 """
-Main script
+Main script, used to process the call for functions in the terminal
 """
+
 # set import location
 import sys
 sys.path[0] = sys.path[0] + '/Code'
@@ -15,7 +18,6 @@ spacefreight = SpaceFreight()
 
 text = input("Please give input: ")
 
-# RUN NOT ALL PARCELS
 if text == 'random':
     iterations_dataframe = call_random()
 
@@ -49,15 +51,4 @@ if text == 'political constraints':
 iterations_dataframe.to_csv(r'../Heuristieken/Outputs/political_constraints_CL1_1000.csv')
 
 # plot costs of iterations FROM DATAFRAME
-# plot_costs(iterations_dataframe)
-
-# histogram of number of parcels packed -> nog niet als functie gemaakt
-# plot_histogram()
-
-
-# n_bins=max(plot_parcels)-min(plot_parcels)
-# plt.hist(plot_parcels, bins=n_bins, align='left')
-# plt.xticks(range(min(plot_parcels), max(plot_parcels)))
-# plt.xlabel('Number of parcels packed')
-# plt.ylabel('Times')
-# plt.show()
+plot_costs(iterations_dataframe)

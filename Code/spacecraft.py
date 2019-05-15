@@ -1,5 +1,7 @@
-#!/usr/bin/env python
-# Name: Sofie, Teska Wies
+# HEURISTIEKEN
+# April - Mei 2019
+# Space Freight
+# Sofie Löhr, Teska Vaessen & Wies de Wit
 """
 This script sets the class Parcel
 """
@@ -25,9 +27,6 @@ class Spacecraft(object):
         """
 		Removes an item from the packed parcel list of an spacecraft
 		"""
-        # we moeten denk ik wel al de massa en volume aanpassen in de remove en
-        # add, want dan kan je in de swap checken of er uberhaupt geswapt kan worden
-
         # Remove item from the list
         self.packed_parcels.remove(parcel)
 

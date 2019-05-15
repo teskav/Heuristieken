@@ -1,5 +1,7 @@
-#!/usr/bin/env python
-# Name: Sofie, Teska Wies
+# HEURISTIEKEN
+# April - Mei 2019
+# Space Freight
+# Sofie Löhr, Teska Vaessen & Wies de Wit
 """
 This script sets the class Parcel
 """
