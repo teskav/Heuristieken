@@ -19,7 +19,7 @@ TARGETR = 4
 
 spacefreight = SpaceFreight()
 
-def random_greedy():
+def random_algorithm():
     """
     Random allocate the parcels in spacecrafts
     """
@@ -52,7 +52,7 @@ def random_greedy():
 
     return current_solution
 
-def random_constraints():
+def pseudo_greedy_random():
     """
     Random allocate the parcels in random spacecrafts with constraints
     """
@@ -127,7 +127,7 @@ def random_all_parcels():
 
     return current_solution
 
-def random_constraints_all():
+def pseudo_greedy_random_all():
     """
     Random allocate the parcels in random spacecrafts with constraints
     """

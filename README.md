@@ -17,7 +17,7 @@ Base cost + roundup(F x 1000)
 
 ### State Space
 #### General
-For the statespace we looked at the properties of each cargolist. We calculated the minimum amount of spacecrafts needed to bring all parcels and the (reasonal) maximum amount of spacecrafts needed. With this information we calculate the lower bound and upper bound of the state space as follows:
+For the statespace we looked at the properties of each cargolist and of each spacecraft. We calculated the minimum amount of spacecrafts needed to bring all parcels and the (reasonal) maximum amount of spacecrafts needed. With this information we calculate the lower bound and upper bound of the state space as follows:
 
 + Lower bound = (Minimum amount of spacecrafts)^(number of parcels in cargolist)
 + Upper bound = (Maximum amount of spacecrafts)^(number of parcels in cargolist)
@@ -39,6 +39,8 @@ So the state space for cargolist 3 is:
 
 + Lower bound = 46^1000 = 1,89 * 10^166
 + Upper bound = 84^1000 = 2,68 * 10^192
+
+VRAAG: HEBBEN WE HIER REKENING GEHOUDEN MET DE 6 SPACECRAFTS BIJ LIJST 3 WANT MOETEN WE EIGENLIJK WEL DOEN
 
 ### Upper & lower bound costs
 When deploying all four spacecrafts once, we get the following upper- and lowerbound for the costs.
@@ -66,10 +68,18 @@ pip install -r requirements.txt
 All Python scripts are in the folder Code. The Cargolists folder contains all three cargolists with their input values and in the Outputs folder are all results that are stored by the code.
 
 ### Testing
-To run the code use the following instruction: NOG BETER UITWERKEN ALS HET UITEINDELIJK KLAAR IS
+To run the code use the following instruction:
 ```
 python main.py
 ```
+```
+Please give cargolist number:
+```
+Type 1, 2 or 3 to load the cargolist you want.
+```
+Please give algorithm:
+```
+Type here the algorithm you want to run. Options: random, pseudo greedy random, random all, pseudo greedy random all, hill climber, hill climber spacecrafts, hill climber combined, simulated annealing, simulated annealing combined, political constraints.
 
 ### Data
 Structure:

@@ -23,13 +23,13 @@ def call_random():
     iterations_dataframe = pd.DataFrame()
     max_iterations = 1000
     count = 0
-    best_solution = random_greedy()
+    best_solution = random_algorithm()
     dataframe_row = spacefreight.save_iteration(best_solution, count)
     iterations_dataframe = iterations_dataframe.append(dataframe_row, ignore_index=True)
 
     while count < max_iterations:
         count += 1
-        solution = random_greedy()
+        solution = random_algorithm()
 
         # save to dataframe
         dataframe_row = spacefreight.save_iteration(solution, count)
@@ -46,20 +46,20 @@ def call_random():
 
     return iterations_dataframe
 
-def call_constrained():
+def call_pseudo_greedy_random():
     """
     Calls the constrained algorithm, not taking all parcels
     """
     iterations_dataframe = pd.DataFrame()
     max_iterations = 1000
     count = 0
-    best_solution = random_constraints()
+    best_solution = pseudo_greedy_random()
     dataframe_row = spacefreight.save_iteration(best_solution, count)
     iterations_dataframe = iterations_dataframe.append(dataframe_row, ignore_index=True)
 
     while count < max_iterations:
         count += 1
-        solution = random_constraints()
+        solution = pseudo_greedy_random()
 
         # save to dataframe
         dataframe_row = spacefreight.save_iteration(solution, count)
@@ -105,21 +105,21 @@ def call_random_all():
 
     return iterations_dataframe
 
-def call_constrained_all():
+def call_pseudo_greedy_random_all():
     """
     Calls the constrained algorithm, taking all parcels
     """
     iterations_dataframe = pd.DataFrame()
     max_iterations = 1000
     # run all parcels constrained
-    best_solution = random_constraints_all()
+    best_solution = pseudo_greedy_random_all()
     count = 0
     dataframe_row = spacefreight.save_iteration(best_solution, count)
     iterations_dataframe = iterations_dataframe.append(dataframe_row, ignore_index=True)
 
     while count < max_iterations:
         count += 1
-        solution = random_constraints_all()
+        solution = pseudo_greedy_random_all()
 
         # save to dataframe
         dataframe_row = spacefreight.save_iteration(solution, count)
@@ -149,7 +149,7 @@ def call_hill_climber():
 
     # HILL CLIMBER max_runs aantal keer en per running max_iterations aantal iteraties
     runs = 0
-    max_runs = 1
+    max_runs = 2
     solutions_runs = []
     solutions = []
     sorted_list = []
@@ -323,7 +323,7 @@ def call_simulated_annealing_combined():
 def call_political_constraints():
 
     runs_dataframe = pd.DataFrame()
-    max_runs = 1000
+    max_runs = 10
     count = 0
 
     while count < max_runs:
@@ -340,7 +340,7 @@ def call_political_constraints():
         count +=1
 
     print(runs_dataframe.iloc[:, 2].min())
-
+    spacefreight.printing(solution)
     # plot alle oplossingen samen
     plot_costs(runs_dataframe)
     # plot per verschillende floot
