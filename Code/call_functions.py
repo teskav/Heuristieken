@@ -81,7 +81,7 @@ def call_random_all():
     Calls the random algorithm, taking all parcels
     """
     iterations_dataframe = pd.DataFrame()
-    max_iterations = 1000
+    max_iterations = 100
     # run all parcels random
     best_solution = random_all_parcels()
     count = 0

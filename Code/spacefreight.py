@@ -52,8 +52,10 @@ class SpaceFreight():
 		self.spacecrafts.append(Spacecraft('Progress', 2400, 7.6, 7020, 175000000, 0.74, 'Russia'))
 		self.spacecrafts.append(Spacecraft('Kounotori', 5200, 14, 10500, 420000000, 0.71, 'Japan'))
 		self.spacecrafts.append(Spacecraft('Dragon', 6000, 10, 12200, 347000000, 0.72, 'USA'))
-		# self.spacecrafts.append(Spacecraft('TianZhou', 6500, 15, 13500, 412000000, 0.75, 'China'))
-		# self.spacecrafts.append(Spacecraft('Verne ATV', 7500, 48, 20500, 1080000000, 0.72, 'Europe'))
+
+		if INPUT == INPUT_3:
+			self.spacecrafts.append(Spacecraft('TianZhou', 6500, 15, 13500, 412000000, 0.75, 'China'))
+			self.spacecrafts.append(Spacecraft('Verne ATV', 7500, 48, 20500, 1080000000, 0.72, 'Europe'))
 
 	def load_parcels(self, file):
 		"""

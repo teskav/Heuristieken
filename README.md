@@ -75,7 +75,7 @@ python main.py
 ```
 Please give cargolist number:
 ```
-Type 1, 2 or 3 to load the cargolist you want.
+Type 1, 2 or 3 to load the cargolist you want. When you choose cargolist 1 or 2, you will take the 4 spacecrafts. If you choose cargolist 3, you will take the 6 spacecrafts.
 ```
 Please give algorithm:
 ```
