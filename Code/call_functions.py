@@ -205,7 +205,7 @@ def call_hill_climber_spacecrafts():
 
     # HILL CLIMBER max_runs aantal keer en per running max_iterations aantal iteraties
     runs = 0
-    max_runs = 2
+    max_runs = 30
     solutions_runs = []
     solutions = []
     x = list(range(max_iterations))

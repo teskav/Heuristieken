@@ -16,7 +16,9 @@ from parcel import Parcel
 from spacecraft import Spacecraft
 from solution import Solution
 
-INPUT = "CargoLists/CargoList1.csv"
+# INPUT = "CargoLists/CargoList1.csv"
+# INPUT = "CargoLists/CargoList2.csv"
+INPUT = "CargoLists/CargoList3.csv"
 
 billion = 1000000000
 
@@ -174,7 +176,7 @@ class SpaceFreight():
 			data.append("{0:.3f}".format(spacecraft.packed_vol))
 			# append column names
 			# column_names.extend(['name', 'number_packed_parcels', 'packed_parcels', 'spacecraft_costs', 'spacecraft_packed_mass', 'spacecraft_packed_vol'])
-		
+
 		row = pd.DataFrame([data])
 
 		return row
