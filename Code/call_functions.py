@@ -149,7 +149,7 @@ def call_hill_climber():
 
     # HILL CLIMBER max_runs aantal keer en per running max_iterations aantal iteraties
     runs = 0
-    max_runs = 1
+    max_runs = 200
     solutions_runs = []
     solutions = []
     sorted_list = []
