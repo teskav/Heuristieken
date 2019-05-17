@@ -8,14 +8,14 @@ Script with plot functions
 
 import matplotlib.pyplot as plt
 
-def plot_costs(iterations_dataframe):
+def plot_costs(dataframe):
     """
-    This function plots the outcome of multiple runs in 1 graph
+    This function plots the costs of multiple runs in 1 graph
     """
-    plt.plot(list(range(len(iterations_dataframe.iloc[:,2]))), iterations_dataframe.iloc[:,2])
+    plt.plot(list(range(len(dataframe['costs_solution']))), dataframe['costs_solution'])
     plt.xlabel('Runs')
     plt.ylabel('Costs')
-    plt.title('Distributions of solutions per run')
+    plt.title('Distribution of the solutions')
     plt.show()
 
 
@@ -23,7 +23,8 @@ def plot_cooling(iterations_dataframe):
     """
     This function plots the cooling schedule (course of the temperature) of 1 run of the simulated annealing"
     """
-    plt.plot(list(range(len(iterations_dataframe.iloc[:,2]))), iterations_dataframe.iloc[:,5])
+    # x plot kan misschien ook wel index kolom voor dataframe voor gebruikt worden
+    plt.plot(list(range(len(iterations_dataframe['temperature']))), iterations_dataframe['temperature'])
     plt.xlabel('Iterations')
     plt.ylabel('Temperature')
     plt.title('Cooling schedule')
@@ -33,7 +34,7 @@ def plot_acceptatie(iterations_dataframe):
     """
     This function plots the course of the acceptation rate of 1 run of the simulated annealing"
     """
-    plt.plot(list(range(len(iterations_dataframe.iloc[:,2]))), iterations_dataframe.iloc[:,6])
+    plt.plot(list(range(len(iterations_dataframe['acceptation_chance']))), iterations_dataframe['acceptation_chance'])
     plt.xlabel('Iterations')
     plt.ylabel('Acceptatiekans')
     plt.title('Verloop acceptatiekans')

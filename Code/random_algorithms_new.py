@@ -188,12 +188,12 @@ def pseudo_greedy_random_all():
 def political_constraints(countries):
     """
     Random allocate the parcels in spacecrafts with the political constraints
-    The difference between the number of spacecrafts of countries can be at most 1
+    The difference between the number of spacecrafts per country can be at most 1
     """
     # set starting settings random
     used_spacecrafts, total_costs, parcel_randoms, spacecraft_randoms = set_up_random()
 
-    # every single run of the function sets unpacked_parcels at starting point
+    # every run of the function sets unpacked_parcels at starting point
     spacefreight.unpacked_parcels = set_up_unpacked()
 
     while len(spacefreight.unpacked_parcels) > 0:
@@ -202,10 +202,11 @@ def political_constraints(countries):
 
         # add 1 to dataframe
         countries.loc[countries['country'] == spacecraft.country, ['spacecrafts']] += 1
+        print(countries)
 
         # check if political constraints are not violated
         if not countries['spacecrafts'].min() >= (countries['spacecrafts'].max() - 1):
-            # change number of spacecrafts back and
+            # change number of spacecrafts back and start over (choose new spacecrafts)
             countries.loc[countries['country'] == spacecraft.country, ['spacecrafts']] -= 1
         else:
             # set variables at 0
@@ -224,6 +225,6 @@ def political_constraints(countries):
             used_spacecrafts.append(spacecraft)
 
     # save solution
-    current_solution = Solution('random all', len(spacefreight.unpacked_parcels), spacefreight.unpacked_parcels, total_costs, used_spacecrafts)
+    current_solution = Solution('political constraints', len(spacefreight.unpacked_parcels), spacefreight.unpacked_parcels, total_costs, used_spacecrafts)
 
     return current_solution

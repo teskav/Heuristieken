@@ -28,16 +28,16 @@ def simulated_annealing(iterations_dataframe, max_iterations):
     while count < max_iterations:
         # Generate neighbour solution
         check, neighbour_solution = neighbour_random_parcel_switch(current_solution)
-        print(check)
-        print(neighbour_solution.costs)
-        print(current_solution.costs)
+        # print(check)
+        # print(neighbour_solution.costs)
+        # print(current_solution.costs)
 
         # get the temperature and the acceptatie kans and generate a random number
         temperature, acceptatie_kans = acceptatie(current_solution, neighbour_solution, count, max_iterations)
         random_number = random.random()
-        print('Random number: ', random_number)
-        print('Acceptatie kans: ', acceptatie_kans)
-        print('Temperatuur: ', temperature)
+        # print('Random number: ', random_number)
+        # print('Acceptatie kans: ', acceptatie_kans)
+        # print('Temperatuur: ', temperature)
 
         # compare costs & check of hij geen error geeft
         if neighbour_solution.costs <= current_solution.costs and check == True:

@@ -19,36 +19,42 @@ spacefreight = SpaceFreight()
 algorithm = input("Please give algorithm: ")
 
 if algorithm == 'random':
-    iterations_dataframe = call_random()
+    dataframe = call_random()
 
 if algorithm == 'pseudo greedy random':
-    iterations_dataframe = call_pseudo_greedy_random()
+    dataframe = call_pseudo_greedy_random()
 
 if algorithm == 'random all':
-    iterations_dataframe = call_random_all()
+    dataframe = call_random_all()
 
 if algorithm == 'pseudo greedy random all':
-    iterations_dataframe = call_pseudo_greedy_random_all()
+    dataframe = call_pseudo_greedy_random_all()
 
 if algorithm == 'hill climber':
-    iterations_dataframe = call_hill_climber()
+    iterations_dataframe, runs_dataframe = call_hill_climber()
 
 if algorithm == 'hill climber spacecrafts':
-    iterations_dataframe = call_hill_climber_spacecrafts()
+    iterations_dataframe, runs_dataframe = call_hill_climber_spacecrafts()
 
 if algorithm == 'hill climber combined':
-    iterations_dataframe = call_hill_climber_combined()
+    dataframe = call_hill_climber_combined()
 
 if algorithm == 'simulated annealing':
     iterations_dataframe = call_simulated_annealing()
 
 if algorithm == 'simulated annealing combined':
-    iterations_dataframe = call_simulated_annealing_combined()
+    dataframe = call_simulated_annealing_combined()
 
 if algorithm == 'political constraints':
-    iterations_dataframe = call_political_constraints()
+    dataframe = call_political_constraints()
 
-# iterations_dataframe.to_csv(r'../Heuristieken/Outputs/test.csv')
+# RANDOM ALL
+# iterations_dataframe.to_csv(r'../Heuristieken/Outputs/Random/test.csv')
 
-# plot costs of iterations FROM DATAFRAME
-# plot_costs(iterations_dataframe)
+# HILL CLIMBER (SPECIFY PARCEL OR SPACECRAFT SWITCH)
+# iterations_dataframe.to_csv(r'../Heuristieken/Outputs/Hill_Climber/iterations_spacecrafts.csv')
+# runs_dataframe.to_csv(r'../Heuristieken/Outputs/Hill_Climber/runs_spacecrafts.csv')
+
+
+# SIMULATED ANNEALING (nog geen runs dataframe)
+iterations_dataframe.to_csv(r'../Heuristieken/Outputs/Simulated_Annealing/iterations.csv')

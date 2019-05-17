@@ -170,25 +170,28 @@ class SpaceFreight():
 		"""
 		Save the solution from an iteration in a dataframe
 		"""
-		# column_names = ['algorithm_name', 'iteration', 'costs_solution', 'number_unpacked_parcels', 'unpacked_parcels']
-		# columns = ['algorithm_name', 'iteration', 'costs_solution', 'number_unpacked_parcels', 'unpacked_parcels']
-		data = [solution.name, count, solution.costs, solution.not_bring, solution.unpacked_parcels]
-		vloot = []
-		# append to dataframe
+		data = [solution.name, count, solution.costs]
+		fleet = []
+		costs_spacecraft = []
+		packed_mass_vol = []
+		packed_parcels = []
+
+		# make lists
 		for spacecraft in solution.used_spacecrafts:
-			vloot.append(spacecraft.name)
-			# append data
-			data.append(spacecraft.name)
-			data.append(len(spacecraft.packed_parcels))
+			fleet.append(spacecraft.name)
+			costs_spacecraft.append(spacecraft.costs)
+			packed_mass_vol.append([spacecraft.packed_mass, spacecraft.packed_vol])
+
 			parcels = []
 			for parcel in spacecraft.packed_parcels:
 				parcels.append(parcel.ID)
-			data.append(parcels)
-			data.append(spacecraft.costs)
-			data.append("{0:.3f}".format(spacecraft.packed_mass))
-			data.append("{0:.3f}".format(spacecraft.packed_vol))
-			# append column names
-			# column_names.extend(['name', 'number_packed_parcels', 'packed_parcels', 'spacecraft_costs', 'spacecraft_packed_mass', 'spacecraft_packed_vol'])
+
+			packed_parcels.append(parcels)
+
+		data.append(fleet)
+		data.append(costs_spacecraft)
+		data.append(packed_mass_vol)
+		data.append(packed_parcels)
 
 		row = pd.DataFrame([data])
 
@@ -198,24 +201,113 @@ class SpaceFreight():
 		"""
 		Save the solution from an iteration in a dataframe
 		"""
-		# column_names = ['algorithm_name', 'iteration', 'costs_solution', 'number_unpacked_parcels', 'unpacked_parcels', 'temperature', 'acceptatiekans']
-		# columns = ['algorithm_name', 'iteration', 'costs_solution', 'number_unpacked_parcels', 'unpacked_parcels']
-		data = [solution.name, count, solution.costs, solution.not_bring, solution.unpacked_parcels, temperature, acceptatiekans]
-		# append to dataframe
+		data = [solution.name, count, solution.costs, temperature, acceptatiekans]
+
+		fleet = []
+		costs_spacecraft = []
+		packed_mass_vol = []
+		packed_parcels = []
+
+		# make lists
 		for spacecraft in solution.used_spacecrafts:
-			# append data
-			data.append(spacecraft.name)
-			data.append(len(spacecraft.packed_parcels))
+			fleet.append(spacecraft.name)
+			costs_spacecraft.append(spacecraft.costs)
+			packed_mass_vol.append([spacecraft.packed_mass, spacecraft.packed_vol])
+
 			parcels = []
 			for parcel in spacecraft.packed_parcels:
 				parcels.append(parcel.ID)
-			data.append(parcels)
-			data.append(spacecraft.costs)
-			data.append("{0:.3f}".format(spacecraft.packed_mass))
-			# print("{0:.3f}".format(spacecraft.packed_mass))
-			data.append("{0:.3f}".format(spacecraft.packed_vol))
-			# append column names
-			# column_names.extend(['name', 'number_packed_parcels', 'packed_parcels', 'spacecraft_costs', 'spacecraft_packed_mass', 'spacecraft_packed_vol'])
+
+			packed_parcels.append(parcels)
+
+		data.append(fleet)
+		data.append(costs_spacecraft)
+		data.append(packed_mass_vol)
+		data.append(packed_parcels)
+
+		row = pd.DataFrame([data])
+
+		return row
+
+
+	def save_run_random(self, solution):
+		"""
+		Save the solution from a run in a dataframe
+		"""
+		data = [solution.name, solution.costs]
+		fleet = []
+		costs_spacecraft = []
+		packed_mass_vol = []
+		packed_parcels = []
+
+		# make lists
+		for spacecraft in solution.used_spacecrafts:
+			fleet.append(spacecraft.name)
+			costs_spacecraft.append(spacecraft.costs)
+			packed_mass_vol.append([spacecraft.packed_mass, spacecraft.packed_vol])
+
+			parcels = []
+			for parcel in spacecraft.packed_parcels:
+				parcels.append(parcel.ID)
+
+			packed_parcels.append(parcels)
+
+		data.append(fleet)
+		data.append(costs_spacecraft)
+		data.append(packed_mass_vol)
+		data.append(packed_parcels)
+
+		row = pd.DataFrame([data])
+
+		return row
+
+	def save_run_hill_climber(self, start_solution, end_solution, max_iterations):
+		"""
+		Save the solution from a run in a dataframe
+		"""
+		data = [start_solution.name, max_iterations, start_solution.costs, end_solution.costs]
+		start_fleet = []
+		start_costs_spacecraft = []
+		start_packed_mass_vol = []
+		start_packed_parcels = []
+		end_fleet = []
+		end_costs_spacecraft = []
+		end_packed_mass_vol = []
+		end_packed_parcels = []
+
+		# make lists start solution
+		for spacecraft in start_solution.used_spacecrafts:
+			start_fleet.append(spacecraft.name)
+			start_costs_spacecraft.append(spacecraft.costs)
+			start_packed_mass_vol.append([spacecraft.packed_mass, spacecraft.packed_vol])
+
+			parcels = []
+			for parcel in spacecraft.packed_parcels:
+				parcels.append(parcel.ID)
+
+			start_packed_parcels.append(parcels)
+
+		data.append(start_fleet)
+		data.append(start_costs_spacecraft)
+		data.append(start_packed_mass_vol)
+		data.append(start_packed_parcels)
+
+		# make lists end solution
+		for spacecraft in end_solution.used_spacecrafts:
+			end_fleet.append(spacecraft.name)
+			end_costs_spacecraft.append(spacecraft.costs)
+			end_packed_mass_vol.append([spacecraft.packed_mass, spacecraft.packed_vol])
+
+			parcels = []
+			for parcel in spacecraft.packed_parcels:
+				parcels.append(parcel.ID)
+
+			end_packed_parcels.append(parcels)
+
+		data.append(end_fleet)
+		data.append(end_costs_spacecraft)
+		data.append(end_packed_mass_vol)
+		data.append(end_packed_parcels)
 
 		row = pd.DataFrame([data])
 

@@ -19,9 +19,11 @@ def hill_climber(iterations_dataframe, max_iterations):
     The hill climber algorithm swapping parcels
     """
     count = 0
-    solutions = []
+    costs_per_run = []
+
     # starting solution -> buiten hill climber
     current_solution = random_all_parcels()
+    start_solution = copy.copy(current_solution)
 
     # select neighbouring solution
     while count < max_iterations:
@@ -32,21 +34,29 @@ def hill_climber(iterations_dataframe, max_iterations):
         if neighbour_solution.costs < current_solution.costs and check == True:
             current_solution = neighbour_solution
 
+        # save iteration to dataframe
         dataframe_row = spacefreight.save_iteration(current_solution, count)
         iterations_dataframe = iterations_dataframe.append(dataframe_row, ignore_index=True)
-        solutions.append(current_solution.costs)
+
+        # save list with development of the costs per run
+        costs_per_run.append(current_solution.costs)
+
         count += 1
 
-    return iterations_dataframe, count, current_solution, solutions
+    end_solution = current_solution
+
+    return iterations_dataframe, start_solution, end_solution, costs_per_run
 
 def hill_climber_spacecrafts(iterations_dataframe, max_iterations):
     """
     The hill climber algorithm swapping spacecrafts
     """
     count = 0
-    solutions = []
+    costs_per_run = []
+
     # starting solution -> buiten hill climber
     current_solution = random_all_parcels()
+    start_solution = copy.copy(current_solution)
 
     # select neighbouring solution
     while count < max_iterations:
@@ -57,15 +67,17 @@ def hill_climber_spacecrafts(iterations_dataframe, max_iterations):
         if neighbour_solution.costs < current_solution.costs and check == True:
             current_solution = neighbour_solution
 
+        # save iteration to dataframe
         dataframe_row = spacefreight.save_iteration(current_solution, count)
         iterations_dataframe = iterations_dataframe.append(dataframe_row, ignore_index=True)
-        solutions.append(current_solution.costs)
+
+        # save list with development of the costs per run
+        costs_per_run.append(current_solution.costs)
         count += 1
 
-    # print("Iterations:", count)
-    # spacefreight.printing(current_solution)
+    end_solution = current_solution
 
-    return iterations_dataframe, count, current_solution, solutions
+    return iterations_dataframe, start_solution, end_solution, costs_per_run
 
 def hill_climber_combined(iterations_dataframe, max_iterations):
     """
