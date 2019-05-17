@@ -16,39 +16,39 @@ from call_functions import *
 
 spacefreight = SpaceFreight()
 
-text = input("Please give input: ")
+algorithm = input("Please give algorithm: ")
 
-if text == 'random':
+if algorithm == 'random':
     iterations_dataframe = call_random()
 
-if text == 'constrained':
-    iterations_dataframe = call_constrained()
+if algorithm == 'pseudo greedy random':
+    iterations_dataframe = call_pseudo_greedy_random()
 
-if text == 'random all':
+if algorithm == 'random all':
     iterations_dataframe = call_random_all()
 
-if text == 'constrained all':
-    iterations_dataframe = call_constrained_all()
+if algorithm == 'pseudo greedy random all':
+    iterations_dataframe = call_pseudo_greedy_random_all()
 
-if text == 'hill climber':
+if algorithm == 'hill climber':
     iterations_dataframe = call_hill_climber()
 
-if text == 'hill climber spacecrafts':
+if algorithm == 'hill climber spacecrafts':
     iterations_dataframe = call_hill_climber_spacecrafts()
 
-if text == 'hill climber combined':
+if algorithm == 'hill climber combined':
     iterations_dataframe = call_hill_climber_combined()
 
-if text == 'simulated annealing':
+if algorithm == 'simulated annealing':
     iterations_dataframe = call_simulated_annealing()
 
-if text == 'simulated annealing combined':
+if algorithm == 'simulated annealing combined':
     iterations_dataframe = call_simulated_annealing_combined()
 
-if text == 'political constraints':
+if algorithm == 'political constraints':
     iterations_dataframe = call_political_constraints()
 
-# iterations_dataframe.to_csv(r'../Heuristieken/Outputs/hill_climber_CL1_200x1000.csv')
+# iterations_dataframe.to_csv(r'../Heuristieken/Outputs/test.csv')
 
 # plot costs of iterations FROM DATAFRAME
 # plot_costs(iterations_dataframe)
