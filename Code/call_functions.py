@@ -83,7 +83,7 @@ def call_random_all():
     column_names = ['algorithm_name', 'costs_solution', 'fleet', 'costs_spacecraft', 'packed_mass_vol', 'packed_parcels']
     runs_dataframe = pd.DataFrame()
 
-    max_runs = 10
+    max_runs = 1000000
     # run all parcels random
     best_solution = random_all_parcels()
     count = 0
@@ -148,9 +148,9 @@ def call_hill_climber():
     iterations_dataframe = pd.DataFrame()
     runs_dataframe = pd.DataFrame()
 
-    max_iterations = 10
+    max_iterations = 2000
     runs = 0
-    max_runs = 20
+    max_runs = 30
 
     # set lists for plots
     costs_runs = []
@@ -199,9 +199,9 @@ def call_hill_climber_spacecrafts():
     iterations_dataframe = pd.DataFrame()
     runs_dataframe = pd.DataFrame()
 
-    max_iterations = 100
+    max_iterations = 2000
     runs = 0
-    max_runs = 10
+    max_runs = 30
 
     # set lists for plots
     costs_runs = []

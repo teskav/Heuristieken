@@ -52,9 +52,9 @@ if algorithm == 'political constraints':
 # iterations_dataframe.to_csv(r'../Heuristieken/Outputs/Random/test.csv')
 
 # HILL CLIMBER (SPECIFY PARCEL OR SPACECRAFT SWITCH)
-# iterations_dataframe.to_csv(r'../Heuristieken/Outputs/Hill_Climber/iterations_spacecrafts.csv')
-# runs_dataframe.to_csv(r'../Heuristieken/Outputs/Hill_Climber/runs_spacecrafts.csv')
+iterations_dataframe.to_csv(r'../Heuristieken/Outputs/Hill_Climber/iterations_spacecrafts30x2000.csv')
+runs_dataframe.to_csv(r'../Heuristieken/Outputs/Hill_Climber/runs_spacecrafts30x2000.csv')
 
 
 # SIMULATED ANNEALING (nog geen runs dataframe)
-iterations_dataframe.to_csv(r'../Heuristieken/Outputs/Simulated_Annealing/iterations.csv')
+# iterations_dataframe.to_csv(r'../Heuristieken/Outputs/Simulated_Annealing/iterations.csv')
