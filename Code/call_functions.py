@@ -16,16 +16,68 @@ import pandas as pd
 
 spacefreight = SpaceFreight()
 
+def call_first_fit():
+    """
+    Calls the first fit algorithm
+    """
+    iterations_dataframe = pd.DataFrame()
+    current_solution = first_fit()
+
+    # save to dataframe
+    dataframe_row = spacefreight.save_iteration(current_solution, 0)
+    iterations_dataframe = iterations_dataframe.append(dataframe_row, \
+                            ignore_index=True)
+
+    # print solution
+    spacefreight.printing(current_solution)
+
+    return iterations_dataframe
+
+def call_first_fit_sorted_mass():
+    """
+    Calls the first fit algorithm
+    """
+    iterations_dataframe = pd.DataFrame()
+    current_solution = first_fit_sorted_mass()
+
+    # save to dataframe
+    dataframe_row = spacefreight.save_iteration(current_solution, 0)
+    iterations_dataframe = iterations_dataframe.append(dataframe_row, \
+                            ignore_index=True)
+
+    # print solution
+    spacefreight.printing(current_solution)
+
+    return iterations_dataframe
+
+def call_first_fit_sorted_vol():
+    """
+    Calls the first fit algorithm
+    """
+    iterations_dataframe = pd.DataFrame()
+    current_solution = first_fit_sorted_vol()
+
+    # save to dataframe
+    dataframe_row = spacefreight.save_iteration(current_solution, 0)
+    iterations_dataframe = iterations_dataframe.append(dataframe_row, \
+                            ignore_index=True)
+
+    # print solution
+    spacefreight.printing(current_solution)
+
+    return iterations_dataframe
+
 def call_random():
     """
     Calls the random algorithm, not taking all parcels
     """
     iterations_dataframe = pd.DataFrame()
-    max_iterations = 1000
+    max_iterations = 1000000
     count = 0
     best_solution = random_algorithm()
     dataframe_row = spacefreight.save_iteration(best_solution, count)
-    iterations_dataframe = iterations_dataframe.append(dataframe_row, ignore_index=True)
+    iterations_dataframe = iterations_dataframe.append(dataframe_row, \
+                            ignore_index=True)
 
     while count < max_iterations:
         count += 1
@@ -33,12 +85,14 @@ def call_random():
 
         # save to dataframe
         dataframe_row = spacefreight.save_iteration(solution, count)
-        iterations_dataframe = iterations_dataframe.append(dataframe_row, ignore_index=True)
+        iterations_dataframe = iterations_dataframe.append(dataframe_row, \
+                                ignore_index=True)
 
         # check if costs better
         if solution.not_bring < best_solution.not_bring:
             best_solution = solution
-        elif solution.not_bring == best_solution.not_bring and solution.costs < best_solution.costs:
+        elif (solution.not_bring == best_solution.not_bring and
+                solution.costs < best_solution.costs):
             best_solution = solution
 
     print("Iterations:", count)
@@ -55,7 +109,8 @@ def call_pseudo_greedy_random():
     count = 0
     best_solution = pseudo_greedy_random()
     dataframe_row = spacefreight.save_iteration(best_solution, count)
-    iterations_dataframe = iterations_dataframe.append(dataframe_row, ignore_index=True)
+    iterations_dataframe = iterations_dataframe.append(dataframe_row, \
+                            ignore_index=True)
 
     while count < max_iterations:
         count += 1
@@ -63,12 +118,14 @@ def call_pseudo_greedy_random():
 
         # save to dataframe
         dataframe_row = spacefreight.save_iteration(solution, count)
-        iterations_dataframe = iterations_dataframe.append(dataframe_row, ignore_index=True)
+        iterations_dataframe = iterations_dataframe.append(dataframe_row, \
+                                ignore_index=True)
 
         # check if costs better
         if solution.not_bring < best_solution.not_bring:
             best_solution = solution
-        elif solution.not_bring == best_solution.not_bring and solution.costs < best_solution.costs:
+        elif (solution.not_bring == best_solution.not_bring and
+                solution.costs < best_solution.costs):
             best_solution = solution
 
     print("Iterations:", count)
@@ -80,7 +137,8 @@ def call_random_all():
     """
     Calls the random algorithm, taking all parcels
     """
-    column_names = ['algorithm_name', 'costs_solution', 'fleet', 'costs_spacecraft', 'packed_mass_vol', 'packed_parcels']
+    column_names = ['algorithm_name', 'costs_solution', 'fleet', \
+                    'costs_spacecraft', 'packed_mass_vol', 'packed_parcels']
     runs_dataframe = pd.DataFrame()
 
     max_runs = 200000
@@ -91,7 +149,6 @@ def call_random_all():
     runs_dataframe = runs_dataframe.append(dataframe_row, ignore_index=True)
 
     while count < max_runs:
-        count += 1
         solution = random_all_parcels()
 
         # save to dataframe
@@ -102,8 +159,10 @@ def call_random_all():
         if solution.costs < best_solution.costs:
             best_solution = solution
 
-    # print("Iterations:", count)
-    # spacefreight.printing(best_solution)
+        count += 1
+
+    print("Iterations:", count)
+    spacefreight.printing(best_solution)
 
     # set column names
     runs_dataframe.columns = column_names
@@ -120,7 +179,8 @@ def call_pseudo_greedy_random_all():
     best_solution = pseudo_greedy_random_all()
     count = 0
     dataframe_row = spacefreight.save_iteration(best_solution, count)
-    iterations_dataframe = iterations_dataframe.append(dataframe_row, ignore_index=True)
+    iterations_dataframe = iterations_dataframe.append(dataframe_row, \
+                            ignore_index=True)
 
     while count < max_iterations:
         count += 1
@@ -128,7 +188,8 @@ def call_pseudo_greedy_random_all():
 
         # save to dataframe
         dataframe_row = spacefreight.save_iteration(solution, count)
-        iterations_dataframe = iterations_dataframe.append(dataframe_row, ignore_index=True)
+        iterations_dataframe = iterations_dataframe.append(dataframe_row, \
+                                ignore_index=True)
 
         # check if costs better
         if solution.costs < best_solution.costs:
@@ -143,8 +204,14 @@ def call_hill_climber():
     """
     Calls the hill climber algorithm SWAP PARCELS
     """
-    column_names_runs = ['algorithm_name', 'iterations', 'start_solution_costs', 'end_solution_costs', 'start_fleet', 'end_fleet', 'start_costs_spacecraft', 'start_packed_mass_vol', 'start_packed_parcels', 'end_costs_spacecraft', 'end_packed_mass_vol', 'end_packed_parcels']
-    column_names_iterations = ['algorithm_name', 'iteration', 'costs_solution', 'fleet', 'costs_spacecraft', 'packed_mass_vol', 'packed_parcels']
+    column_names_runs=['algorithm_name', 'iterations', 'start_solution_costs', \
+                        'end_solution_costs', 'start_fleet', 'end_fleet', \
+                        'start_costs_spacecraft', 'start_packed_mass_vol', \
+                        'start_packed_parcels', 'end_costs_spacecraft', \
+                        'end_packed_mass_vol', 'end_packed_parcels']
+    column_names_iterations=['algorithm_name', 'iteration', 'costs_solution', \
+                            'fleet', 'costs_spacecraft', 'packed_mass_vol', \
+                            'packed_parcels']
     iterations_dataframe = pd.DataFrame()
     runs_dataframe = pd.DataFrame()
 
@@ -157,7 +224,8 @@ def call_hill_climber():
     x = list(range(max_iterations))
 
     # # HILL CLIMBER 1 keer
-    # iterations_dataframe, count, current_solution = hill_climber(iterations_dataframe, max_iterations)
+    # iterations_dataframe, count, current_solution = \
+    # hill_climber(iterations_dataframe, max_iterations)
     #
     # print("Iterations:", count)
     # spacefreight.printing(current_solution)
@@ -165,10 +233,12 @@ def call_hill_climber():
     # HILL CLIMBER max_runs aantal keer en per running max_iterations
     while runs < max_runs:
 
-        iterations_dataframe, start_solution, end_solution, costs_per_run = hill_climber(iterations_dataframe, max_iterations)
+        iterations_dataframe, start_solution, end_solution, costs_per_run = \
+            hill_climber(iterations_dataframe, max_iterations)
 
         # save run
-        dataframe_row = spacefreight.save_run_hill_climber(start_solution, end_solution, max_iterations)
+        dataframe_row = spacefreight.save_run_hill_climber(start_solution, \
+                        end_solution, max_iterations)
         runs_dataframe = runs_dataframe.append(dataframe_row, ignore_index=True)
 
         # data for plots
@@ -188,14 +258,22 @@ def call_hill_climber():
     runs_dataframe.columns = column_names_runs
     iterations_dataframe.columns = column_names_iterations
 
+    # spacefreight.printing(end_solution)
+
     return iterations_dataframe, runs_dataframe
 
 def call_hill_climber_spacecrafts():
     """
     Calls the hill climber algorithm SWAP SPACECRAFTS
     """
-    column_names_runs = ['algorithm_name', 'iterations', 'start_solution_costs', 'end_solution_costs', 'start_fleet', 'end_fleet', 'start_costs_spacecraft', 'start_packed_mass_vol', 'start_packed_parcels', 'end_costs_spacecraft', 'end_packed_mass_vol', 'end_packed_parcels']
-    column_names_iterations = ['algorithm_name', 'iteration', 'costs_solution', 'fleet', 'costs_spacecraft', 'packed_mass_vol', 'packed_parcels']
+    column_names_runs=['algorithm_name', 'iterations', 'start_solution_costs', \
+                        'end_solution_costs', 'start_fleet', 'end_fleet', \
+                        'start_costs_spacecraft', 'start_packed_mass_vol', \
+                        'start_packed_parcels', 'end_costs_spacecraft', \
+                        'end_packed_mass_vol', 'end_packed_parcels']
+    column_names_iterations=['algorithm_name', 'iteration', 'costs_solution', \
+                            'fleet', 'costs_spacecraft', 'packed_mass_vol', \
+                            'packed_parcels']
     iterations_dataframe = pd.DataFrame()
     runs_dataframe = pd.DataFrame()
 
@@ -208,10 +286,12 @@ def call_hill_climber_spacecrafts():
     x = list(range(max_iterations))
 
 
-    # HILL CLIMBER max_runs aantal keer en per running max_iterations aantal iteraties
+    # HILL CLIMBER max_runs aantal keer en
+    # per running max_iterations aantal iteraties
     while runs < max_runs:
 
-        iterations_dataframe, start_solution, end_solution, costs_per_run = hill_climber_spacecrafts(iterations_dataframe, max_iterations)
+        iterations_dataframe, start_solution, end_solution, costs_per_run = \
+            hill_climber_spacecrafts(iterations_dataframe, max_iterations)
         # plt.plot(x, solution)
         # plt.xlabel('Iterations')
         # plt.ylabel('Costs')
@@ -219,7 +299,8 @@ def call_hill_climber_spacecrafts():
         # plt.show()
 
         # save run
-        dataframe_row = spacefreight.save_run_hill_climber(start_solution, end_solution, max_iterations)
+        dataframe_row = spacefreight.save_run_hill_climber(start_solution, \
+                        end_solution, max_iterations)
         runs_dataframe = runs_dataframe.append(dataframe_row, ignore_index=True)
 
         # data for plots
@@ -248,14 +329,17 @@ def call_hill_climber_combined():
     iterations_dataframe = pd.DataFrame()
     max_iterations = 1000
 
-    # HILL CLIMBER max_runs aantal keer en per running max_iterations aantal iteraties
+    # HILL CLIMBER max_runs aantal keer en
+    # per running max_iterations aantal iteraties
     runs = 0
     max_runs = 20
     solutions_runs = []
     solutions = []
     x = list(range(max_iterations))
     while runs < max_runs:
-        iterations_dataframe, count, current_solution, solution = hill_climber_combined(iterations_dataframe, max_iterations)
+        iterations_dataframe, count, current_solution, solution = \
+            hill_climber_combined(iterations_dataframe, max_iterations)
+
         plt.plot(x, solution)
         plt.xlabel('Iterations')
         plt.ylabel('Costs')
@@ -287,12 +371,16 @@ def call_simulated_annealing():
     """
     Calls the simulated annealing algorithm
     """
-    column_names_iterations = ['algorithm_name', 'iteration', 'costs_solution', 'temperature', 'acceptation_chance', 'fleet', 'costs_spacecraft', 'packed_mass_vol', 'packed_parcels']
+    column_names_iterations=['algorithm_name', 'iteration', 'costs_solution', \
+                            'temperature', 'acceptation_chance', 'fleet', \
+                            'costs_spacecraft', 'packed_mass_vol', \
+                            'packed_parcels']
     iterations_dataframe = pd.DataFrame()
-    max_iterations = 100
+    max_iterations = 10
 
     # SIMULATED ANNEALING
-    iterations_dataframe, count, current_solution = simulated_annealing(iterations_dataframe, max_iterations)
+    iterations_dataframe, count, current_solution = \
+        simulated_annealing(iterations_dataframe, max_iterations)
     # temperature = cooling_scheme(count, max_iterations)
 
     # print("Iterations:", count)
@@ -315,7 +403,8 @@ def call_simulated_annealing_combined():
     max_iterations = 100
 
     # SIMULATED ANNEALING
-    iterations_dataframe, count, current_solution = simulated_annealing(iterations_dataframe, max_iterations)
+    iterations_dataframe, count, current_solution = \
+        simulated_annealing(iterations_dataframe, max_iterations)
     # temperature = cooling_scheme(count, max_iterations)
 
     print("Iterations:", count)
@@ -336,7 +425,8 @@ def call_political_constraints():
     while count < max_runs:
 
         # set up dataframe with all countries and number of spacecrafts used
-        data = [['USA', 0], ['Russia', 0], ['Japan', 0], ['China', 0], ['Europe', 0]]
+        data = [['USA', 0], ['Russia', 0], ['Japan', 0], ['China', 0], \
+                ['Europe', 0]]
         countries = pd.DataFrame(data, columns = ['country', 'spacecrafts'])
 
         solution = political_constraints(countries)

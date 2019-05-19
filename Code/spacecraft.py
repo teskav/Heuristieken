@@ -10,7 +10,8 @@ class Spacecraft(object):
     """
     Representation of a spacecraft in SpaceFreight
     """
-    def __init__ (self, name, payload_mass, payload_vol, mass, base_cost, FtW, country):
+    def __init__ (self, name, payload_mass, payload_vol, mass, base_cost, FtW, \
+                    country):
         self.name = name
         self.payload_mass = payload_mass
         self.payload_vol = payload_vol

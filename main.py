@@ -11,12 +11,32 @@ import sys
 sys.path[0] = sys.path[0] + '/Code'
 # import
 from spacefreight import SpaceFreight
+from spacefreight import list
 import matplotlib.pyplot as plt
 from call_functions import *
 
 spacefreight = SpaceFreight()
 
-algorithm = input("Please give algorithm: ")
+print("")
+print("Algorithm options: \n first fit \n first fit sorted mass \
+        \n first fit sorted vol \n random \n pseudo greedy random \
+        \n random all \n pseudo greedy random all \n hill climber \
+        \n hill climber spacecrafts \n hill climber combined \
+        \n simulated annealing \n simulated annealing combined")
+# only print political constraint choice for cargolist 3
+if list == '3':
+    print(" political constraints")
+
+algorithm = input("\nPlease give algorithm: ")
+
+if algorithm == 'first fit':
+    dataframe = call_first_fit()
+
+if algorithm == 'first fit sorted mass':
+    dataframe = call_first_fit_sorted_mass()
+
+if algorithm == 'first fit sorted vol':
+    dataframe = call_first_fit_sorted_vol()
 
 if algorithm == 'random':
     dataframe = call_random()
@@ -45,15 +65,18 @@ if algorithm == 'simulated annealing':
 if algorithm == 'simulated annealing combined':
     dataframe = call_simulated_annealing_combined()
 
-if algorithm == 'political constraints':
+if algorithm == 'political constraints' and list == '3':
     dataframe = call_political_constraints()
 
+if algorithm == 'political constraints' and list != '3':
+    print('Political constraint is only applicable to cargolist 3.')
+
 # RANDOM ALL
-# iterations_dataframe.to_csv(r'../Heuristieken/Outputs/Random/test.csv')
+# dataframe.to_csv(r'../Heuristieken/Outputs/Random/random_all_CL3_100000.csv')
 
 # HILL CLIMBER (SPECIFY PARCEL OR SPACECRAFT SWITCH)
-iterations_dataframe.to_csv(r'../Heuristieken/Outputs/Hill_Climber/iterations_spacecrafts30x2000.csv')
-runs_dataframe.to_csv(r'../Heuristieken/Outputs/Hill_Climber/runs_spacecrafts30x2000.csv')
+# iterations_dataframe.to_csv(r'../Heuristieken/Outputs/Hill_Climber/iterations_spacecrafts30x2000.csv')
+# runs_dataframe.to_csv(r'../Heuristieken/Outputs/Hill_Climber/runs_spacecrafts30x2000.csv')
 
 
 # SIMULATED ANNEALING (nog geen runs dataframe)
