@@ -286,9 +286,9 @@ class SpaceFreight():
 
         # also add the distribution of spacecrafts
         # [USA, Russia, Japan, China, Europe]
-        constraint = list(countries['spacecrafts'])
-        print(constraint)
-        data.append(constraint)
+        constraint_list = countries['spacecrafts']
+        print(constraint_list)
+        data.append(constraint_list)
 
         fleet = []
         costs_spacecraft = []

@@ -473,7 +473,7 @@ def call_political_constraints():
         countries = pd.DataFrame(data, columns = ['country', 'spacecrafts'])
 
         solution, countries = political_constraints(countries)
-
+        
         # save run data and put in runs dataframe
         dataframe_row = spacefreight.save_run_political(solution, countries)
         runs_dataframe = runs_dataframe.append(dataframe_row, ignore_index=True)
@@ -484,6 +484,7 @@ def call_political_constraints():
     runs_dataframe.columns = column_names
 
     print(runs_dataframe)
+
     # plot alle oplossingen samen
     plot_costs(runs_dataframe)
 
