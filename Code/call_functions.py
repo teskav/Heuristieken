@@ -462,7 +462,7 @@ def call_political_constraints():
                     'packed_parcels']
 
     runs_dataframe = pd.DataFrame()
-    max_runs = 10
+    max_runs = 2
     count = 0
 
     while count < max_runs:
@@ -473,7 +473,7 @@ def call_political_constraints():
         countries = pd.DataFrame(data, columns = ['country', 'spacecrafts'])
 
         solution, countries = political_constraints(countries)
-        
+
         # save run data and put in runs dataframe
         dataframe_row = spacefreight.save_run_political(solution, countries)
         runs_dataframe = runs_dataframe.append(dataframe_row, ignore_index=True)
