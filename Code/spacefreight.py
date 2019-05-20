@@ -20,6 +20,7 @@ INPUT_1 = "CargoLists/CargoList1.csv"
 INPUT_2 = "CargoLists/CargoList2.csv"
 INPUT_3 = "CargoLists/CargoList3.csv"
 
+print("Cargolist options: \n 1 2 3 \n")
 list = input("Please give cargolist number: ")
 
 if list == '1':
@@ -48,14 +49,20 @@ class SpaceFreight():
 
 		# load spacecraft objects
 		self.spacecrafts = []
-		self.spacecrafts.append(Spacecraft('Cygnus', 2000, 18.9, 7400, 390000000, 0.73, 'USA'))
-		self.spacecrafts.append(Spacecraft('Progress', 2400, 7.6, 7020, 175000000, 0.74, 'Russia'))
-		self.spacecrafts.append(Spacecraft('Kounotori', 5200, 14, 10500, 420000000, 0.71, 'Japan'))
-		self.spacecrafts.append(Spacecraft('Dragon', 6000, 10, 12200, 347000000, 0.72, 'USA'))
+		self.spacecrafts.append(Spacecraft('Cygnus', 2000, 18.9, 7400, \
+                                390000000, 0.73, 'USA'))
+		self.spacecrafts.append(Spacecraft('Progress', 2400, 7.6, 7020, \
+                                175000000, 0.74, 'Russia'))
+		self.spacecrafts.append(Spacecraft('Kounotori', 5200, 14, 10500, \
+                                420000000, 0.71, 'Japan'))
+		self.spacecrafts.append(Spacecraft('Dragon', 6000, 10, 12200, \
+                                347000000, 0.72, 'USA'))
 
 		if INPUT == INPUT_3:
-			self.spacecrafts.append(Spacecraft('TianZhou', 6500, 15, 13500, 412000000, 0.75, 'China'))
-			self.spacecrafts.append(Spacecraft('Verne ATV', 7500, 48, 20500, 1080000000, 0.72, 'Europe'))
+			self.spacecrafts.append(Spacecraft('TianZhou', 6500, 15, 13500, \
+                                    412000000, 0.75, 'China'))
+			self.spacecrafts.append(Spacecraft('Verne ATV', 7500, 48, 20500, \
+                                    1080000000, 0.72, 'Europe'))
 
 	def load_parcels(self, file):
 		"""
@@ -78,7 +85,8 @@ class SpaceFreight():
 		Check if the payload mass and volume does not get exceeded
 		Boolean
 		"""
-		if (spacecraft.packed_mass + parcel.mass) < spacecraft.payload_mass and (spacecraft.packed_vol + parcel.volume) < spacecraft.payload_vol:
+		if ((spacecraft.packed_mass+parcel.mass) < spacecraft.payload_mass and
+                (spacecraft.packed_vol+parcel.volume) < spacecraft.payload_vol):
 			return True
 		else:
 			return False
@@ -102,8 +110,10 @@ class SpaceFreight():
 		"""
 		This function calculates the costs of a spacecraft.
 		"""
-		fuel_spacecraft = (spacecraft.mass + spacecraft.packed_mass) * spacecraft.FtW * (1 - spacecraft.FtW)
-		costs_spacecraft = spacecraft.base_cost + math.ceil(fuel_spacecraft * 1000)
+		fuel_spacecraft = (spacecraft.mass + spacecraft.packed_mass) * \
+            spacecraft.FtW * (1 - spacecraft.FtW)
+		costs_spacecraft = spacecraft.base_cost + \
+            math.ceil(fuel_spacecraft * 1000)
 		# niet deze costs = spacecraft.base_cost + round(fuel * 1000)
 		return costs_spacecraft
 
@@ -121,7 +131,7 @@ class SpaceFreight():
 	def printing(self, solution):
 		"""
 		This functions prints the spacecrafts, packed parcels, packed mass and
-		volume, the unpacked parcels, number of packed parcels and the total costs.
+		volume, unpacked parcels, number of packed parcels and total costs.
 		"""
 		for spacecraft in solution.used_spacecrafts:
 			print(spacecraft.name + ':')
@@ -132,21 +142,24 @@ class SpaceFreight():
 			print("Mass:", "{0:.3f}".format(spacecraft.packed_mass))
 			print("Vol:", "{0:.3f}".format(spacecraft.packed_vol))
 
-		print('unpacked:')
+		print('Unpacked:')
 		print(solution.unpacked_parcels)
-		print('number of packed parcels: ', len(self.all_parcels) - solution.not_bring)
+		print('Number of packed parcels: ', len(self.all_parcels) - \
+                solution.not_bring)
 		print('Costs:', solution.costs/billion, 'billion')
 
 	def swap_parcel(self, spacecraft_1, spacecraft_2, parcel_1, parcel_2):
 		"""
-		Swaps an item of an spacecraft with an item of another spacecraft, if possible.
+		Swaps an item of an spacecraft with an item of another spacecraft,
+        if possible.
 		"""
 		# Remove item from spacecrafts
 		spacecraft_1.remove_parcel(parcel_1)
 		spacecraft_2.remove_parcel(parcel_2)
 
 		# Swap items if possible (check payload volume and mass)
-		if self.check(spacecraft_1, parcel_2) and self.check(spacecraft_2, parcel_1):
+		if (self.check(spacecraft_1, parcel_2) and
+                self.check(spacecraft_2, parcel_1)):
 			spacecraft_1.add_parcel(parcel_2)
 			spacecraft_2.add_parcel(parcel_1)
 			return True
@@ -180,7 +193,8 @@ class SpaceFreight():
 		for spacecraft in solution.used_spacecrafts:
 			fleet.append(spacecraft.name)
 			costs_spacecraft.append(spacecraft.costs)
-			packed_mass_vol.append([spacecraft.packed_mass, spacecraft.packed_vol])
+			packed_mass_vol.append([spacecraft.packed_mass, \
+                                    spacecraft.packed_vol])
 
 			parcels = []
 			for parcel in spacecraft.packed_parcels:
@@ -201,7 +215,7 @@ class SpaceFreight():
 		"""
 		Save the solution from an iteration in a dataframe
 		"""
-		data = [solution.name, count, solution.costs, temperature, acceptatiekans]
+		data=[solution.name, count, solution.costs, temperature, acceptatiekans]
 
 		fleet = []
 		costs_spacecraft = []
@@ -212,7 +226,8 @@ class SpaceFreight():
 		for spacecraft in solution.used_spacecrafts:
 			fleet.append(spacecraft.name)
 			costs_spacecraft.append(spacecraft.costs)
-			packed_mass_vol.append([spacecraft.packed_mass, spacecraft.packed_vol])
+			packed_mass_vol.append([spacecraft.packed_mass, \
+                                    spacecraft.packed_vol])
 
 			parcels = []
 			for parcel in spacecraft.packed_parcels:
@@ -229,7 +244,6 @@ class SpaceFreight():
 
 		return row
 
-
 	def save_run_random(self, solution):
 		"""
 		Save the solution from a run in a dataframe
@@ -244,7 +258,8 @@ class SpaceFreight():
 		for spacecraft in solution.used_spacecrafts:
 			fleet.append(spacecraft.name)
 			costs_spacecraft.append(spacecraft.costs)
-			packed_mass_vol.append([spacecraft.packed_mass, spacecraft.packed_vol])
+			packed_mass_vol.append([spacecraft.packed_mass, \
+                                    spacecraft.packed_vol])
 
 			parcels = []
 			for parcel in spacecraft.packed_parcels:
@@ -265,7 +280,8 @@ class SpaceFreight():
 		"""
 		Save the solution from a run in a dataframe
 		"""
-		data = [start_solution.name, max_iterations, start_solution.costs, end_solution.costs]
+		data = [start_solution.name, max_iterations, start_solution.costs, \
+                end_solution.costs]
 		start_fleet = []
 		start_costs_spacecraft = []
 		start_packed_mass_vol = []
@@ -279,7 +295,8 @@ class SpaceFreight():
 		for spacecraft in start_solution.used_spacecrafts:
 			start_fleet.append(spacecraft.name)
 			start_costs_spacecraft.append(spacecraft.costs)
-			start_packed_mass_vol.append([spacecraft.packed_mass, spacecraft.packed_vol])
+			start_packed_mass_vol.append([spacecraft.packed_mass, \
+                                        spacecraft.packed_vol])
 
 			parcels = []
 			for parcel in spacecraft.packed_parcels:
@@ -296,7 +313,8 @@ class SpaceFreight():
 		for spacecraft in end_solution.used_spacecrafts:
 			end_fleet.append(spacecraft.name)
 			end_costs_spacecraft.append(spacecraft.costs)
-			end_packed_mass_vol.append([spacecraft.packed_mass, spacecraft.packed_vol])
+			end_packed_mass_vol.append([spacecraft.packed_mass, \
+                                        spacecraft.packed_vol])
 
 			parcels = []
 			for parcel in spacecraft.packed_parcels:
@@ -319,8 +337,10 @@ class SpaceFreight():
 		"""
 		costs_max = 0
 		for spacecraft in self.spacecrafts:
-			fuel_spacecraft = (spacecraft.mass + spacecraft.payload_mass) * spacecraft.FtW * (1 - spacecraft.FtW)
-			costs_spacecraft = spacecraft.base_cost + math.ceil(fuel_spacecraft * 1000)
+			fuel_spacecraft = (spacecraft.mass + spacecraft.payload_mass) * \
+                spacecraft.FtW * (1 - spacecraft.FtW)
+			costs_spacecraft = spacecraft.base_cost + \
+                math.ceil(fuel_spacecraft * 1000)
 			costs_max += costs_spacecraft
 		return costs_max
 
@@ -330,7 +350,9 @@ class SpaceFreight():
 		"""
 		costs_min = 0
 		for spacecraft in self.spacecrafts:
-			fuel_spacecraft = (spacecraft.mass + 0) * spacecraft.FtW * (1 - spacecraft.FtW)
-			costs_spacecraft = spacecraft.base_cost + math.ceil(fuel_spacecraft * 1000)
+			fuel_spacecraft = (spacecraft.mass + 0) * \
+                spacecraft.FtW * (1 - spacecraft.FtW)
+			costs_spacecraft = spacecraft.base_cost + \
+                math.ceil(fuel_spacecraft * 1000)
 			costs_min += costs_spacecraft
 		return costs_min

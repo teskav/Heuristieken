@@ -3,11 +3,13 @@
 # Space Freight
 # Sofie Löhr, Teska Vaessen & Wies de Wit
 """
-This script contains the different versions (functions) of the SIMULATED ANNEALING algorithms
+This script contains the different versions (functions) of the
+SIMULATED ANNEALING algorithms
 """
 
 from spacefreight import SpaceFreight
 from random_algorithms_new import *
+from helpers import *
 import random
 import numpy as np
 import copy
@@ -27,13 +29,16 @@ def simulated_annealing(iterations_dataframe, max_iterations):
     # select neighbouring solution
     while count < max_iterations:
         # Generate neighbour solution
-        check, neighbour_solution = neighbour_random_parcel_switch(current_solution)
+        check, neighbour_solution = \
+            neighbour_random_parcel_switch_SA(current_solution)
         # print(check)
         # print(neighbour_solution.costs)
         # print(current_solution.costs)
 
         # get the temperature and the acceptatie kans and generate a random number
-        temperature, acceptatie_kans = acceptatie(current_solution, neighbour_solution, count, max_iterations)
+        temperature, acceptatie_kans = acceptatie(current_solution, \
+                                        neighbour_solution, count, \
+                                        max_iterations)
         random_number = random.random()
         # print('Random number: ', random_number)
         # print('Acceptatie kans: ', acceptatie_kans)
@@ -49,8 +54,10 @@ def simulated_annealing(iterations_dataframe, max_iterations):
         #     print('Doei')
         #     current_solution = neighbour_solution
 
-        dataframe_row = spacefreight.save_iteration_SA(current_solution, count, temperature, acceptatie_kans)
-        iterations_dataframe = iterations_dataframe.append(dataframe_row, ignore_index=True)
+        dataframe_row = spacefreight.save_iteration_SA(current_solution, count,\
+                        temperature, acceptatie_kans)
+        iterations_dataframe = iterations_dataframe.append(dataframe_row, \
+                                ignore_index=True)
         count += 1
 
     return iterations_dataframe, count, current_solution
@@ -66,16 +73,21 @@ def simulated_annealing_combined(iterations_dataframe, max_iterations):
         random_number = random.random()
         if random_number < 0.3:
             print('Neighbor: spacecraft')
-            check, neighbour_solution = neighbour_random_spacecraft_switch(current_solution)
+            check, neighbour_solution = \
+                neighbour_random_spacecraft_switch(current_solution)
         else:
             print('Neighbor: parcel')
-            check, neighbour_solution = neighbour_random_parcel_switch(current_solution)
+            check, neighbour_solution = \
+                neighbour_random_parcel_switch_SA(current_solution)
         print(check)
         print(neighbour_solution.costs)
         print(current_solution.costs)
 
-        # get the temperature and the acceptatie kans and generate a random number
-        temperature, acceptatie_kans = acceptatie(current_solution, neighbour_solution, count, max_iterations)
+        # get the temperature and the acceptatie kans and
+        # generate a random number
+        temperature, acceptatie_kans = acceptatie(current_solution, \
+                                        neighbour_solution, count, \
+                                        max_iterations)
         random_number = random.random()
         print('Random number: ', random_number)
         print('Acceptatie kans: ', acceptatie_kans)
@@ -93,11 +105,14 @@ def simulated_annealing_combined(iterations_dataframe, max_iterations):
         #     print('Doei')
         #     current_solution = neighbour_solution
 
-        dataframe_row = spacefreight.save_iteration_SA(current_solution, count, temperature, acceptatie_kans)
-        iterations_dataframe = iterations_dataframe.append(dataframe_row, ignore_index=True)
+        dataframe_row = spacefreight.save_iteration_SA(current_solution, \
+                        count, temperature, acceptatie_kans)
+        iterations_dataframe = iterations_dataframe.append(dataframe_row, \
+                                ignore_index=True)
         count += 1
 
     return iterations_dataframe, count, current_solution
+<<<<<<< HEAD
 
 def neighbour_random_parcel_switch(current_solution):
     """
@@ -192,3 +207,5 @@ def cooling_scheme(count, max_iterations):
     # T_i = T_N + (T_0 - T_N) / (1 + math.exp(0.3 * (count - max_iterations / 2)))
 
     return T_i
+=======
+>>>>>>> c7c7430e54416f7577d94981110b2fc2a62d7845
