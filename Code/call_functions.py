@@ -148,9 +148,9 @@ def call_hill_climber():
     iterations_dataframe = pd.DataFrame()
     runs_dataframe = pd.DataFrame()
 
-    max_iterations = 10
+    max_iterations = 2000
     runs = 0
-    max_runs = 20
+    max_runs = 30
 
     # set lists for plots
     costs_runs = []
