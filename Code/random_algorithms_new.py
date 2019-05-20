@@ -259,4 +259,4 @@ def political_constraints(countries):
                         spacefreight.unpacked_parcels, total_costs, \
                         used_spacecrafts)
 
-    return current_solution
+    return current_solution, countries

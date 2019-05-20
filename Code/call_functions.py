@@ -205,10 +205,11 @@ def call_hill_climber():
     Calls the hill climber algorithm SWAP PARCELS
     """
     column_names_runs=['algorithm_name', 'iterations', 'start_solution_costs', \
-                        'end_solution_costs', 'start_fleet', 'end_fleet', \
+                        'end_solution_costs', 'start_fleet', \
                         'start_costs_spacecraft', 'start_packed_mass_vol', \
-                        'start_packed_parcels', 'end_costs_spacecraft', \
-                        'end_packed_mass_vol', 'end_packed_parcels']
+                        'start_packed_parcels', 'end_fleet', \
+                        'end_costs_spacecraft', 'end_packed_mass_vol', \
+                        'end_packed_parcels']
     column_names_iterations=['algorithm_name', 'iteration', 'costs_solution', \
                             'fleet', 'costs_spacecraft', 'packed_mass_vol', \
                             'packed_parcels']
@@ -267,10 +268,11 @@ def call_hill_climber_spacecrafts():
     Calls the hill climber algorithm SWAP SPACECRAFTS
     """
     column_names_runs=['algorithm_name', 'iterations', 'start_solution_costs', \
-                        'end_solution_costs', 'start_fleet', 'end_fleet', \
+                        'end_solution_costs', 'start_fleet', \
                         'start_costs_spacecraft', 'start_packed_mass_vol', \
-                        'start_packed_parcels', 'end_costs_spacecraft', \
-                        'end_packed_mass_vol', 'end_packed_parcels']
+                        'start_packed_parcels', 'end_fleet', \
+                        'end_costs_spacecraft', 'end_packed_mass_vol', \
+                        'end_packed_parcels']
     column_names_iterations=['algorithm_name', 'iteration', 'costs_solution', \
                             'fleet', 'costs_spacecraft', 'packed_mass_vol', \
                             'packed_parcels']
@@ -371,29 +373,62 @@ def call_simulated_annealing():
     """
     Calls the simulated annealing algorithm
     """
+    column_names_runs=['algorithm_name', 'iterations', 'start_solution_costs', \
+                        'end_solution_costs', 'start_fleet', \
+                        'start_costs_spacecraft', 'start_packed_mass_vol', \
+                        'start_packed_parcels', 'end_fleet', \
+                        'end_costs_spacecraft', 'end_packed_mass_vol', \
+                        'end_packed_parcels']
     column_names_iterations=['algorithm_name', 'iteration', 'costs_solution', \
-                            'temperature', 'acceptation_chance', 'fleet', \
+                            'temperature', 'acceptation', 'fleet', \
                             'costs_spacecraft', 'packed_mass_vol', \
                             'packed_parcels']
+
     iterations_dataframe = pd.DataFrame()
-    max_iterations = 10
+    runs_dataframe = pd.DataFrame()
 
-    # SIMULATED ANNEALING
-    iterations_dataframe, count, current_solution = \
-        simulated_annealing(iterations_dataframe, max_iterations)
-    # temperature = cooling_scheme(count, max_iterations)
+    max_iterations = 2000
+    runs = 0
+    max_runs = 30
 
-    # print("Iterations:", count)
-    # spacefreight.printing(current_solution)
+    # set lists for plots
+    costs_runs = []
+    x = list(range(max_iterations))
 
-    plot_costs(iterations_dataframe)
-    plot_cooling(iterations_dataframe)
-    plot_acceptatie(iterations_dataframe)
+    # SIMULATED ANNEALING max_runs aantal keer en per running max_iterations
+    while runs < max_runs:
+
+        iterations_dataframe, start_solution, end_solution, costs_per_run = \
+            simulated_annealing(iterations_dataframe, max_iterations)
+
+        # save run
+        dataframe_row = spacefreight.save_run_hill_climber(start_solution, \
+                        end_solution, max_iterations)
+        runs_dataframe = runs_dataframe.append(dataframe_row, ignore_index=True)
+
+        # data for plots
+        costs_runs.append(costs_per_run)
+
+        runs += 1
+
+    # plot
+    for i in list(range(max_runs)):
+        plt.plot(x, costs_runs[i])
+    plt.xlabel('Iterations')
+    plt.ylabel('Costs')
+    plt.title('Behaviour of the hillclimber in different runs')
+    plt.show()
 
     # set column names
+    runs_dataframe.columns = column_names_runs
     iterations_dataframe.columns = column_names_iterations
 
-    return iterations_dataframe
+    # spacefreight.printing(end_solution)
+    # plot_costs(iterations_dataframe)
+    # plot_cooling(iterations_dataframe)
+    # plot_acceptatie(iterations_dataframe)
+
+    return iterations_dataframe, runs_dataframe
 
 def call_simulated_annealing_combined():
     """
@@ -417,9 +452,17 @@ def call_simulated_annealing_combined():
     return iterations_dataframe
 
 def call_political_constraints():
+    """
+    Calls the random algorithm, considering the political constraint:
+    The difference between the number of spacecrafts per country can be at most1
+    """
+
+    column_names = ['algorithm_name', 'costs_solution', 'distribution', \
+                    'fleet', 'costs_spacecraft', 'packed_mass_vol', \
+                    'packed_parcels']
 
     runs_dataframe = pd.DataFrame()
-    max_runs = 1
+    max_runs = 10
     count = 0
 
     while count < max_runs:
@@ -429,21 +472,19 @@ def call_political_constraints():
                 ['Europe', 0]]
         countries = pd.DataFrame(data, columns = ['country', 'spacecrafts'])
 
-        solution = political_constraints(countries)
+        solution, countries = political_constraints(countries)
 
         # save run data and put in runs dataframe
-        dataframe_row = spacefreight.save_iteration(solution, count)
+        dataframe_row = spacefreight.save_run_political(solution, countries)
         runs_dataframe = runs_dataframe.append(dataframe_row, ignore_index=True)
 
         count +=1
 
-    # print minimal costs from dataframe
-    print(runs_dataframe.iloc[:, 2].min())
+    # set column names
+    runs_dataframe.columns = column_names
 
+    print(runs_dataframe)
     # plot alle oplossingen samen
     plot_costs(runs_dataframe)
-    # # plot voor de vloot
-    # runs_high_costs = runs_dataframe[runs_dataframe.iloc[:, 2]>2460000000]
-    # plot_costs(runs_high_costs)
 
     return runs_dataframe

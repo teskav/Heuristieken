@@ -18,7 +18,7 @@ spacefreight = SpaceFreight()
 
 def hill_climber(iterations_dataframe, max_iterations):
     """
-    The hill climber algorithm swapping parcels
+    The hill climber algorithm swapping parcels.
     """
     count = 0
     costs_per_run = []
@@ -31,7 +31,7 @@ def hill_climber(iterations_dataframe, max_iterations):
     while count < max_iterations:
 
         check, neighbour_solution = \
-            neighbour_random_parcel_switch_SA(current_solution)
+            neighbour_random_parcel_switch(current_solution)
 
         # compare costs & check if no error
         if neighbour_solution.costs < current_solution.costs and check == True:

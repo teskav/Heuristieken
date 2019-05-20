@@ -60,7 +60,7 @@ if algorithm == 'hill climber combined':
     dataframe = call_hill_climber_combined()
 
 if algorithm == 'simulated annealing':
-    iterations_dataframe = call_simulated_annealing()
+    iterations_dataframe, runs_dataframe = call_simulated_annealing()
 
 if algorithm == 'simulated annealing combined':
     dataframe = call_simulated_annealing_combined()
@@ -72,20 +72,17 @@ if algorithm == 'political constraints' and list != '3':
     print('Political constraint is only applicable to cargolist 3.')
 
 # RANDOM ALL
-<<<<<<< HEAD
 # dataframe.to_csv(r'../Heuristieken/Outputs/Random/test.csv')
 
-# HILL CLIMBER (SPECIFY PARCEL OR SPACECRAFT SWITCH)
-iterations_dataframe.to_csv(r'../Heuristieken/Outputs/Hill_Climber/iterations_spacecrafts_CL2_30x2000.csv')
-runs_dataframe.to_csv(r'../Heuristieken/Outputs/Hill_Climber/runs_spacecrafts_CL2_30x2000.csv')
-=======
-# dataframe.to_csv(r'../Heuristieken/Outputs/Random/random_all_CL3_100000.csv')
 
 # HILL CLIMBER (SPECIFY PARCEL OR SPACECRAFT SWITCH)
 # iterations_dataframe.to_csv(r'../Heuristieken/Outputs/Hill_Climber/iterations_spacecrafts30x2000.csv')
 # runs_dataframe.to_csv(r'../Heuristieken/Outputs/Hill_Climber/runs_spacecrafts30x2000.csv')
->>>>>>> c7c7430e54416f7577d94981110b2fc2a62d7845
 
 
 # SIMULATED ANNEALING (nog geen runs dataframe)
-# iterations_dataframe.to_csv(r'../Heuristieken/Outputs/Simulated_Annealing/iterations.csv')
+# iterations_dataframe.to_csv(r'../Heuristieken/Outputs/Simulated_Annealing/iterations_SA_CL1_30x2000.csv')
+# runs_dataframe.to_csv(r'../Heuristieken/Outputs/Simulated_Annealing/runs_SA_CL1_30x2000.csv')
+
+# POLITICAL CONSTRAINTS
+dataframe.to_csv(r'../Heuristieken/Outputs/Political_Constraints/test.csv')
