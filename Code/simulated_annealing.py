@@ -20,23 +20,26 @@ spacefreight = SpaceFreight()
 
 def simulated_annealing(iterations_dataframe, max_iterations):
     """
-    The simulated annealing algorithm swapping
+    The simulated annealing algorithm swapping parcels.
     """
     count = 0
+    costs_per_run = []
+
     # starting solution -> buiten hill climber
     current_solution = random_all_parcels()
+    start_solution = copy.copy(current_solution)
 
     # select neighbouring solution
     while count < max_iterations:
         # Generate neighbour solution
         check, neighbour_solution = \
-            neighbour_random_parcel_switch_SA(current_solution)
+            neighbour_random_parcel_switch(current_solution)
         # print(check)
         # print(neighbour_solution.costs)
         # print(current_solution.costs)
 
-        # get the temperature and the acceptatie kans and generate a random number
-        temperature, acceptatie_kans = acceptatie(current_solution, \
+        # get the temperature and the acceptance and generate a random number
+        temperature, acceptance = acceptance_SA(current_solution, \
                                         neighbour_solution, count, \
                                         max_iterations)
         random_number = random.random()
@@ -47,20 +50,26 @@ def simulated_annealing(iterations_dataframe, max_iterations):
         # compare costs & check of hij geen error geeft
         if neighbour_solution.costs <= current_solution.costs and check == True:
             current_solution = neighbour_solution
-            acceptatie_kans = None
-        elif random_number < acceptatie_kans and check == True:
+            acceptance = 1
+        elif random_number < acceptance and check == True:
             current_solution = neighbour_solution
         # elif acceptatie(current_solution, neighbour_solution, count, max_iterations):
         #     print('Doei')
         #     current_solution = neighbour_solution
 
         dataframe_row = spacefreight.save_iteration_SA(current_solution, count,\
-                        temperature, acceptatie_kans)
+                        temperature, acceptance)
         iterations_dataframe = iterations_dataframe.append(dataframe_row, \
                                 ignore_index=True)
+
+        # save list with development of the costs per run
+        costs_per_run.append(current_solution.costs)
+
         count += 1
 
-    return iterations_dataframe, count, current_solution
+    end_solution = current_solution
+
+    return iterations_dataframe, start_solution, end_solution, costs_per_run
 
 def simulated_annealing_combined(iterations_dataframe, max_iterations):
     count = 0
