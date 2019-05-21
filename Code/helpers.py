@@ -183,7 +183,7 @@ def cooling_scheme(count, max_iterations):
 
     # set begin temperature and end temperature
     # NOG NEERZETTEN WAAROM WE DEZE TEMPERATUUR KIEZEN
-    T_0 = 15000
+    T_0 = 13000
     T_N = 40
 
     # LINEAIR
