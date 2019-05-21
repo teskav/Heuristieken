@@ -181,10 +181,12 @@ def cooling_scheme(count, max_iterations):
     Returns the temperature
     """
 
-    # set begin temperature and end temperature
-    # NOG NEERZETTEN WAAROM WE DEZE TEMPERATUUR KIEZEN
-    T_0 = 13000
-    T_N = 40
+    # Set begin temperature and end temperature based on maximal and minimal
+    # differences in costs caused by a parcel switch with hill climber.
+    # Instead of using the minimum of 0, we use the second minimum greater
+    # than 0, since this is no improvement.
+    T_0 = 12286
+    T_N = 382
 
     # LINEAIR
     # T_i = T_0 - count * ( T_0 - T_N ) / max_iterations

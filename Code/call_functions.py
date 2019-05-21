@@ -416,7 +416,7 @@ def call_simulated_annealing():
         plt.plot(x, costs_runs[i])
     plt.xlabel('Iterations')
     plt.ylabel('Costs')
-    plt.title('Behaviour of the hillclimber in different runs')
+    plt.title('Behaviour of the simulated annealing in different runs')
     plt.show()
 
     # set column names

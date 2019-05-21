@@ -2,6 +2,31 @@
 <!-- ## zorg dat iemand die het niet kent alles weet
 documentatie heel belangrijk -->
 
+## Belangrijkst:
+Met de hill climber parcel switch zijn we er achter gekomen dat het wisselen van parcels weinig verschil maakt en de start vloot eigenlijk alles bepalend is. (resultaten verbeteren maximaal met 13000 tov miljarden)
+
+Wanneer je spacecrafts wisselt verbeteren de resultaten wel met honderden miljoenen door de grote verschillen in initiele kosten van de spacecrafts.
+
+Zelfde bij simulated annealing gevonden (parcel switch)
+
+Geprobeerd dit te kwantificeren: random gesorteerd op goedkoopste kosten en onderzocht of dit idd vaak dezelfde vloot heeft
+
+Daarnaast ook de hele case afgerond.
+
+## VERSCHILLENDE ALGORITMES
+* first fit
++ volgorde van cargolist en spacecraft
++ parcels gesorteerd op massa
++ parcels gesorteerd op volume
+* random
+* pseudo greedy random
+* hill climber
++ swap parcels
++ swap spacecrafts
+* simulated annealing
++ parcels
+* political constraints (opdracht e)
+
 ## Problem
 The case Spacefreight is a constraint optimization problem (COP). The constraint that needs to be met is to ship all parcels from the cargolist(s). Other constraints are the maximum payload mass and the maximum payload volume of the spacecrafts. Each spacecraft has their own specifications. The maximum payloads of the spacecrafts cant be exceeded while allocating the parcels. Multiple spacecrafts can be deployed to ship all parcels to the International Space Station (ISS).
 

@@ -78,17 +78,9 @@ if algorithm == 'political constraints' and list != '3':
 # iterations_dataframe.to_csv(r'../Heuristieken/Outputs/Hill_Climber/iterations_spacecrafts_CL2_30x2000.csv')
 # runs_dataframe.to_csv(r'../Heuristieken/Outputs/Hill_Climber/runs_spacecrafts_CL2_30x2000.csv')
 
-<<<<<<< HEAD
-# SIMULATED ANNEALING (nog geen runs dataframe)
-# iterations_dataframe.to_csv(r'../Heuristieken/Outputs/Simulated_Annealing/iterations.csv')
-
-# POLITICAL CONSTRAINTS
-# dataframe.to_csv(r'../Heuristieken/Outputs/Random/political.csv')
-=======
 # SIMULATED ANNEALING
-# iterations_dataframe.to_csv(r'../Heuristieken/Outputs/Simulated_Annealing/iterations_SA_CL2_30x2000.csv')
-# runs_dataframe.to_csv(r'../Heuristieken/Outputs/Simulated_Annealing/runs_SA_CL2_30x2000.csv')
+iterations_dataframe.to_csv(r'../Heuristieken/Outputs/Simulated_Annealing/iterations_SA_CL2_exp37_30x2000.csv')
+runs_dataframe.to_csv(r'../Heuristieken/Outputs/Simulated_Annealing/runs_SA_CL2_exp37_30x2000.csv')
 
 # POLITICAL CONSTRAINTS
 # dataframe.to_csv(r'../Heuristieken/Outputs/Political_Constraints/test.csv')
->>>>>>> 19ce9ae5e8dd4426e8e8328c1d9fd963d2af4318
