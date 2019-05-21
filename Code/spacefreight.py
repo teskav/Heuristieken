@@ -267,6 +267,45 @@ class SpaceFreight():
 
 			packed_parcels.append(parcels)
 
+        data.append(fleet)
+        data.append(costs_spacecraft)
+        data.append(packed_mass_vol)
+        data.append(packed_parcels)
+
+        row = pd.DataFrame([data])
+
+        return row
+
+    def save_run_political(self, solution, countries):
+		"""
+		Save the solution from a run in a dataframe
+		"""
+		data = [solution.name, solution.costs]
+
+        # also add the distribution of spacecrafts
+        # [USA, Russia, Japan, China, Europe]
+        constraint = list(countries['spacecrafts'])
+        print(constraint)
+        data.append(constraint)
+
+        fleet = []
+		costs_spacecraft = []
+		packed_mass_vol = []
+		packed_parcels = []
+
+		# make lists
+		for spacecraft in solution.used_spacecrafts:
+			fleet.append(spacecraft.name)
+			costs_spacecraft.append(spacecraft.costs)
+			packed_mass_vol.append([spacecraft.packed_mass, \
+                                    spacecraft.packed_vol])
+
+			parcels = []
+			for parcel in spacecraft.packed_parcels:
+				parcels.append(parcel.ID)
+
+			packed_parcels.append(parcels)
+
 		data.append(fleet)
 		data.append(costs_spacecraft)
 		data.append(packed_mass_vol)
@@ -276,7 +315,7 @@ class SpaceFreight():
 
 		return row
 
-	def save_run_hill_climber(self, start_solution, end_solution, max_iterations):
+    def save_run_hill_climber(self, start_solution, end_solution, max_iterations):
 		"""
 		Save the solution from a run in a dataframe
 		"""
