@@ -15,16 +15,16 @@ Daarnaast ook de hele case afgerond.
 
 ## VERSCHILLENDE ALGORITMES
 * first fit
-+ volgorde van cargolist en spacecraft
-+ parcels gesorteerd op massa
-+ parcels gesorteerd op volume
+    * volgorde van cargolist en spacecraft
+    * parcels gesorteerd op massa
+    * parcels gesorteerd op volume
 * random
 * pseudo greedy random
 * hill climber
-+ swap parcels
-+ swap spacecrafts
+    * swap parcels
+    * swap spacecrafts
 * simulated annealing
-+ parcels
+    * parcels
 * political constraints (opdracht e)
 
 ## Problem
