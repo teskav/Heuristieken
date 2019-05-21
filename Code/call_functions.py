@@ -416,7 +416,7 @@ def call_simulated_annealing():
         plt.plot(x, costs_runs[i])
     plt.xlabel('Iterations')
     plt.ylabel('Costs')
-    plt.title('Behaviour of the hillclimber in different runs')
+    plt.title('Behaviour of the simulated annealing in different runs')
     plt.show()
 
     # set column names
@@ -484,7 +484,6 @@ def call_political_constraints():
     runs_dataframe.columns = column_names
 
     print(runs_dataframe)
-
     # plot alle oplossingen samen
     plot_costs(runs_dataframe)
 

@@ -318,59 +318,59 @@ class SpaceFreight():
         return row
 
     def save_run_hill_climber(self, start_solution, end_solution, max_iterations):
-    	"""
-    	Save the solution from a run in a dataframe
-    	"""
-    	data = [start_solution.name, max_iterations, start_solution.costs, \
+        """
+        Save the solution from a run in a dataframe
+        """
+        data = [start_solution.name, max_iterations, start_solution.costs, \
                 end_solution.costs]
-    	start_fleet = []
-    	start_costs_spacecraft = []
-    	start_packed_mass_vol = []
-    	start_packed_parcels = []
-    	end_fleet = []
-    	end_costs_spacecraft = []
-    	end_packed_mass_vol = []
-    	end_packed_parcels = []
+        start_fleet = []
+        start_costs_spacecraft = []
+        start_packed_mass_vol = []
+        start_packed_parcels = []
+        end_fleet = []
+        end_costs_spacecraft = []
+        end_packed_mass_vol = []
+        end_packed_parcels = []
 
-    	# make lists start solution
-    	for spacecraft in start_solution.used_spacecrafts:
-    		start_fleet.append(spacecraft.name)
-    		start_costs_spacecraft.append(spacecraft.costs)
-    		start_packed_mass_vol.append([spacecraft.packed_mass, \
-                                        spacecraft.packed_vol])
+        # make lists start solution
+        for spacecraft in start_solution.used_spacecrafts:
+            start_fleet.append(spacecraft.name)
+            start_costs_spacecraft.append(spacecraft.costs)
+            start_packed_mass_vol.append([spacecraft.packed_mass, \
+                                            spacecraft.packed_vol])
 
-    		parcels = []
-    		for parcel in spacecraft.packed_parcels:
-    			parcels.append(parcel.ID)
+            parcels = []
+            for parcel in spacecraft.packed_parcels:
+                parcels.append(parcel.ID)
 
-    		start_packed_parcels.append(parcels)
+            start_packed_parcels.append(parcels)
 
-    	data.append(start_fleet)
-    	data.append(start_costs_spacecraft)
-    	data.append(start_packed_mass_vol)
-    	data.append(start_packed_parcels)
+        data.append(start_fleet)
+        data.append(start_costs_spacecraft)
+        data.append(start_packed_mass_vol)
+        data.append(start_packed_parcels)
 
     	# make lists end solution
-    	for spacecraft in end_solution.used_spacecrafts:
-    		end_fleet.append(spacecraft.name)
-    		end_costs_spacecraft.append(spacecraft.costs)
-    		end_packed_mass_vol.append([spacecraft.packed_mass, \
+        for spacecraft in end_solution.used_spacecrafts:
+            end_fleet.append(spacecraft.name)
+            end_costs_spacecraft.append(spacecraft.costs)
+            end_packed_mass_vol.append([spacecraft.packed_mass, \
                                         spacecraft.packed_vol])
 
-    		parcels = []
-    		for parcel in spacecraft.packed_parcels:
-    			parcels.append(parcel.ID)
+            parcels = []
+            for parcel in spacecraft.packed_parcels:
+                parcels.append(parcel.ID)
 
-    		end_packed_parcels.append(parcels)
+            end_packed_parcels.append(parcels)
 
-    	data.append(end_fleet)
-    	data.append(end_costs_spacecraft)
-    	data.append(end_packed_mass_vol)
-    	data.append(end_packed_parcels)
+        data.append(end_fleet)
+        data.append(end_costs_spacecraft)
+        data.append(end_packed_mass_vol)
+        data.append(end_packed_parcels)
 
-    	row = pd.DataFrame([data])
+        row = pd.DataFrame([data])
 
-    	return row
+        return row
 
     def max_costs(self):
     	"""
