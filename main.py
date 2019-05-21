@@ -72,7 +72,7 @@ if algorithm == 'political constraints' and list != '3':
     print('Political constraint is only applicable to cargolist 3.')
 
 # RANDOM ALL
-# dataframe.to_csv(r'../Heuristieken/Outputs/Random/test.csv')
+dataframe.to_csv(r'../Heuristieken/Outputs/Random/CL1_100000.csv')
 
 # HILL CLIMBER (SPECIFY PARCEL OR SPACECRAFT SWITCH)
 # iterations_dataframe.to_csv(r'../Heuristieken/Outputs/Hill_Climber/iterations_spacecrafts_CL2_30x2000.csv')
