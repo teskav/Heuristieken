@@ -8,17 +8,19 @@ Script to sort and calculate differences
 import pandas as pd
 import sys
 
+# import csv data from algorithm
+output_location = '/Random/random_CL1_100000.csv'
+data = pd.read_csv('../Outputs' + output_location, index_col=0)
+
+# check imput argument
 if sys.argv[1] == 'sort':
     """
     Script to sort the solutions of the random algorithm and calculate how often
     a spacecraft is sent per solution
     """
-    # import csv data from algorithm
-    output_location = '/Random/CL1_100000.csv'
-    random = pd.read_csv('../Outputs' + output_location, index_col=0)
 
     # only select the interesting columns
-    random_costs_fleet = random[['costs_solution', 'fleet']]
+    random_costs_fleet = data[['costs_solution', 'fleet']]
 
     # sort the columns by fleet
     sorted = random_costs_fleet.sort_values(by='costs_solution')
@@ -30,12 +32,13 @@ if sys.argv[1] == 'sort':
         sorted.loc[sorted['fleet'] == s, 'Dragon'] = s.count('Dragon')
 
     print(sorted)
-    sorted.to_csv(r'../Outputs/Random/sorted_part2.csv')
+    sorted.to_csv(r'../Outputs/Random/sorted_CL1_100000.csv')
 
-if sys.argv[1] == 'differences':
+elif sys.argv[1] == 'differences':
     """
     Script to calculate the costs improvements per hill climber run
     """
+
     output_location = '../Outputs/Hill_Climber/runs_spacecrafts_CL1_30x2000.csv'
     data = pd.read_csv(output_location, index_col=0)
 
@@ -51,6 +54,16 @@ if sys.argv[1] == 'differences':
     print('Minimal difference:', min_difference)
     print('Maximal difference:', max_difference)
     print('Average difference:', mean_difference)
+
+elif sys.argv[1] == 'average':
+    """
+    Script to calculate the average costs per algorithm
+    """
+    low = data['costs_solution'].min()
+    average = data['costs_solution'].mean()
+
+    print('The lowest costs are:', low)
+    print('The average costs are:', average)
 
 else:
     print('Please give imput argument:\n  sort \n  differences')
