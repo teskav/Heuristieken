@@ -36,7 +36,7 @@ if sys.argv[1] == 'differences':
     """
     Script to calculate the costs improvements per hill climber run
     """
-    output_location = '../Outputs/Hill_Climber/runs_parcels_CL1_30x2000.csv'
+    output_location = '../Outputs/Hill_Climber/runs_spacecrafts_CL1_30x2000.csv'
     data = pd.read_csv(output_location, index_col=0)
 
     # create dataframe with differences between the start and end costs per run

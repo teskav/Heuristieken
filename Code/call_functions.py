@@ -389,7 +389,7 @@ def call_simulated_annealing():
 
     max_iterations = 2000
     runs = 0
-    max_runs = 1
+    max_runs = 30
 
     # set lists for plots
     costs_runs = []
@@ -425,8 +425,8 @@ def call_simulated_annealing():
 
     # spacefreight.printing(end_solution)
     # plot_costs(iterations_dataframe)
-    plot_cooling(iterations_dataframe)
-    plot_acceptatie(iterations_dataframe)
+    # plot_cooling(iterations_dataframe)
+    # plot_acceptatie(iterations_dataframe)
 
     return iterations_dataframe, runs_dataframe
 
