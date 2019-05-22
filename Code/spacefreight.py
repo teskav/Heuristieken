@@ -140,17 +140,20 @@ class SpaceFreight():
         # print(tabulate([['Alice', 24], ['Bob', 19]], headers=['Name', 'Age'], tablefmt='orgtbl'))
         print("Best solution:")
         print("=====================================")
-        print(Back.GREEN + 'Total costs:', solution.costs/billion, 'billion' + \
+        print(Back.GREEN + 'Total costs: $', solution.costs/billion, 'billion' + \
               Style.RESET_ALL)
+        print("=====================================")
         print(Back.CYAN + "Fleet and payloads:" + Style.RESET_ALL)
         print("=====================================")
         for spacecraft in solution.used_spacecrafts:
-            print(Back.CYAN + spacecraft.name + ':' + Style.RESET_ALL)
+            print(Fore.CYAN + spacecraft.name + ':' + Style.RESET_ALL)
             parcels = []
             for parcel in spacecraft.packed_parcels:
                 parcels.append(parcel.ID)
             print(tabulate([["{0:.3f}".format(spacecraft.packed_mass), "{0:.3f}".format(spacecraft.packed_vol)]], headers=['Payload mass', 'Payload volume'], tablefmt='orgtbl'))
+            print('Packed parcels:', parcels)
             # print(parcels)
+            print("-------------------------------------")
             # print("Payload mass:", "{0:.3f}".format(spacecraft.packed_mass))
             # print("Payload volume:", "{0:.3f}".format(spacecraft.packed_vol))
 
