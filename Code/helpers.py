@@ -209,6 +209,9 @@ def acceptance_SA(current_solution, neighbour_solution, count, max_iterations):
     temperature = cooling_scheme(count, max_iterations)
 
     # bereken acceptatiekans
-    acceptance = math.exp(verkorting/temperature)
+    try:
+        acceptance = math.exp(verkorting/temperature)
+    except OverflowError:
+        acceptance = float('inf')
 
     return temperature, acceptance

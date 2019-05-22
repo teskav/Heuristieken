@@ -75,7 +75,7 @@ def call_random_all():
                     'costs_spacecraft', 'packed_mass_vol', 'packed_parcels']
     runs_dataframe = pd.DataFrame()
 
-    max_runs = 100000
+    max_runs = 10
     # run all parcels random
     best_solution = random_all_parcels()
     count = 0

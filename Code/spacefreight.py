@@ -15,6 +15,10 @@ import copy
 from parcel import Parcel
 from spacecraft import Spacecraft
 from solution import Solution
+from tabulate import tabulate
+import colorama
+from colorama import Fore, Back, Style
+colorama.init()
 
 INPUT_1 = "CargoLists/CargoList1.csv"
 INPUT_2 = "CargoLists/CargoList2.csv"
@@ -129,24 +133,31 @@ class SpaceFreight():
     	return total_costs
 
     def printing(self, solution):
-    	"""
-    	This functions prints the spacecrafts, packed parcels, packed mass and
-    	volume, unpacked parcels, number of packed parcels and total costs.
-    	"""
-    	for spacecraft in solution.used_spacecrafts:
-    		print(spacecraft.name + ':')
-    		parcels = []
-    		for parcel in spacecraft.packed_parcels:
-    		    parcels.append(parcel.ID)
-    		print(parcels)
-    		print("Mass:", "{0:.3f}".format(spacecraft.packed_mass))
-    		print("Vol:", "{0:.3f}".format(spacecraft.packed_vol))
+        """
+        This functions prints the spacecrafts, packed parcels, packed mass and
+        volume and total costs of a solution.
+        """
+        # print(tabulate([['Alice', 24], ['Bob', 19]], headers=['Name', 'Age'], tablefmt='orgtbl'))
+        print("Best solution:")
+        print("=====================================")
+        print(Back.GREEN + 'Total costs:', solution.costs/billion, 'billion' + \
+              Style.RESET_ALL)
+        print(Back.CYAN + "Fleet and payloads:" + Style.RESET_ALL)
+        print("=====================================")
+        for spacecraft in solution.used_spacecrafts:
+            print(Back.CYAN + spacecraft.name + ':' + Style.RESET_ALL)
+            parcels = []
+            for parcel in spacecraft.packed_parcels:
+                parcels.append(parcel.ID)
+            print(tabulate([["{0:.3f}".format(spacecraft.packed_mass), "{0:.3f}".format(spacecraft.packed_vol)]], headers=['Payload mass', 'Payload volume'], tablefmt='orgtbl'))
+            # print(parcels)
+            # print("Payload mass:", "{0:.3f}".format(spacecraft.packed_mass))
+            # print("Payload volume:", "{0:.3f}".format(spacecraft.packed_vol))
 
-    	print('Unpacked:')
-    	print(solution.unpacked_parcels)
-    	print('Number of packed parcels: ', len(self.all_parcels) - \
-                solution.not_bring)
-    	print('Costs:', solution.costs/billion, 'billion')
+        # print('Unpacked parcels:')
+        # print(solution.unpacked_parcels)
+        # print('Number of packed parcels: ', len(self.all_parcels) - \
+        #       solution.not_bring)
 
     def swap_parcel(self, spacecraft_1, spacecraft_2, parcel_1, parcel_2):
     	"""
