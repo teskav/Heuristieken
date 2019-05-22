@@ -185,8 +185,8 @@ def cooling_scheme(count, max_iterations):
     # differences in costs caused by a parcel switch with hill climber.
     # Instead of using the minimum of 0, we use the second minimum greater
     # than 0, since this is no improvement.
-    T_0 = 12286
-    T_N = 382
+    T_0 = 641114
+    T_N = 5000
 
     # LINEAIR
     # T_i = T_0 - count * ( T_0 - T_N ) / max_iterations

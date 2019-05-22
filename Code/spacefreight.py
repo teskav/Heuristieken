@@ -111,7 +111,7 @@ class SpaceFreight():
     	This function calculates the costs of a spacecraft.
     	"""
     	fuel_spacecraft = (spacecraft.mass + spacecraft.packed_mass) * \
-            spacecraft.FtW * (1 - spacecraft.FtW)
+            spacecraft.FtW / (1 - spacecraft.FtW)
     	costs_spacecraft = spacecraft.base_cost + \
             math.ceil(fuel_spacecraft * 1000)
     	# niet deze costs = spacecraft.base_cost + round(fuel * 1000)
@@ -287,7 +287,6 @@ class SpaceFreight():
         # also add the distribution of spacecrafts
         # [USA, Russia, Japan, China, Europe]
         constraint_list = countries['spacecrafts'].tolist()
-        print(constraint_list)
         data.append(constraint_list)
 
         fleet = []
@@ -379,7 +378,7 @@ class SpaceFreight():
     	costs_max = 0
     	for spacecraft in self.spacecrafts:
     		fuel_spacecraft = (spacecraft.mass + spacecraft.payload_mass) * \
-                spacecraft.FtW * (1 - spacecraft.FtW)
+                spacecraft.FtW / (1 - spacecraft.FtW)
     		costs_spacecraft = spacecraft.base_cost + \
                 math.ceil(fuel_spacecraft * 1000)
     		costs_max += costs_spacecraft
@@ -392,7 +391,7 @@ class SpaceFreight():
     	costs_min = 0
     	for spacecraft in self.spacecrafts:
     		fuel_spacecraft = (spacecraft.mass + 0) * \
-                spacecraft.FtW * (1 - spacecraft.FtW)
+                spacecraft.FtW / (1 - spacecraft.FtW)
     		costs_spacecraft = spacecraft.base_cost + \
                 math.ceil(fuel_spacecraft * 1000)
     		costs_min += costs_spacecraft

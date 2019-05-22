@@ -39,8 +39,8 @@ def plot_acceptatie(iterations_dataframe):
     This function plots the course of the acceptation rate
     of 1 run of the simulated annealing"
     """
-    plt.plot(list(range(len(iterations_dataframe['acceptation_chance']))), \
-    iterations_dataframe['acceptation_chance'])
+    plt.plot(list(range(len(iterations_dataframe['acceptance']))), \
+    iterations_dataframe['acceptance'])
     plt.xlabel('Iterations')
     plt.ylabel('Acceptatiekans')
     plt.title('Verloop acceptatiekans')
