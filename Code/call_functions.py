@@ -380,7 +380,7 @@ def call_simulated_annealing():
                         'end_costs_spacecraft', 'end_packed_mass_vol', \
                         'end_packed_parcels']
     column_names_iterations=['algorithm_name', 'iteration', 'costs_solution', \
-                            'temperature', 'acceptation', 'fleet', \
+                            'temperature', 'acceptance', 'fleet', \
                             'costs_spacecraft', 'packed_mass_vol', \
                             'packed_parcels']
 
@@ -425,8 +425,8 @@ def call_simulated_annealing():
 
     # spacefreight.printing(end_solution)
     # plot_costs(iterations_dataframe)
-    # plot_cooling(iterations_dataframe)
-    # plot_acceptatie(iterations_dataframe)
+    plot_cooling(iterations_dataframe)
+    plot_acceptatie(iterations_dataframe)
 
     return iterations_dataframe, runs_dataframe
 

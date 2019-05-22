@@ -189,10 +189,10 @@ def cooling_scheme(count, max_iterations):
     T_N = 382
 
     # LINEAIR
-    # T_i = T_0 - count * ( T_0 - T_N ) / max_iterations
+    T_i = T_0 - count * ( T_0 - T_N ) / max_iterations
 
     # EXPONENTIAL
-    T_i = T_0 * (T_N / T_0) ** (count / max_iterations)
+    # T_i = T_0 * (T_N / T_0) ** (count / max_iterations)
 
     # SIGMOIDAL
     # T_i = T_N + (T_0 - T_N) / (1 + math.exp(0.3 * (count - max_iterations / 2)))
