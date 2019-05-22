@@ -226,7 +226,7 @@ def political_constraints(countries):
         # add 1 to dataframe
         countries.loc[countries['country'] == spacecraft.country, \
             ['spacecrafts']] += 1
-        print(countries)
+        # print(countries)
 
         # check if political constraints are not violated
         if not (countries['spacecrafts'].min() >=
