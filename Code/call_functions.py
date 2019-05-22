@@ -389,7 +389,7 @@ def call_simulated_annealing():
 
     max_iterations = 2000
     runs = 0
-    max_runs = 30
+    max_runs = 1
 
     # set lists for plots
     costs_runs = []
@@ -462,7 +462,7 @@ def call_political_constraints():
                     'packed_parcels']
 
     runs_dataframe = pd.DataFrame()
-    max_runs = 2
+    max_runs = 10000
     count = 0
 
     while count < max_runs:
@@ -483,7 +483,7 @@ def call_political_constraints():
     # set column names
     runs_dataframe.columns = column_names
 
-    print(runs_dataframe)
+    # print(runs_dataframe)
     # plot alle oplossingen samen
     plot_costs(runs_dataframe)
 
