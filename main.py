@@ -4,6 +4,7 @@
 # Sofie Löhr, Teska Vaessen & Wies de Wit
 """
 Main script, used to process the call for functions in the terminal
+Main script, used to process the call for functions in the terminal.
 """
 
 # set import location
@@ -17,6 +18,7 @@ from call_functions import *
 
 spacefreight = SpaceFreight()
 
+# print the algorithm options
 print("")
 print("Algorithm options: \n first fit \n first fit sorted mass \
         \n first fit sorted vol \n random \n pseudo greedy random \
@@ -28,6 +30,7 @@ if list == '3':
 
 algorithm = input("\nPlease give algorithm: ")
 
+# call right algorithm based on users input and save dataframe
 if algorithm == 'first fit':
     dataframe = call_first_fit()
 
@@ -63,14 +66,19 @@ if algorithm == 'political constraints' and list != '3':
 
 # RANDOM ALL
 # dataframe.to_csv(r'../Heuristieken/Outputs/Random/random_CL1_100000.csv')
+# RANDOM convert dataframe to csv
+# dataframe.to_csv(r'../Heuristieken/Outputs/Random/random_CL2_100000.csv')
 
 # HILL CLIMBER (SPECIFY PARCEL OR SPACECRAFT SWITCH)
+# HILL CLIMBER (SPECIFY PARCEL OR SPACECRAFT SWITCH) convert dataframe to csv
 # iterations_dataframe.to_csv(r'../Heuristieken/Outputs/Hill_Climber/iterations_parcels_CL1_10x2000.csv')
 # runs_dataframe.to_csv(r'../Heuristieken/Outputs/Hill_Climber/runs_parcels_CL1_10x2000.csv')
 
 # SIMULATED ANNEALING
+# SIMULATED ANNEALING convert dataframe to csv
 # iterations_dataframe.to_csv(r'../Heuristieken/Outputs/Simulated_Annealing/iterations_SA_CL1_lin_30x2000.csv')
 # runs_dataframe.to_csv(r'../Heuristieken/Outputs/Simulated_Annealing/runs_SA_CL1_lin_30x2000.csv')
 
 # POLITICAL CONSTRAINTS
+# POLITICAL CONSTRAINTS convert dataframe to csv
 # dataframe.to_csv(r'../Heuristieken/Outputs/Political_Constraints/CL3_10000.csv')
