@@ -9,7 +9,7 @@ import pandas as pd
 import sys
 
 # import csv data from algorithm
-output_location = '/Random/random_CL1_100000.csv'
+output_location = '/Random/random_CL2_100000.csv'
 data = pd.read_csv('../Outputs' + output_location, index_col=0)
 
 # check imput argument
@@ -32,14 +32,15 @@ if sys.argv[1] == 'sort':
         sorted.loc[sorted['fleet'] == s, 'Dragon'] = s.count('Dragon')
 
     print(sorted)
-    sorted.to_csv(r'../Outputs/Random/sorted_CL1_100000.csv')
+    sorted.to_csv(r'../Outputs/Random/sorted_CL2_100000.csv')
 
 elif sys.argv[1] == 'differences':
     """
-    Script to calculate the costs improvements per hill climber run
+    Script to calculate the costs improvements per hill climber or
+    simulated annealing run.
     """
 
-    output_location = '../Outputs/Hill_Climber/runs_spacecrafts_CL1_30x2000.csv'
+    output_location = '../Outputs/Simulated_Annealing/runs_SA_CL1_sig_30x2000.csv'
     data = pd.read_csv(output_location, index_col=0)
 
     # create dataframe with differences between the start and end costs per run
@@ -57,7 +58,7 @@ elif sys.argv[1] == 'differences':
 
 elif sys.argv[1] == 'average':
     """
-    Script to calculate the average costs per algorithm
+    Script to calculate the average costs per algorithm.
     """
     low = data['costs_solution'].min()
     average = data['costs_solution'].mean()

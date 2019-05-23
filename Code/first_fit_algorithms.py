@@ -4,7 +4,7 @@
 # Sofie Löhr, Teska Vaessen & Wies de Wit
 """
 This script contains the different versions (functions)
-of the first fit algorithms
+of the first fit algorithms.
 """
 
 from spacefreight import SpaceFreight
@@ -14,7 +14,7 @@ spacefreight = SpaceFreight()
 
 def first_fit():
     """
-    Allocate the parcels in spacecrafts
+    Allocates the parcels in spacecrafts with the first fit algorithm.
     """
 
     # set starting
@@ -93,7 +93,7 @@ def first_fit_sorted_mass():
 
 def first_fit_sorted_vol():
     """
-    Allocate the parcels in spacecrafts with a sorted list by volume
+    Allocate the parcels in spacecrafts with a sorted list by volume.
     """
     # sort the list by mass (reverse=true if you want big to small)
     sorted_volume = sorted(spacefreight.all_parcels, key=lambda x: x.volume, \

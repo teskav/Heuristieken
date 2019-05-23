@@ -26,8 +26,8 @@ class Spacecraft(object):
 
     def remove_parcel(self, parcel):
         """
-		Removes an item from the packed parcel list of an spacecraft
-		"""
+        Removes an item from the packed parcel list of an spacecraft
+        """
         # Remove item from the list
         self.packed_parcels.remove(parcel)
 
@@ -37,8 +37,8 @@ class Spacecraft(object):
 
     def add_parcel(self, parcel):
         """
-		Adds an item from the packed parcel list of an spacecraft
-		"""
+        Adds an item from the packed parcel list of an spacecraft
+        """
         # Add item to the list
         self.packed_parcels.append(parcel)
 

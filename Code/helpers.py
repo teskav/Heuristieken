@@ -21,7 +21,7 @@ mean_vol = np.mean([parcel.volume for parcel in spacefreight.all_parcels])
 
 def empty_single_spacecraft(spacecraft_item):
     """
-    Set variables at 0 after run for one spacecraft
+    Sets variables at 0 after run for one spacecraft and returns spacecraft.
     """
     spacecraft_item.packed_parcels = []
     spacecraft_item.packed_mass = 0
@@ -31,7 +31,7 @@ def empty_single_spacecraft(spacecraft_item):
 
 def set_up_unpacked():
     """
-    Update unpacked parcels
+    Updates and returns list of unpacked parcels.
     """
     unpacked = []
     for p in spacefreight.all_parcels:
@@ -41,7 +41,7 @@ def set_up_unpacked():
 
 def set_up_random():
     """
-    Set up random algorithms, draws random numbers for spacecrafts and parcels
+    Sets up random algorithms, draws random numbers for spacecrafts and parcels.
     """
     used_spacecrafts = []
     total_costs = 0
@@ -120,7 +120,7 @@ def check_constraints(parcel, spacefreight, number):
 
 def neighbour_random_parcel_switch(current_solution):
     """
-    Returns the neighbouring solution in a Solution class
+    Returns the neighbouring solution of parcel swap in a Solution class.
     """
     neighbour_solution = copy.copy(current_solution)
     # selecting the spacecrafts
@@ -133,8 +133,6 @@ def neighbour_random_parcel_switch(current_solution):
 
     # check if the spacecrafts where the swap takes place are not the same
     if spacecraft_1 == spacecraft_2:
-    # bij simulated annealing is het dit
-    # if spacecraft_1 == spacecraft_2 and parcel_1 == parcel_2:
         return False, current_solution
     else:
         check = spacefreight.swap_parcel(spacecraft_1, spacecraft_2, \
@@ -148,7 +146,7 @@ def neighbour_random_parcel_switch(current_solution):
 
 def neighbour_random_spacecraft_switch(current_solution):
     """
-    Returns the neighbouring solution in a Solution class
+    Returns the neighbouring solution of spacecraft swap in a Solution class.
     """
     neighbour_solution = copy.deepcopy(current_solution)
     # selecting the spacecraft
@@ -178,7 +176,7 @@ def neighbour_random_spacecraft_switch(current_solution):
 
 def cooling_scheme(count, max_iterations):
     """
-    Returns the temperature
+    Calculates and returns the temperature.
     """
 
     # Set begin temperature based on mean difference in costs caused by a run
@@ -200,17 +198,18 @@ def cooling_scheme(count, max_iterations):
 
 def acceptance_SA(current_solution, neighbour_solution, count, max_iterations):
     """
-    Returns True if neighbour solution gets accepted, False if not
+    Calculates the acceptance chance of a neighbour solution.
+    Returns the temperature and the acceptance probability.
     """
-    # bereken verkorting
-    verkorting = current_solution.costs - neighbour_solution.costs
+    # calculate change in costs
+    change = current_solution.costs - neighbour_solution.costs
 
-    # bereken temperature
+    # calculate temperature
     temperature = cooling_scheme(count, max_iterations)
 
-    # bereken acceptatiekans
+    # calculate acceptance probability
     try:
-        acceptance = math.exp(verkorting/temperature)
+        acceptance = math.exp(change/temperature)
     except OverflowError:
         acceptance = float('inf')
 
