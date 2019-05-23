@@ -69,8 +69,8 @@ if algorithm == 'political constraints' and list != '3':
 # runs_dataframe.to_csv(r'../Heuristieken/Outputs/Hill_Climber/runs_parcels_CL1_10x2000.csv')
 
 # SIMULATED ANNEALING
-# iterations_dataframe.to_csv(r'../Heuristieken/Outputs/Simulated_Annealing/iterations_SA_CL1_lin_30x2000.csv')
-# runs_dataframe.to_csv(r'../Heuristieken/Outputs/Simulated_Annealing/runs_SA_CL1_lin_30x2000.csv')
+iterations_dataframe.to_csv(r'../Heuristieken/Outputs/Simulated_Annealing/iterations_SA_CL1_lin_30x2000.csv')
+runs_dataframe.to_csv(r'../Heuristieken/Outputs/Simulated_Annealing/runs_SA_CL1_lin_30x2000.csv')
 
 # POLITICAL CONSTRAINTS
 # dataframe.to_csv(r'../Heuristieken/Outputs/Political_Constraints/CL3_10000.csv')
