@@ -1,4 +1,4 @@
-# HEURISTIEKEN
+# Heuristieken
 # April - May 2019
 # Space Freight
 # Sofie Löhr, Teska Vaessen & Wies de Wit
