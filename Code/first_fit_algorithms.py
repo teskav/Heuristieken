@@ -34,16 +34,14 @@ def first_fit(heuristic):
     spacefreight.unpacked_parcels = set_up_unpacked()
 
     while len(spacefreight.unpacked_parcels) > 0:
-        # go over list of spacecrafts and parcels and pack or not
+        # go over list of spacecrafts and parcels and pack if it fits
         for spacecraft_number in range(len(spacefreight.spacecrafts)):
-            # spacecraft = spacefreight.spacecrafts[spacecraft_number]
             spacecraft = copy.copy(spacefreight.spacecrafts[spacecraft_number])
 
             # set variables at 0
             empty_single_spacecraft(spacecraft)
 
             for parcel in cargolist:
-                # parcel = spacefreight.all_parcels[parcel_number]
                 if (spacefreight.check(spacecraft, parcel) and
                         parcel.ID in spacefreight.unpacked_parcels):
                     spacefreight.update(spacecraft, parcel)
@@ -60,7 +58,8 @@ def first_fit(heuristic):
                 break
 
     # save solution
-    current_solution = Solution('random', len(spacefreight.unpacked_parcels), \
-    spacefreight.unpacked_parcels, total_costs, used_spacecrafts)
+    current_solution = Solution('firstfit', len(spacefreight.unpacked_parcels), \
+                                spacefreight.unpacked_parcels, total_costs, \
+                                used_spacecrafts)
 
     return current_solution
