@@ -160,8 +160,8 @@ class SpaceFreight():
             # print("Payload mass:", "{0:.3f}".format(spacecraft.packed_mass))
             # print("Payload volume:", "{0:.3f}".format(spacecraft.packed_vol))
 
-        # print('Unpacked parcels:')
-        # print(solution.unpacked_parcels)
+        print('Unpacked parcels:')
+        print(solution.unpacked_parcels)
         # print('Number of packed parcels: ', len(self.all_parcels) - \
         #       solution.not_bring)
 

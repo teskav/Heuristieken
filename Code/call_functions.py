@@ -16,46 +16,12 @@ import pandas as pd
 
 spacefreight = SpaceFreight()
 
-def call_first_fit():
+def call_first_fit(heuristic):
     """
     Calls the first fit algorithm
     """
     iterations_dataframe = pd.DataFrame()
-    current_solution = first_fit()
-
-    # save to dataframe
-    dataframe_row = spacefreight.save_iteration(current_solution, 0)
-    iterations_dataframe = iterations_dataframe.append(dataframe_row, \
-                            ignore_index=True)
-
-    # print solution
-    spacefreight.printing(current_solution)
-
-    return iterations_dataframe
-
-def call_first_fit_sorted_mass():
-    """
-    Calls the first fit algorithm
-    """
-    iterations_dataframe = pd.DataFrame()
-    current_solution = first_fit_sorted_mass()
-
-    # save to dataframe
-    dataframe_row = spacefreight.save_iteration(current_solution, 0)
-    iterations_dataframe = iterations_dataframe.append(dataframe_row, \
-                            ignore_index=True)
-
-    # print solution
-    spacefreight.printing(current_solution)
-
-    return iterations_dataframe
-
-def call_first_fit_sorted_vol():
-    """
-    Calls the first fit algorithm
-    """
-    iterations_dataframe = pd.DataFrame()
-    current_solution = first_fit_sorted_vol()
+    current_solution = first_fit(heuristic)
 
     # save to dataframe
     dataframe_row = spacefreight.save_iteration(current_solution, 0)
@@ -75,7 +41,7 @@ def call_random_all():
                     'costs_spacecraft', 'packed_mass_vol', 'packed_parcels']
     runs_dataframe = pd.DataFrame()
 
-    max_runs = 1
+    max_runs = 100
     # run all parcels random
     best_solution = random_all_parcels()
     count = 0

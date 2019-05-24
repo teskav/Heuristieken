@@ -19,8 +19,7 @@ spacefreight = SpaceFreight()
 
 # print the algorithm options
 print("")
-print("Algorithm options: \n first fit \n first fit sorted mass \
-        \n first fit sorted vol \n random \n pseudo greedy random \
+print("Algorithm options: \n first fit \n random \n pseudo greedy random \
         \n hill climber \n hill climber spacecrafts \n hill climber combined \
         \n simulated annealing")
 # only print political constraint choice for cargolist 3
@@ -34,13 +33,9 @@ iterations_dataframe = None
 
 # call right algorithm based on users input and save dataframe
 if algorithm == 'first fit':
-    runs_dataframe = call_first_fit()
-
-if algorithm == 'first fit sorted mass':
-    runs_dataframe = call_first_fit_sorted_mass()
-
-if algorithm == 'first fit sorted vol':
-    runs_dataframe = call_first_fit_sorted_vol()
+    print("Heuristic options: \n normal \n sorted mass \n sorted vol")
+    heuristic = input("\nPlease give heuristic: ")
+    dataframe = call_first_fit(heuristic)
 
 if algorithm == 'random':
     runs_dataframe = call_random_all()
