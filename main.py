@@ -33,7 +33,7 @@ iterations_dataframe = None
 if algorithm == 'first fit':
     print("\nHeuristic options: \n normal \n sorted mass \n sorted vol")
     heuristic = input("\nPlease give heuristic: ")
-    dataframe = call_first_fit(heuristic)
+    runs_dataframe = call_first_fit(heuristic)
 
 if algorithm == 'random':
     runs_dataframe = call_random()
@@ -66,5 +66,5 @@ if len(sys.argv) > 1:
         # save runs
         runs_dataframe.to_csv(r'../Heuristieken/Outputs/runs_saved.csv')
         # if iterative, save iterations dataframe also
-        if not iterations_dataframe == None:
+        if algorithm == 'hill climber' or algorithm == 'simulated annealing':
             iterations_dataframe.to_csv(r'../Heuristieken/Outputs/iterations_saved.csv')
