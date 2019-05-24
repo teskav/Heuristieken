@@ -27,13 +27,10 @@ if list == '3':
 
 algorithm = input("\nPlease give algorithm: ")
 
-<<<<<<< HEAD
-=======
 # set iterations dataframe to None and change if iterative algorithm
 iterations_dataframe = None
 
 # call right algorithm based on users input and save dataframe
->>>>>>> 53b683bf36179859883c7ce1861e7cad9908663d
 if algorithm == 'first fit':
     print("Heuristic options: \n normal \n sorted mass \n sorted vol")
     heuristic = input("\nPlease give heuristic: ")
@@ -65,12 +62,6 @@ if algorithm == 'political constraints' and list == '3':
 if algorithm == 'political constraints' and list != '3':
     print('Political constraint is only applicable to cargolist 3.')
 
-<<<<<<< HEAD
-# RANDOM ALL
-# dataframe.to_csv(r'../Heuristieken/Outputs/Random/CL3_10000.csv')
-=======
-
-
 # check imput arguments
 if len(sys.argv) > 1:
     if sys.argv[1] == 'save':
@@ -83,7 +74,6 @@ if len(sys.argv) > 1:
 
 # RANDOM convert dataframe to csv
 # dataframe.to_csv(r'../Heuristieken/Outputs/Random/random_CL2_100000.csv')
->>>>>>> 53b683bf36179859883c7ce1861e7cad9908663d
 
 # HILL CLIMBER (SPECIFY PARCEL OR SPACECRAFT SWITCH)
 # iterations_dataframe.to_csv(r'../Heuristieken/Outputs/Hill_Climber/iterations_spacecrafts_CL1_30x2000.csv')
