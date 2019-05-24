@@ -36,10 +36,10 @@ if algorithm == 'first fit':
     dataframe = call_first_fit(heuristic)
 
 if algorithm == 'random':
-    runs_dataframe = call_random_all()
+    runs_dataframe = call_random()
 
 if algorithm == 'pseudo greedy random':
-    runs_dataframe = call_pseudo_greedy_random_all()
+    runs_dataframe = call_pseudo_greedy_random()
 
 if algorithm == 'hill climber':
     print("Neighbour solution options: \n parcels \n spacecrafts \n combined")

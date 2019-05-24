@@ -17,7 +17,7 @@ import copy
 
 spacefreight = SpaceFreight()
 
-def random_all_parcels():
+def random_algorithm():
     """
     Random allocate the parcels in spacecrafts
     """
@@ -52,7 +52,7 @@ def random_all_parcels():
 
     return current_solution
 
-def pseudo_greedy_random_all():
+def pseudo_greedy_random():
     """
     Random allocate the parcels in random spacecrafts with constraints
     """

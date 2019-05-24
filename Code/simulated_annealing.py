@@ -27,7 +27,7 @@ def simulated_annealing(iterations_dataframe, max_iterations, heuristic, cooling
     costs_per_run = []
 
     # starting solution -> use random algorithm
-    current_solution = random_all_parcels()
+    current_solution = random_algorithm()
     start_solution = copy.copy(current_solution)
 
     # select neighbouring solution

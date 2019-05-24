@@ -18,13 +18,13 @@ spacefreight = SpaceFreight()
 
 def hill_climber(iterations_dataframe, max_iterations, heuristic):
     """
-    The hill climber algorithm..
+    The hill climber algorithm.
     """
     count = 0
     costs_per_run = []
 
     # starting solution -> buiten hill climber
-    current_solution = random_all_parcels()
+    current_solution = random_algorithm()
     start_solution = copy.copy(current_solution)
 
     # select neighbouring solution
