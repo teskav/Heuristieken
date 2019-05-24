@@ -66,5 +66,5 @@ if len(sys.argv) > 1:
         # save runs
         runs_dataframe.to_csv(r'../Heuristieken/Outputs/runs_saved.csv')
         # if iterative, save iterations dataframe also
-        if not iterations_dataframe == None:
+        if iterations_dataframe == None:
             iterations_dataframe.to_csv(r'../Heuristieken/Outputs/iterations_saved.csv')

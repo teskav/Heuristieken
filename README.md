@@ -102,11 +102,11 @@ Please give cooling scheme:
 Type here the cooling scheme you want to use. Options: lineair, exponential, sigmoidal.
 
 
-### Data
-Structure:
-+ Parcels
-+ Spacecrafts
-+ Spacefreight
+### Additional
+The default for the number of runs and iterations is respectively 1 and 2000. If you want to change the number of runs or iterations, this can be done by changing these manually in the file call_functions.py. If you want to use the file calculations.py for sorting, calculating the avarages and lowest values, the directory has to be set to Code. This can be done by running the following code:
+```
+$ cd Code
+```
 
 ## Algorithms
 ### First fit
