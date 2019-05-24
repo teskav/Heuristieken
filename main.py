@@ -44,7 +44,9 @@ if algorithm == 'pseudo greedy random':
     runs_dataframe = call_pseudo_greedy_random_all()
 
 if algorithm == 'hill climber':
-    iterations_dataframe, runs_dataframe = call_hill_climber()
+    print("Neighbour solution options: \n parcels \n spacecrafts \n combined")
+    heuristic = input("\nPlease give neighbour solution: ")
+    iterations_dataframe, runs_dataframe = call_hill_climber(heuristic)
 
 if algorithm == 'hill climber spacecrafts':
     iterations_dataframe, runs_dataframe = call_hill_climber_spacecrafts()

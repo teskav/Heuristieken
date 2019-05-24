@@ -106,7 +106,7 @@ def call_pseudo_greedy_random_all():
 
     return iterations_dataframe
 
-def call_hill_climber():
+def call_hill_climber(heuristic):
     """
     Calls the hill climber algorithm SWAP PARCELS
     """
@@ -124,7 +124,7 @@ def call_hill_climber():
 
     max_iterations = 2000
     runs = 0
-    max_runs = 2
+    max_runs = 3
 
     # set lists for plots
     costs_runs = []
@@ -133,7 +133,7 @@ def call_hill_climber():
     while runs < max_runs:
 
         iterations_dataframe, start_solution, end_solution, costs_per_run = \
-            hill_climber(iterations_dataframe, max_iterations)
+            hill_climber(iterations_dataframe, max_iterations, heuristic)
 
         # save run
         dataframe_row = spacefreight.save_run_hill_climber(start_solution, \
