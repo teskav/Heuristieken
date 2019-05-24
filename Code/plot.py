@@ -1,5 +1,5 @@
 # HEURISTIEKEN
-# April - Mei 2019
+# April - May 2019
 # Space Freight
 # Sofie Löhr, Teska Vaessen & Wies de Wit
 """
@@ -37,8 +37,6 @@ def plot_cooling(iterations_dataframe):
     This function plots the cooling schedule (course of the temperature)
     of 1 run of the simulated annealing"
     """
-    # x plot kan misschien ook wel index kolom voor dataframe voor
-    # gebruikt worden
     plt.plot(list(range(len(iterations_dataframe['temperature']))), \
     iterations_dataframe['temperature'])
     plt.xlabel('Iterations')

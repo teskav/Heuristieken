@@ -1,5 +1,5 @@
 # HEURISTIEKEN
-# April - Mei 2019
+# April - May 2019
 # Space Freight
 # Sofie Löhr, Teska Vaessen & Wies de Wit
 """
@@ -10,8 +10,7 @@ class Solution(object):
     """
     Representation of the current solution
     """
-    def __init__ (self, name, costs, \
-                    used_spacecrafts):
+    def __init__ (self, name, costs, used_spacecrafts):
 
         # algorithm name
         self.name = name

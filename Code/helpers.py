@@ -1,5 +1,5 @@
 # HEURISTIEKEN
-# April - Mei 2019
+# April - May 2019
 # Space Freight
 # Sofie Löhr, Teska Vaessen & Wies de Wit
 """
@@ -118,7 +118,7 @@ def neighbour_random_spacecraft_switch(current_solution):
     spacecraft_1 = random.choice(neighbour_solution.used_spacecrafts)
     spacecraft_2 = copy.copy(random.choice(spacefreight.spacecrafts))
 
-    # Swap the payload of spacecraft 1 to spacecraft 2
+    # swap the payload of spacecraft 1 to spacecraft 2
     spacecraft_new = spacefreight.swap_spacecraft(spacecraft_1, spacecraft_2)
 
     # check if the spacecrafts are not the same
@@ -127,8 +127,7 @@ def neighbour_random_spacecraft_switch(current_solution):
     elif (spacecraft_new.payload_vol >= spacecraft_new.packed_vol and
             spacecraft_new.payload_mass >= spacecraft_new.packed_mass):
         check = True
-        # Remove old spacecraft from used spacecrafts and
-        # add the new spacecraft
+        # Remove old spacecraft from used spacecrafts and add new spacecraft
         neighbour_solution.used_spacecrafts.remove(spacecraft_1)
         neighbour_solution.used_spacecrafts.append(spacecraft_new)
         # update costs
@@ -143,9 +142,8 @@ def cooling_scheme(count, max_iterations, cooling):
     """
     Calculates and returns the temperature.
     """
-    # Set begin temperature based on mean difference in costs caused by a run
-    # of parcel switches with hill climber. Set end temperature based on
-    # minimal difference by a run of parcel switches with hill climber.
+    # set begin temperature based on mean difference in costs caused by a run
+    # of parcel switches with hill climber
     T_0 = 325819
     T_N = 1
 
@@ -166,7 +164,7 @@ def cooling_scheme(count, max_iterations, cooling):
 
 def acceptance_SA(current_solution, neighbour_solution, count, max_iterations, cooling):
     """
-    Calculates the acceptance chance of a neighbour solution.
+    Calculates the acceptance probability of a neighbour solution.
     Returns the temperature and the acceptance probability.
     """
     # calculate change in costs
