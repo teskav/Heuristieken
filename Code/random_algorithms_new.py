@@ -15,9 +15,6 @@ import random
 import numpy as np
 import copy
 
- # allowed number of parcels to leave behind
-TARGETR = 4
-
 spacefreight = SpaceFreight()
 
 def random_all_parcels():

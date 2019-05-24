@@ -19,6 +19,18 @@ def plot_costs(dataframe):
     plt.title('Distribution of the solutions')
     plt.show()
 
+def plot_iterative(max_iterations, costs_runs):
+    """
+    This function plots the costs of iterative algorithms
+    """
+    x = list(range(max_iterations))
+
+    for i in list(range(len(costs_runs))):
+        plt.plot(x, costs_runs[i])
+    plt.xlabel('Iterations')
+    plt.ylabel('Costs')
+    plt.title('Behaviour of the hillclimber')
+    plt.show()
 
 def plot_cooling(iterations_dataframe):
     """
