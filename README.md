@@ -3,7 +3,7 @@
 documentatie heel belangrijk -->
 
 ## Problem
-The case Spacefreight is a constraint optimization problem (COP). The constraint that needs to be met is to ship all parcels from the cargolist(s). Other constraints are the maximum payload mass and the maximum payload volume of the spacecrafts. Each spacecraft has their own specifications. The maximum payloads of the spacecrafts cant be exceeded while allocating the parcels. Multiple spacecrafts can be deployed to ship all parcels to the International Space Station (ISS).
+The case Spacefreight is a constraint optimization problem (COP). The constraints that needs to be met are to ship all parcels from the cargolist(s) and to not exceed the maximum payload mass and the maximum payload volume of the spacecrafts. Each spacecraft has their own specifications. Multiple spacecrafts can be deployed to ship all parcels to the International Space Station (ISS).
 
 The transportation costs need to be minimized, so the parcels from the cargolist(s) need to be distributed optimally to minimize costs.
 
