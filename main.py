@@ -68,18 +68,3 @@ if len(sys.argv) > 1:
         # if iterative, save iterations dataframe also
         if not iterations_dataframe == None:
             iterations_dataframe.to_csv(r'../Heuristieken/Outputs/iterations_saved.csv')
-
-
-# RANDOM convert dataframe to csv
-# dataframe.to_csv(r'../Heuristieken/Outputs/Random/random_CL2_100000.csv')
-
-# HILL CLIMBER (SPECIFY PARCEL OR SPACECRAFT SWITCH)
-# iterations_dataframe.to_csv(r'../Heuristieken/Outputs/Hill_Climber/iterations_spacecrafts_CL1_30x2000.csv')
-# runs_dataframe.to_csv(r'../Heuristieken/Outputs/Hill_Climber/runs_spacecrafts_CL1_30x2000.csv')
-
-# SIMULATED ANNEALING
-# iterations_dataframe.to_csv(r'../Heuristieken/Outputs/Simulated_Annealing/iterations_SA_CL1_lin_30x2000.csv')
-# runs_dataframe.to_csv(r'../Heuristieken/Outputs/Simulated_Annealing/runs_SA_CL1_lin_30x2000.csv')
-
-# POLITICAL CONSTRAINTS
-# dataframe.to_csv(r'../Heuristieken/Outputs/Political_Constraints/CL3_10000.csv')
