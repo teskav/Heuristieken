@@ -31,25 +31,25 @@ iterations_dataframe = None
 
 # call right algorithm based on users input and save dataframe
 if algorithm == 'first fit':
-    print("Heuristic options: \n normal \n sorted mass \n sorted vol")
+    print("\nHeuristic options: \n normal \n sorted mass \n sorted vol")
     heuristic = input("\nPlease give heuristic: ")
     dataframe = call_first_fit(heuristic)
 
 if algorithm == 'random':
-    runs_dataframe = call_random_all()
+    runs_dataframe = call_random()
 
 if algorithm == 'pseudo greedy random':
-    runs_dataframe = call_pseudo_greedy_random_all()
+    runs_dataframe = call_pseudo_greedy_random()
 
 if algorithm == 'hill climber':
-    print("Neighbour solution options: \n parcels \n spacecrafts \n combined")
+    print("\nNeighbour solution options: \n parcels \n spacecrafts \n combined")
     heuristic = input("\nPlease give neighbour solution: ")
     iterations_dataframe, runs_dataframe = call_hill_climber(heuristic)
 
 if algorithm == 'simulated annealing':
-    print("Neighbour solution options: \n parcels \n combined")
+    print("\nNeighbour solution options: \n parcels \n combined")
     heuristic = input("\nPlease give neighbour solution: ")
-    print("Cooling scheme options: \n lineair \n exponential \n sigmoidal")
+    print("\nCooling scheme options: \n lineair \n exponential \n sigmoidal")
     cooling = input("\nPlease give cooling scheme: ")
     iterations_dataframe, runs_dataframe = call_simulated_annealing(heuristic, \
                                                                     cooling)

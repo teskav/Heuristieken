@@ -7,7 +7,7 @@ This script is used for calling functions from the main
 """
 
 from spacefreight import SpaceFreight
-from random_algorithms_new import *
+from random_algorithms import *
 from first_fit_algorithms import *
 from hill_climber import *
 from simulated_annealing import *
@@ -33,9 +33,9 @@ def call_first_fit(heuristic):
 
     return iterations_dataframe
 
-def call_random_all():
+def call_random():
     """
-    Calls the random algorithm, taking all parcels
+    Calls the random algorithm.
     """
     column_names = ['algorithm_name', 'costs_solution', 'fleet', \
                     'costs_spacecraft', 'packed_mass_vol', 'packed_parcels']
@@ -43,13 +43,13 @@ def call_random_all():
 
     max_runs = 10
     # run all parcels random
-    best_solution = random_all_parcels()
+    best_solution = random_algorithm()
     count = 0
     dataframe_row = spacefreight.save_run_random(best_solution)
     runs_dataframe = runs_dataframe.append(dataframe_row, ignore_index=True)
 
-    while count < max_runs:
-        solution = random_all_parcels()
+    while count < (max_runs - 1):
+        solution = random_algorithm()
 
         # save to dataframe
         dataframe_row = spacefreight.save_run_random(solution)
@@ -61,50 +61,63 @@ def call_random_all():
 
         count += 1
 
-    # plot if more than 1 run
-    if max_runs > 1:
-        plot_costs(runs_dataframe)
-
+    # print the best solution in terminal
     spacefreight.printing(best_solution)
 
     # set column names
     runs_dataframe.columns = column_names
 
+    # plot if more than 1 run
+    if max_runs > 1:
+        plot_costs(runs_dataframe)
+
     return runs_dataframe
 
-def call_pseudo_greedy_random_all():
+def call_pseudo_greedy_random():
     """
-    Calls the constrained algorithm, taking all parcels
+    Calls the pseudo greedy random algorithm (with constraints).
     """
-    iterations_dataframe = pd.DataFrame()
-    max_iterations = 1000
-    # run all parcels constrained
-    best_solution = pseudo_greedy_random_all()
-    count = 0
-    dataframe_row = spacefreight.save_iteration(best_solution, count)
-    iterations_dataframe = iterations_dataframe.append(dataframe_row, \
-                            ignore_index=True)
+    column_names = ['algorithm_name', 'costs_solution', 'fleet', \
+                    'costs_spacecraft', 'packed_mass_vol', 'packed_parcels']
+    runs_dataframe = pd.DataFrame()
 
-    while count < max_iterations:
-        count += 1
-        solution = pseudo_greedy_random_all()
+    max_runs = 1
+    # run all parcels random
+    best_solution = pseudo_greedy_random()
+    count = 0
+    dataframe_row = spacefreight.save_run_random(best_solution)
+    runs_dataframe = runs_dataframe.append(dataframe_row, ignore_index=True)
+
+    while count < (max_runs - 1):
+        solution = pseudo_greedy_random()
 
         # save to dataframe
-        dataframe_row = spacefreight.save_iteration(solution, count)
-        iterations_dataframe = iterations_dataframe.append(dataframe_row, \
-                                ignore_index=True)
+        dataframe_row = spacefreight.save_run_random(solution)
+        runs_dataframe = runs_dataframe.append(dataframe_row, ignore_index=True)
 
         # check if costs better
         if solution.costs < best_solution.costs:
             best_solution = solution
 
+<<<<<<< HEAD
+    # plot if more than 1 run
+    if max_runs > 1:
+        plot_costs(runs_dataframe)
+=======
+        count += 1
+>>>>>>> e3521efd2d45140c72922181849f98548e837fdc
+
+    # print the best solution in terminal
+    spacefreight.printing(best_solution)
+
+    # set column names
+    runs_dataframe.columns = column_names
+
     # plot if more than 1 run
     if max_runs > 1:
         plot_costs(runs_dataframe)
 
-    spacefreight.printing(best_solution)
-
-    return iterations_dataframe
+    return runs_dataframe
 
 def call_hill_climber(heuristic):
     """
@@ -124,7 +137,7 @@ def call_hill_climber(heuristic):
 
     max_iterations = 2000
     runs = 0
-    max_runs = 3
+    max_runs = 1
 
     # set lists for plots
     costs_runs = []
@@ -145,13 +158,14 @@ def call_hill_climber(heuristic):
 
         runs += 1
 
-    # plot
-    plot_iterative(max_iterations, costs_runs)
-
     # set column names
     runs_dataframe.columns = column_names_runs
     iterations_dataframe.columns = column_names_iterations
 
+    # plot
+    plot_iterative(max_iterations, costs_runs)
+
+    # print the best solution in terminal
     spacefreight.printing(end_solution)
 
     return iterations_dataframe, runs_dataframe
@@ -180,7 +194,6 @@ def call_simulated_annealing(heuristic, cooling):
 
     # set lists for plots
     costs_runs = []
-    x = list(range(max_iterations))
 
     # SIMULATED ANNEALING max_runs aantal keer en per running max_iterations
     while runs < max_runs:
@@ -199,13 +212,13 @@ def call_simulated_annealing(heuristic, cooling):
 
         runs += 1
 
-    # plot & print
-    plot_iterative(max_iterations, costs_runs)
-    spacefreight.printing(end_solution)
-
     # set column names
     runs_dataframe.columns = column_names_runs
     iterations_dataframe.columns = column_names_iterations
+
+    # plot & print the solution
+    plot_iterative(max_iterations, costs_runs)
+    spacefreight.printing(end_solution)
 
     # plot_cooling(iterations_dataframe)
     # plot_acceptatie(iterations_dataframe)
@@ -226,12 +239,22 @@ def call_political_constraints():
     max_runs = 1
     count = 0
 
-    while count < max_runs:
+    # set up dataframe with all countries and number of spacecrafts used
+    data = [['USA', 0], ['Russia', 0], ['Japan', 0], ['China', 0], \
+            ['Europe', 0]]
+    countries = pd.DataFrame(data, columns = ['country', 'spacecrafts'])
 
-        # set up dataframe with all countries and number of spacecrafts used
-        data = [['USA', 0], ['Russia', 0], ['Japan', 0], ['China', 0], \
-                ['Europe', 0]]
-        countries = pd.DataFrame(data, columns = ['country', 'spacecrafts'])
+    # set first run as intitial best run
+    best_solution, countries = political_constraints(countries)
+    dataframe_row = spacefreight.save_run_political(best_solution, countries)
+    runs_dataframe = runs_dataframe.append(dataframe_row, ignore_index=True)
+
+    while count < (max_runs - 1):
+
+        count += 1
+
+        # set number of spacecrafts to 0 after every run
+        countries['spacecrafts'] = 0
 
         solution, countries = political_constraints(countries)
 
@@ -239,7 +262,9 @@ def call_political_constraints():
         dataframe_row = spacefreight.save_run_political(solution, countries)
         runs_dataframe = runs_dataframe.append(dataframe_row, ignore_index=True)
 
-        count +=1
+        # check if costs better
+        if solution.costs < best_solution.costs:
+            best_solution = solution
 
     # set column names
     runs_dataframe.columns = column_names
@@ -248,6 +273,6 @@ def call_political_constraints():
     if max_runs > 1:
         plot_costs(runs_dataframe)
 
-    spacefreight.printing(solution)
+    spacefreight.printing(best_solution)
 
     return runs_dataframe

@@ -143,7 +143,6 @@ def cooling_scheme(count, max_iterations, cooling):
     """
     Calculates and returns the temperature.
     """
-
     # Set begin temperature based on mean difference in costs caused by a run
     # of parcel switches with hill climber. Set end temperature based on
     # minimal difference by a run of parcel switches with hill climber.
