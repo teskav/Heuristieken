@@ -41,14 +41,14 @@ def call_random():
                     'costs_spacecraft', 'packed_mass_vol', 'packed_parcels']
     runs_dataframe = pd.DataFrame()
 
-    max_runs = 2
+    max_runs = 10
     # run all parcels random
     best_solution = random_algorithm()
     count = 0
     dataframe_row = spacefreight.save_run_random(best_solution)
     runs_dataframe = runs_dataframe.append(dataframe_row, ignore_index=True)
 
-    while count < max_runs:
+    while count < (max_runs - 1):
         solution = random_algorithm()
 
         # save to dataframe
@@ -88,7 +88,7 @@ def call_pseudo_greedy_random():
     dataframe_row = spacefreight.save_run_random(best_solution)
     runs_dataframe = runs_dataframe.append(dataframe_row, ignore_index=True)
 
-    while count < max_runs:
+    while count < (max_runs - 1):
         solution = pseudo_greedy_random()
 
         # save to dataframe
@@ -188,7 +188,6 @@ def call_simulated_annealing(heuristic, cooling):
 
     # set lists for plots
     costs_runs = []
-    x = list(range(max_iterations))
 
     # SIMULATED ANNEALING max_runs aantal keer en per running max_iterations
     while runs < max_runs:
