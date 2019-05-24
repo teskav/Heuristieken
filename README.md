@@ -102,11 +102,11 @@ Please give cooling scheme:
 Type here the cooling scheme you want to use. Options: lineair, exponential, sigmoidal.
 
 
-### Data
-Structure:
-+ Parcels
-+ Spacecrafts
-+ Spacefreight
+### Additional
+The default for the number of runs and iterations is respectively 1 and 2000. If you want to change the number of runs or iterations, this can be done by changing these manually in the file call_functions.py. If you want to use the file calculations.py for sorting, calculating the avarages and lowest values, the directory has to be set to Code. This can be done by running the following code:
+```
+$ cd Code
+```
 
 ## Algorithms
 ### First fit
@@ -153,7 +153,7 @@ The simulated annealing and the hill climber algorithm both accept neighbour sol
 acceptance = e^(change costs / temperature)
 ```
 To determine the temperature, we use a cooling scheme. We have three options for the cooling scheme, however we noticed that the exponential cooling scheme worked best for our problem. Still you can choose between lineair, exponential or sigmoidal. For the cooling schemes we use the following the begin temperature (T_0) and end temperature (T_N):
-+ T_0 =
++ T_0 = 325.819
 + T_N = 1
 This is based on the average improvement of a hill climber run.
 
