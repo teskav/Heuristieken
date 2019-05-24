@@ -141,7 +141,7 @@ class SpaceFreight():
         volume and total costs of a solution.
         """
         # print(tabulate([['Alice', 24], ['Bob', 19]], headers=['Name', 'Age'], tablefmt='orgtbl'))
-        print("Best solution:")
+        print(Fore.YELLOW + "Best solution of the runs:" + Style.RESET_ALL)
         print("=====================================")
         print(Back.GREEN + 'Total costs: $', solution.costs/billion, 'billion' + \
               Style.RESET_ALL)
@@ -149,7 +149,7 @@ class SpaceFreight():
         print(Back.CYAN + "Fleet and payloads:" + Style.RESET_ALL)
         print("=====================================")
         for spacecraft in solution.used_spacecrafts:
-            print('\n' + Fore.YELLOW + spacecraft.name + ':' + Style.RESET_ALL)
+            print('\n' + Fore.CYAN + spacecraft.name + ':' + Style.RESET_ALL)
             parcels = []
             for parcel in spacecraft.packed_parcels:
                 parcels.append(parcel.ID)
@@ -160,7 +160,7 @@ class SpaceFreight():
                 print(parcels[count:count+4])
                 count += 4
             print("-------------------------------------")
-            
+
 
     def swap_parcel(self, spacecraft_1, spacecraft_2, parcel_1, parcel_2):
         """
