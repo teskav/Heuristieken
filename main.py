@@ -18,8 +18,7 @@ from call_functions import *
 spacefreight = SpaceFreight()
 
 print("")
-print("Algorithm options: \n first fit \n first fit sorted mass \
-        \n first fit sorted vol \n random \n pseudo greedy random \
+print("Algorithm options: \n first fit \n random \n pseudo greedy random \
         \n hill climber \n hill climber spacecrafts \n hill climber combined \
         \n simulated annealing")
 # only print political constraint choice for cargolist 3
@@ -28,41 +27,63 @@ if list == '3':
 
 algorithm = input("\nPlease give algorithm: ")
 
+<<<<<<< HEAD
+=======
+# set iterations dataframe to None and change if iterative algorithm
+iterations_dataframe = None
+
+# call right algorithm based on users input and save dataframe
+>>>>>>> 53b683bf36179859883c7ce1861e7cad9908663d
 if algorithm == 'first fit':
-    dataframe = call_first_fit()
-
-if algorithm == 'first fit sorted mass':
-    dataframe = call_first_fit_sorted_mass()
-
-if algorithm == 'first fit sorted vol':
-    dataframe = call_first_fit_sorted_vol()
+    print("Heuristic options: \n normal \n sorted mass \n sorted vol")
+    heuristic = input("\nPlease give heuristic: ")
+    dataframe = call_first_fit(heuristic)
 
 if algorithm == 'random':
-    dataframe = call_random_all()
+    runs_dataframe = call_random_all()
 
 if algorithm == 'pseudo greedy random':
-    dataframe = call_pseudo_greedy_random_all()
+    runs_dataframe = call_pseudo_greedy_random_all()
 
 if algorithm == 'hill climber':
-    iterations_dataframe, runs_dataframe = call_hill_climber()
+    print("Neighbour solution options: \n parcels \n spacecrafts \n combined")
+    heuristic = input("\nPlease give neighbour solution: ")
+    iterations_dataframe, runs_dataframe = call_hill_climber(heuristic)
 
 if algorithm == 'hill climber spacecrafts':
     iterations_dataframe, runs_dataframe = call_hill_climber_spacecrafts()
 
 if algorithm == 'hill climber combined':
-    dataframe = call_hill_climber_combined()
+    runs_dataframe = call_hill_climber_combined()
 
 if algorithm == 'simulated annealing':
     iterations_dataframe, runs_dataframe = call_simulated_annealing()
 
 if algorithm == 'political constraints' and list == '3':
-    dataframe = call_political_constraints()
+    runs_dataframe = call_political_constraints()
 
 if algorithm == 'political constraints' and list != '3':
     print('Political constraint is only applicable to cargolist 3.')
 
+<<<<<<< HEAD
 # RANDOM ALL
 # dataframe.to_csv(r'../Heuristieken/Outputs/Random/CL3_10000.csv')
+=======
+
+
+# check imput arguments
+if len(sys.argv) > 1:
+    if sys.argv[1] == 'save':
+        # save runs
+        runs_dataframe.to_csv(r'../Heuristieken/Outputs/runs_saved.csv')
+        # if iterative, save iterations dataframe also
+        if not iterations_dataframe == None:
+            iterations_dataframe.to_csv(r'../Heuristieken/Outputs/iterations_saved.csv')
+
+
+# RANDOM convert dataframe to csv
+# dataframe.to_csv(r'../Heuristieken/Outputs/Random/random_CL2_100000.csv')
+>>>>>>> 53b683bf36179859883c7ce1861e7cad9908663d
 
 # HILL CLIMBER (SPECIFY PARCEL OR SPACECRAFT SWITCH)
 # iterations_dataframe.to_csv(r'../Heuristieken/Outputs/Hill_Climber/iterations_spacecrafts_CL1_30x2000.csv')

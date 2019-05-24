@@ -9,7 +9,7 @@ import pandas as pd
 import sys
 
 # import csv data from algorithm
-output_location = '/Random/random_CL2_100000.csv'
+output_location = '/Simulated_Annealing/runs_SA_CL1_exp_30x2000.csv'
 data = pd.read_csv('../Outputs' + output_location, index_col=0)
 
 # check imput argument
@@ -40,9 +40,6 @@ elif sys.argv[1] == 'differences':
     simulated annealing run.
     """
 
-    output_location = '../Outputs/Simulated_Annealing/runs_SA_CL1_sig_30x2000.csv'
-    data = pd.read_csv(output_location, index_col=0)
-
     # create dataframe with differences between the start and end costs per run
     differences = data['start_solution_costs']-data['end_solution_costs']
 
@@ -60,8 +57,8 @@ elif sys.argv[1] == 'average':
     """
     Script to calculate the average costs per algorithm.
     """
-    low = data['costs_solution'].min()
-    average = data['costs_solution'].mean()
+    low = data['end_solution_costs'].min()
+    average = data['end_solution_costs'].mean()
 
     print('The lowest costs are:', low)
     print('The average costs are:', average)

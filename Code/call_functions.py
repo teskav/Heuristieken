@@ -16,46 +16,12 @@ import pandas as pd
 
 spacefreight = SpaceFreight()
 
-def call_first_fit():
+def call_first_fit(heuristic):
     """
     Calls the first fit algorithm
     """
     iterations_dataframe = pd.DataFrame()
-    current_solution = first_fit()
-
-    # save to dataframe
-    dataframe_row = spacefreight.save_iteration(current_solution, 0)
-    iterations_dataframe = iterations_dataframe.append(dataframe_row, \
-                            ignore_index=True)
-
-    # print solution
-    spacefreight.printing(current_solution)
-
-    return iterations_dataframe
-
-def call_first_fit_sorted_mass():
-    """
-    Calls the first fit algorithm
-    """
-    iterations_dataframe = pd.DataFrame()
-    current_solution = first_fit_sorted_mass()
-
-    # save to dataframe
-    dataframe_row = spacefreight.save_iteration(current_solution, 0)
-    iterations_dataframe = iterations_dataframe.append(dataframe_row, \
-                            ignore_index=True)
-
-    # print solution
-    spacefreight.printing(current_solution)
-
-    return iterations_dataframe
-
-def call_first_fit_sorted_vol():
-    """
-    Calls the first fit algorithm
-    """
-    iterations_dataframe = pd.DataFrame()
-    current_solution = first_fit_sorted_vol()
+    current_solution = first_fit(heuristic)
 
     # save to dataframe
     dataframe_row = spacefreight.save_iteration(current_solution, 0)
@@ -75,7 +41,7 @@ def call_random_all():
                     'costs_spacecraft', 'packed_mass_vol', 'packed_parcels']
     runs_dataframe = pd.DataFrame()
 
-    max_runs = 100000
+    max_runs = 1
     # run all parcels random
     best_solution = random_all_parcels()
     count = 0
@@ -94,6 +60,10 @@ def call_random_all():
             best_solution = solution
 
         count += 1
+
+    # plot if more than 1 run
+    if max_runs > 1:
+        plot_costs(runs_dataframe)
 
     spacefreight.printing(best_solution)
 
@@ -128,12 +98,15 @@ def call_pseudo_greedy_random_all():
         if solution.costs < best_solution.costs:
             best_solution = solution
 
-    print("Iterations:", count)
+    # plot if more than 1 run
+    if max_runs > 1:
+        plot_costs(runs_dataframe)        
+
     spacefreight.printing(best_solution)
 
     return iterations_dataframe
 
-def call_hill_climber():
+def call_hill_climber(heuristic):
     """
     Calls the hill climber algorithm SWAP PARCELS
     """
@@ -151,17 +124,16 @@ def call_hill_climber():
 
     max_iterations = 2000
     runs = 0
-    max_runs = 30
+    max_runs = 3
 
     # set lists for plots
     costs_runs = []
-    x = list(range(max_iterations))
 
     # HILL CLIMBER max_runs aantal keer en per running max_iterations
     while runs < max_runs:
 
         iterations_dataframe, start_solution, end_solution, costs_per_run = \
-            hill_climber(iterations_dataframe, max_iterations)
+            hill_climber(iterations_dataframe, max_iterations, heuristic)
 
         # save run
         dataframe_row = spacefreight.save_run_hill_climber(start_solution, \
@@ -174,18 +146,13 @@ def call_hill_climber():
         runs += 1
 
     # plot
-    for i in list(range(max_runs)):
-        plt.plot(x, costs_runs[i])
-    plt.xlabel('Iterations')
-    plt.ylabel('Costs')
-    plt.title('Behaviour of the hillclimber in different runs')
-    plt.show()
+    plot_iterative(max_iterations, costs_runs)
 
     # set column names
     runs_dataframe.columns = column_names_runs
     iterations_dataframe.columns = column_names_iterations
 
-    # spacefreight.printing(end_solution)
+    spacefreight.printing(end_solution)
 
     return iterations_dataframe, runs_dataframe
 
@@ -220,11 +187,6 @@ def call_hill_climber_spacecrafts():
 
         iterations_dataframe, start_solution, end_solution, costs_per_run = \
             hill_climber_spacecrafts(iterations_dataframe, max_iterations)
-        # plt.plot(x, solution)
-        # plt.xlabel('Iterations')
-        # plt.ylabel('Costs')
-        # plt.title('Distribution of solutions per run')
-        # plt.show()
 
         # save run
         dataframe_row = spacefreight.save_run_hill_climber(start_solution, \
@@ -236,13 +198,9 @@ def call_hill_climber_spacecrafts():
 
         runs += 1
 
-    # plot
-    for i in list(range(max_runs)):
-        plt.plot(x, costs_runs[i])
-    plt.xlabel('Iterations')
-    plt.ylabel('Costs')
-    plt.title('Behaviour of the hillclimber in different runs')
-    plt.show()
+    # plot & print
+    plot_iterative(max_iterations, costs_runs)
+    spacefreight.printing(end_solution)
 
     # set column names
     runs_dataframe.columns = column_names_runs
@@ -255,24 +213,18 @@ def call_hill_climber_combined():
     Calls the hill climber swapping spacecrafts and parcels
     """
     iterations_dataframe = pd.DataFrame()
-    max_iterations = 1000
+    max_iterations = 2000
 
     # HILL CLIMBER max_runs aantal keer en
     # per running max_iterations aantal iteraties
     runs = 0
-    max_runs = 20
+    max_runs = 2
     solutions_runs = []
     solutions = []
     x = list(range(max_iterations))
     while runs < max_runs:
         iterations_dataframe, count, current_solution, solution = \
             hill_climber_combined(iterations_dataframe, max_iterations)
-
-        plt.plot(x, solution)
-        plt.xlabel('Iterations')
-        plt.ylabel('Costs')
-        plt.title('Distribution of solutions per run')
-        plt.show()
         solutions_runs.append(current_solution.costs)
         solutions.append(solution)
         runs += 1
@@ -280,18 +232,9 @@ def call_hill_climber_combined():
     print("Iterations:", count)
     spacefreight.printing(current_solution)
 
-    plt.plot(list(range(max_runs)), solutions_runs, color='skyblue')
-    plt.xlabel('Runs')
-    plt.ylabel('Costs')
-    plt.title('Distributions of costs over the hill_climbers')
-    plt.show()
-
-    for i in list(range(max_runs)):
-        plt.plot(x, solutions[i])
-    plt.xlabel('Iterations')
-    plt.ylabel('Costs (in billion dollars)')
-    plt.title('Behaviour of the hillclimber in different solutions')
-    plt.show()
+    # plot & print
+    plot_iterative(max_iterations, costs_runs)
+    spacefreight.printing(end_solution)
 
     return iterations_dataframe
 
@@ -337,20 +280,14 @@ def call_simulated_annealing():
 
         runs += 1
 
-    # plot
-    for i in list(range(max_runs)):
-        plt.plot(x, costs_runs[i])
-    plt.xlabel('Iterations')
-    plt.ylabel('Costs')
-    plt.title('Behaviour of the simulated annealing in different runs')
-    plt.show()
+    # plot & print
+    plot_iterative(max_iterations, costs_runs)
+    spacefreight.printing(end_solution)
 
     # set column names
     runs_dataframe.columns = column_names_runs
     iterations_dataframe.columns = column_names_iterations
 
-    # spacefreight.printing(end_solution)
-    # plot_costs(iterations_dataframe)
     # plot_cooling(iterations_dataframe)
     # plot_acceptatie(iterations_dataframe)
 
@@ -367,7 +304,7 @@ def call_political_constraints():
                     'packed_parcels']
 
     runs_dataframe = pd.DataFrame()
-    max_runs = 10000
+    max_runs = 1
     count = 0
 
     while count < max_runs:
@@ -388,8 +325,10 @@ def call_political_constraints():
     # set column names
     runs_dataframe.columns = column_names
 
-    # print(runs_dataframe)
-    # plot alle oplossingen samen
-    plot_costs(runs_dataframe)
+    # plot if more than 1 run
+    if max_runs > 1:
+        plot_costs(runs_dataframe)
+
+    spacefreight.printing(solution)
 
     return runs_dataframe
