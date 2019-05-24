@@ -164,6 +164,7 @@ This is based on the average improvement of a hill climber run.
 
 ## Findings
 If you are interested in our findings, please take a look at our presentation in the following link.
+We will add this link on monday 27th of May, after the presentations. 
 
 ## Ackowledgments
 + StackOverflow
