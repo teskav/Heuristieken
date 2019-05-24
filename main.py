@@ -31,7 +31,7 @@ iterations_dataframe = None
 
 # call right algorithm based on users input and save dataframe
 if algorithm == 'first fit':
-    print("Heuristic options: \n normal \n sorted mass \n sorted vol")
+    print("\nHeuristic options: \n normal \n sorted mass \n sorted vol")
     heuristic = input("\nPlease give heuristic: ")
     dataframe = call_first_fit(heuristic)
 
@@ -42,14 +42,14 @@ if algorithm == 'pseudo greedy random':
     runs_dataframe = call_pseudo_greedy_random()
 
 if algorithm == 'hill climber':
-    print("Neighbour solution options: \n parcels \n spacecrafts \n combined")
+    print("\nNeighbour solution options: \n parcels \n spacecrafts \n combined")
     heuristic = input("\nPlease give neighbour solution: ")
     iterations_dataframe, runs_dataframe = call_hill_climber(heuristic)
 
 if algorithm == 'simulated annealing':
-    print("Neighbour solution options: \n parcels \n combined")
+    print("\nNeighbour solution options: \n parcels \n combined")
     heuristic = input("\nPlease give neighbour solution: ")
-    print("Cooling scheme options: \n lineair \n exponential \n sigmoidal")
+    print("\nCooling scheme options: \n lineair \n exponential \n sigmoidal")
     cooling = input("\nPlease give cooling scheme: ")
     iterations_dataframe, runs_dataframe = call_simulated_annealing(heuristic, \
                                                                     cooling)
@@ -68,18 +68,3 @@ if len(sys.argv) > 1:
         # if iterative, save iterations dataframe also
         if not iterations_dataframe == None:
             iterations_dataframe.to_csv(r'../Heuristieken/Outputs/iterations_saved.csv')
-
-
-# RANDOM convert dataframe to csv
-# dataframe.to_csv(r'../Heuristieken/Outputs/Random/random_CL2_100000.csv')
-
-# HILL CLIMBER (SPECIFY PARCEL OR SPACECRAFT SWITCH)
-# iterations_dataframe.to_csv(r'../Heuristieken/Outputs/Hill_Climber/iterations_spacecrafts_CL1_30x2000.csv')
-# runs_dataframe.to_csv(r'../Heuristieken/Outputs/Hill_Climber/runs_spacecrafts_CL1_30x2000.csv')
-
-# SIMULATED ANNEALING
-# iterations_dataframe.to_csv(r'../Heuristieken/Outputs/Simulated_Annealing/iterations_SA_CL1_lin_30x2000.csv')
-# runs_dataframe.to_csv(r'../Heuristieken/Outputs/Simulated_Annealing/runs_SA_CL1_lin_30x2000.csv')
-
-# POLITICAL CONSTRAINTS
-# dataframe.to_csv(r'../Heuristieken/Outputs/Political_Constraints/CL3_10000.csv')
