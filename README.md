@@ -54,7 +54,7 @@ Using this the lower and upper bound for the costs of cargolist 3 are:
 
 ## Getting Started
 ### Prerequisites
-This code is written in Python 3. In requirements.txt you will find all the packages you need to run the code successfully. These are easy to install by pip using the following instruction:
+This code is written in Python 3.7. In requirements.txt you will find all the packages you need to run the code successfully. These are easy to install by pip using the following instruction:
 ```
 pip install -r requirements.txt
 ```
