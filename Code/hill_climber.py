@@ -116,7 +116,4 @@ def hill_climber_combined(iterations_dataframe, max_iterations):
         solutions.append(current_solution.costs)
         count += 1
 
-        # print("Iterations:", count)
-        # spacefreight.printing(current_solution)
-
     return iterations_dataframe, count, current_solution, solutions

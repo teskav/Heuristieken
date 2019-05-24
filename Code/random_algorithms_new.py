@@ -48,10 +48,7 @@ def random_all_parcels():
         used_spacecrafts.append(spacecraft)
 
     # save solution
-    current_solution = Solution('random all', \
-                        len(spacefreight.unpacked_parcels), \
-                        spacefreight.unpacked_parcels, total_costs, \
-                        used_spacecrafts)
+    current_solution = Solution('random all', total_costs, used_spacecrafts)
 
     return current_solution
 
@@ -113,10 +110,7 @@ def pseudo_greedy_random_all():
         used_spacecrafts.append(spacecraft)
 
     # save solution
-    current_solution = Solution('constraints all', \
-                        len(spacefreight.unpacked_parcels), \
-                        spacefreight.unpacked_parcels, total_costs, \
-                        used_spacecrafts)
+    current_solution = Solution('constraints all', total_costs, used_spacecrafts)
 
     return current_solution
 
@@ -167,9 +161,7 @@ def political_constraints(countries):
             used_spacecrafts.append(spacecraft)
 
     # save solution
-    current_solution = Solution('political constraints', \
-                        len(spacefreight.unpacked_parcels), \
-                        spacefreight.unpacked_parcels, total_costs, \
+    current_solution = Solution('political constraints', total_costs, \
                         used_spacecrafts)
 
     return current_solution, countries

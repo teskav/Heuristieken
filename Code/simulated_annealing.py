@@ -41,9 +41,6 @@ def simulated_annealing(iterations_dataframe, max_iterations):
                                         neighbour_solution, count, \
                                         max_iterations)
         random_number = random.random()
-        # print('Random number: ', random_number)
-        # print('Acceptatie kans: ', acceptatie_kans)
-        # print('Temperatuur: ', temperature)
 
         # compare costs & check if it is feasible solution
         if neighbour_solution.costs <= current_solution.costs and check == True:
