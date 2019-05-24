@@ -58,8 +58,6 @@ def first_fit(heuristic):
                 break
 
     # save solution
-    current_solution = Solution('firstfit', len(spacefreight.unpacked_parcels), \
-                                spacefreight.unpacked_parcels, total_costs, \
-                                used_spacecrafts)
+    current_solution = Solution('firstfit', total_costs, used_spacecrafts)
 
     return current_solution
