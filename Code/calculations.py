@@ -11,9 +11,8 @@ import sys
 # check input argument
 if len(sys.argv) != 3:
     print('Please give input arguments: file name followed by \
-            \n  sort \n  differences (only use \
-            for iterative algorithms) \n  average \
-            \nExample input argument: example.csv sort')
+            \n  sort \n  differences (only use for iterative algorithms) \
+            \n  average \nExample input argument: example.csv sort')
 else:
     # import csv data from algorithm
     output_location = sys.argv[1]
@@ -33,10 +32,14 @@ else:
             sorted = random_costs_fleet.sort_values(by='costs_solution')
 
             for s in sorted['fleet']:
-                sorted.loc[sorted['fleet'] == s, 'Cygnus'] = s.count('Cygnus')
-                sorted.loc[sorted['fleet'] == s, 'Progress'] = s.count('Progress')
-                sorted.loc[sorted['fleet'] == s, 'Kounotori'] = s.count('Kounotori')
-                sorted.loc[sorted['fleet'] == s, 'Dragon'] = s.count('Dragon')
+                sorted.loc[sorted['fleet'] == s, 'Cygnus'] = \
+                    s.count('Cygnus')
+                sorted.loc[sorted['fleet'] == s, 'Progress'] = \
+                    s.count('Progress')
+                sorted.loc[sorted['fleet'] == s, 'Kounotori'] = \
+                    s.count('Kounotori')
+                sorted.loc[sorted['fleet'] == s, 'Dragon'] = \
+                    s.count('Dragon')
         else:
             random_costs_fleet = data[['end_solution_costs', 'end_fleet']]
 
@@ -44,10 +47,14 @@ else:
             sorted = random_costs_fleet.sort_values(by='end_solution_costs')
 
             for s in sorted['end_fleet']:
-                sorted.loc[sorted['end_fleet'] == s, 'Cygnus'] = s.count('Cygnus')
-                sorted.loc[sorted['end_fleet'] == s, 'Progress'] = s.count('Progress')
-                sorted.loc[sorted['end_fleet'] == s, 'Kounotori'] = s.count('Kounotori')
-                sorted.loc[sorted['end_fleet'] == s, 'Dragon'] = s.count('Dragon')
+                sorted.loc[sorted['end_fleet'] == s, 'Cygnus'] = \
+                    s.count('Cygnus')
+                sorted.loc[sorted['end_fleet'] == s, 'Progress'] = \
+                    s.count('Progress')
+                sorted.loc[sorted['end_fleet'] == s, 'Kounotori'] = \
+                    s.count('Kounotori')
+                sorted.loc[sorted['end_fleet'] == s, 'Dragon'] = \
+                    s.count('Dragon')
 
         sorted.to_csv(r'../Outputs/' + output_location + '_sorted')
 
