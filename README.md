@@ -153,7 +153,7 @@ The simulated annealing and the hill climber algorithm both accept neighbour sol
 acceptance = e^(change costs / temperature)
 ```
 To determine the temperature, we use a cooling scheme. We have three options for the cooling scheme, however we noticed that the exponential cooling scheme worked best for our problem. Still you can choose between lineair, exponential or sigmoidal. For the cooling schemes we use the following the begin temperature (T_0) and end temperature (T_N):
-+ T_0 =
++ T_0 = 325.819
 + T_N = 1
 This is based on the average improvement of a hill climber run.
 
