@@ -1,6 +1,6 @@
 # Space Freight
 ## Problem
-The case Spacefreight is a constraint optimization problem (COP). The constraints that needs to be met are to ship all parcels from the cargolist(s) and to not exceed the maximum payload mass and the maximum payload volume of the spacecrafts. Each spacecraft has their own specifications. Multiple spacecrafts can be deployed to ship all parcels to the International Space Station (ISS).
+The case Spacefreight is a constraint optimization problem (COP). The constraints that need to be met are to ship all parcels from the cargolist(s) and to not exceed the maximum payload mass and the maximum payload volume of the spacecrafts. Each spacecraft has its own specifications. Different spacecrafts can be deployed multiple times to ship all parcels to the International Space Station (ISS).
 
 The transportation costs need to be minimized, so the parcels from the cargolist(s) need to be distributed optimally to minimize costs.
 
@@ -41,7 +41,7 @@ Using this the lower and upper bound for the costs of cargolist 2 are:
 + Lower bound = $ 1,009 billion
 + Upper bound = $ 3,668 billion
 
-##### Cargolist 3
+#### Cargolist 3
 So the state space for cargolist 3 is:
 
 + Lower bound = 24^1000 = 1,63 * 10^1380
@@ -103,9 +103,13 @@ Type here the cooling scheme you want to use. Options: lineair, exponential, sig
 
 
 ### Additional
-The default for the number of runs and iterations is respectively 1 and 2000. If you want to change the number of runs or iterations, this can be done by changing these manually in the file call_functions.py. If you want to use the file calculations.py for sorting, calculating the avarages and lowest values, the directory has to be set to Code. This can be done by running the following code:
+The default for the number of runs and iterations is respectively 1 and 2000. If you want to change the number of runs or iterations, this can be done by changing these manually in the file call_functions.py. If you want to use the file calculations.py for sorting and calculating the avarages and lowest values, the directory has to be set to Code. This can be done by running the following code:
 ```
-$ cd Code
+cd Code
+```
+To run calculations.py you have to run the following code:
+```
+python calculations.py
 ```
 
 ## Algorithms
@@ -157,14 +161,17 @@ To determine the temperature, we use a cooling scheme. We have three options for
 + T_N = 1
 This is based on the average improvement of a hill climber run.
 
+### Political Constraints
+To cover the whole case, we also implemented the political constraints algorithm. This algorithm is a form of the random algorithm and allocates the parcels in the same way as the random algorithm does, except that there is a political constraint to consider. The number of spacecrafts used per country can only differ by 1 spacecraft. So if Russia uses 4 spacecrafts, all the other countries can uses 3, 4 or 5 spacecrafts. This condition is checked when picking a random spacecraft to fill up. If the condition still holds, the spacecraft will be filled up (randomly). If not, another random spacecraft will be chosen and the process will be repeated. This algorithm is only applicable for cargolist 3.
+
+## Findings
+If you are interested in our findings, please take a look at our presentation in the following link.
+We will add this link on monday 27th of May, after the presentations.
+
 ## Authors
 + Sofie Löhr, 11038926
 + Teska Vaessen, 11046341
 + Wies de Wit, 10727078
-
-## Findings
-If you are interested in our findings, please take a look at our presentation in the following link.
-We will add this link on monday 27th of May, after the presentations. 
 
 ## Ackowledgments
 + StackOverflow
