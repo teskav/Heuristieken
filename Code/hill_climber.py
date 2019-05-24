@@ -18,7 +18,7 @@ spacefreight = SpaceFreight()
 
 def hill_climber(iterations_dataframe, max_iterations, heuristic):
     """
-    The hill climber algorithm swapping parcels.
+    The hill climber algorithm..
     """
     count = 0
     costs_per_run = []
@@ -36,7 +36,7 @@ def hill_climber(iterations_dataframe, max_iterations, heuristic):
             check, neighbour_solution = \
                 neighbour_random_spacecraft_switch(current_solution)
         elif heuristic == 'combined':
-            # generate neighbour solution
+            # generate random number
             random_number = random.random()
             if random_number < 0.5:
                 check, neighbour_solution = \

@@ -149,89 +149,7 @@ def call_hill_climber(heuristic):
 
     return iterations_dataframe, runs_dataframe
 
-def call_hill_climber_spacecrafts():
-    """
-    Calls the hill climber algorithm SWAP SPACECRAFTS
-    """
-    column_names_runs=['algorithm_name', 'iterations', 'start_solution_costs', \
-                        'end_solution_costs', 'start_fleet', \
-                        'start_costs_spacecraft', 'start_packed_mass_vol', \
-                        'start_packed_parcels', 'end_fleet', \
-                        'end_costs_spacecraft', 'end_packed_mass_vol', \
-                        'end_packed_parcels']
-    column_names_iterations=['algorithm_name', 'iteration', 'costs_solution', \
-                            'fleet', 'costs_spacecraft', 'packed_mass_vol', \
-                            'packed_parcels']
-    iterations_dataframe = pd.DataFrame()
-    runs_dataframe = pd.DataFrame()
-
-    max_iterations = 2000
-    runs = 0
-    max_runs = 30
-
-    # set lists for plots
-    costs_runs = []
-    x = list(range(max_iterations))
-
-
-    # HILL CLIMBER max_runs aantal keer en
-    # per running max_iterations aantal iteraties
-    while runs < max_runs:
-
-        iterations_dataframe, start_solution, end_solution, costs_per_run = \
-            hill_climber_spacecrafts(iterations_dataframe, max_iterations)
-
-        # save run
-        dataframe_row = spacefreight.save_run_hill_climber(start_solution, \
-                        end_solution, max_iterations)
-        runs_dataframe = runs_dataframe.append(dataframe_row, ignore_index=True)
-
-        # data for plots
-        costs_runs.append(costs_per_run)
-
-        runs += 1
-
-    # plot & print
-    plot_iterative(max_iterations, costs_runs)
-    spacefreight.printing(end_solution)
-
-    # set column names
-    runs_dataframe.columns = column_names_runs
-    iterations_dataframe.columns = column_names_iterations
-
-    return iterations_dataframe, runs_dataframe
-
-def call_hill_climber_combined():
-    """
-    Calls the hill climber swapping spacecrafts and parcels
-    """
-    iterations_dataframe = pd.DataFrame()
-    max_iterations = 2000
-
-    # HILL CLIMBER max_runs aantal keer en
-    # per running max_iterations aantal iteraties
-    runs = 0
-    max_runs = 2
-    solutions_runs = []
-    solutions = []
-    x = list(range(max_iterations))
-    while runs < max_runs:
-        iterations_dataframe, count, current_solution, solution = \
-            hill_climber_combined(iterations_dataframe, max_iterations)
-        solutions_runs.append(current_solution.costs)
-        solutions.append(solution)
-        runs += 1
-
-    print("Iterations:", count)
-    spacefreight.printing(current_solution)
-
-    # plot & print
-    plot_iterative(max_iterations, costs_runs)
-    spacefreight.printing(end_solution)
-
-    return iterations_dataframe
-
-def call_simulated_annealing():
+def call_simulated_annealing(heuristic, cooling):
     """
     Calls the simulated annealing algorithm
     """
@@ -251,7 +169,7 @@ def call_simulated_annealing():
 
     max_iterations = 2000
     runs = 0
-    max_runs = 30
+    max_runs = 1
 
     # set lists for plots
     costs_runs = []
@@ -261,7 +179,8 @@ def call_simulated_annealing():
     while runs < max_runs:
 
         iterations_dataframe, start_solution, end_solution, costs_per_run = \
-            simulated_annealing(iterations_dataframe, max_iterations)
+            simulated_annealing(iterations_dataframe, max_iterations, \
+                                 heuristic, cooling)
 
         # save run
         dataframe_row = spacefreight.save_run_hill_climber(start_solution, \

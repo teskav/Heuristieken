@@ -20,8 +20,7 @@ spacefreight = SpaceFreight()
 # print the algorithm options
 print("")
 print("Algorithm options: \n first fit \n random \n pseudo greedy random \
-        \n hill climber \n hill climber spacecrafts \n hill climber combined \
-        \n simulated annealing")
+        \n hill climber \n simulated annealing")
 # only print political constraint choice for cargolist 3
 if list == '3':
     print(" political constraints")
@@ -48,14 +47,13 @@ if algorithm == 'hill climber':
     heuristic = input("\nPlease give neighbour solution: ")
     iterations_dataframe, runs_dataframe = call_hill_climber(heuristic)
 
-if algorithm == 'hill climber spacecrafts':
-    iterations_dataframe, runs_dataframe = call_hill_climber_spacecrafts()
-
-if algorithm == 'hill climber combined':
-    runs_dataframe = call_hill_climber_combined()
-
 if algorithm == 'simulated annealing':
-    iterations_dataframe, runs_dataframe = call_simulated_annealing()
+    print("Neighbour solution options: \n parcels \n combined")
+    heuristic = input("\nPlease give neighbour solution: ")
+    print("Cooling scheme options: \n lineair \n exponential \n sigmoidal")
+    cooling = input("\nPlease give cooling scheme: ")
+    iterations_dataframe, runs_dataframe = call_simulated_annealing(heuristic, \
+                                                                    cooling)
 
 if algorithm == 'political constraints' and list == '3':
     runs_dataframe = call_political_constraints()

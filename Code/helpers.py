@@ -174,7 +174,7 @@ def neighbour_random_spacecraft_switch(current_solution):
             spacecraft_new.payload_mass < spacecraft_new.packed_mass):
         return False, current_solution
 
-def cooling_scheme(count, max_iterations):
+def cooling_scheme(count, max_iterations, cooling):
     """
     Calculates and returns the temperature.
     """
@@ -185,18 +185,22 @@ def cooling_scheme(count, max_iterations):
     T_0 = 325819
     T_N = 1
 
-    # LINEAIR
-    T_i = T_0 - count * ( T_0 - T_N ) / max_iterations
-
-    # EXPONENTIAL
-    # T_i = T_0 * (T_N / T_0) ** (count / max_iterations)
-
-    # SIGMOIDAL
-    # T_i = T_N + (T_0 - T_N) / (1 + math.exp(0.3 * (count - max_iterations / 2)))
+    if cooling == 'lineair':
+        # LINEAIR
+        T_i = T_0 - count * ( T_0 - T_N ) / max_iterations
+    elif cooling == 'exponential':
+        # EXPONENTIAL
+        T_i = T_0 * (T_N / T_0) ** (count / max_iterations)
+    elif cooling == 'sigmoidal':
+        # SIGMOIDAL
+        T_i = T_N + (T_0 - T_N) / (1 + math.exp(0.3 * (count - max_iterations / 2)))
+    else:
+        print("This is not an option.")
+        exit()
 
     return T_i
 
-def acceptance_SA(current_solution, neighbour_solution, count, max_iterations):
+def acceptance_SA(current_solution, neighbour_solution, count, max_iterations, cooling):
     """
     Calculates the acceptance chance of a neighbour solution.
     Returns the temperature and the acceptance probability.
@@ -205,7 +209,7 @@ def acceptance_SA(current_solution, neighbour_solution, count, max_iterations):
     change = current_solution.costs - neighbour_solution.costs
 
     # calculate temperature
-    temperature = cooling_scheme(count, max_iterations)
+    temperature = cooling_scheme(count, max_iterations, cooling)
 
     # calculate acceptance probability
     try:

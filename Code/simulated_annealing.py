@@ -18,7 +18,7 @@ import math
 spacefreight = SpaceFreight()
 
 
-def simulated_annealing(iterations_dataframe, max_iterations):
+def simulated_annealing(iterations_dataframe, max_iterations, heuristic, cooling):
     """
     The simulated annealing algorithm swapping parcels.
     """
@@ -33,17 +33,27 @@ def simulated_annealing(iterations_dataframe, max_iterations):
     # select neighbouring solution
     while count < max_iterations:
         # generate neighbour solution
-        check, neighbour_solution = \
-            neighbour_random_parcel_switch(current_solution)
+        if heuristic == 'parcels':
+            check, neighbour_solution = \
+                neighbour_random_parcel_switch(current_solution)
+        elif heuristic == 'combined':
+            # generate random number
+            random_number = random.random()
+            if random_number < 0.3:
+                check, neighbour_solution = \
+                    neighbour_random_spacecraft_switch(current_solution)
+            else:
+                check, neighbour_solution = \
+                    neighbour_random_parcel_switch(current_solution)
+        else:
+            print("The neighbour solution is not an option.")
+            exit()
 
         # get the temperature and the acceptance and generate a random number
         temperature, acceptance = acceptance_SA(current_solution, \
                                         neighbour_solution, count, \
-                                        max_iterations)
+                                        max_iterations, cooling)
         random_number = random.random()
-        # print('Random number: ', random_number)
-        # print('Acceptatie kans: ', acceptatie_kans)
-        # print('Temperatuur: ', temperature)
 
         # compare costs & check if it is feasible solution
         if neighbour_solution.costs <= current_solution.costs and check == True:
