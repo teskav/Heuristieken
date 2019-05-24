@@ -100,7 +100,7 @@ def call_pseudo_greedy_random_all():
 
     # plot if more than 1 run
     if max_runs > 1:
-        plot_costs(runs_dataframe)        
+        plot_costs(runs_dataframe)
 
     spacefreight.printing(best_solution)
 
@@ -226,12 +226,22 @@ def call_political_constraints():
     max_runs = 1
     count = 0
 
-    while count < max_runs:
+    # set up dataframe with all countries and number of spacecrafts used
+    data = [['USA', 0], ['Russia', 0], ['Japan', 0], ['China', 0], \
+            ['Europe', 0]]
+    countries = pd.DataFrame(data, columns = ['country', 'spacecrafts'])
 
-        # set up dataframe with all countries and number of spacecrafts used
-        data = [['USA', 0], ['Russia', 0], ['Japan', 0], ['China', 0], \
-                ['Europe', 0]]
-        countries = pd.DataFrame(data, columns = ['country', 'spacecrafts'])
+    # set first run as intitial best run
+    best_solution, countries = political_constraints(countries)
+    dataframe_row = spacefreight.save_run_political(best_solution, countries)
+    runs_dataframe = runs_dataframe.append(dataframe_row, ignore_index=True)
+
+    while count < (max_runs - 1):
+
+        count += 1
+
+        # set number of spacecrafts to 0 after every run
+        countries['spacecrafts'] = 0
 
         solution, countries = political_constraints(countries)
 
@@ -239,7 +249,9 @@ def call_political_constraints():
         dataframe_row = spacefreight.save_run_political(solution, countries)
         runs_dataframe = runs_dataframe.append(dataframe_row, ignore_index=True)
 
-        count +=1
+        # check if costs better
+        if solution.costs < best_solution.costs:
+            best_solution = solution
 
     # set column names
     runs_dataframe.columns = column_names
@@ -248,6 +260,6 @@ def call_political_constraints():
     if max_runs > 1:
         plot_costs(runs_dataframe)
 
-    spacefreight.printing(solution)
+    spacefreight.printing(best_solution)
 
     return runs_dataframe
