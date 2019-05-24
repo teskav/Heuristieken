@@ -61,15 +61,15 @@ def call_random():
 
         count += 1
 
-    # plot if more than 1 run
-    if max_runs > 1:
-        plot_costs(runs_dataframe)
-
     # print the best solution in terminal
     spacefreight.printing(best_solution)
 
     # set column names
     runs_dataframe.columns = column_names
+
+    # plot if more than 1 run
+    if max_runs > 1:
+        plot_costs(runs_dataframe)
 
     return runs_dataframe
 
@@ -101,15 +101,15 @@ def call_pseudo_greedy_random():
 
         count += 1
 
-    # plot if more than 1 run
-    if max_runs > 1:
-        plot_costs(runs_dataframe)
-
     # print the best solution in terminal
     spacefreight.printing(best_solution)
 
     # set column names
     runs_dataframe.columns = column_names
+
+    # plot if more than 1 run
+    if max_runs > 1:
+        plot_costs(runs_dataframe)
 
     return runs_dataframe
 
@@ -152,12 +152,12 @@ def call_hill_climber(heuristic):
 
         runs += 1
 
-    # plot
-    plot_iterative(max_iterations, costs_runs)
-
     # set column names
     runs_dataframe.columns = column_names_runs
     iterations_dataframe.columns = column_names_iterations
+
+    # plot
+    plot_iterative(max_iterations, costs_runs)
 
     # print the best solution in terminal
     spacefreight.printing(end_solution)
@@ -206,13 +206,13 @@ def call_simulated_annealing(heuristic, cooling):
 
         runs += 1
 
-    # plot & print the solution
-    plot_iterative(max_iterations, costs_runs)
-    spacefreight.printing(end_solution)
-
     # set column names
     runs_dataframe.columns = column_names_runs
     iterations_dataframe.columns = column_names_iterations
+
+    # plot & print the solution
+    plot_iterative(max_iterations, costs_runs)
+    spacefreight.printing(end_solution)
 
     # plot_cooling(iterations_dataframe)
     # plot_acceptatie(iterations_dataframe)

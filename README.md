@@ -2,31 +2,6 @@
 <!-- ## zorg dat iemand die het niet kent alles weet
 documentatie heel belangrijk -->
 
-## Belangrijkst:
-Met de hill climber parcel switch zijn we er achter gekomen dat het wisselen van parcels weinig verschil maakt en de start vloot eigenlijk alles bepalend is. (resultaten verbeteren maximaal met 13000 tov miljarden)
-
-Wanneer je spacecrafts wisselt verbeteren de resultaten wel met honderden miljoenen door de grote verschillen in initiele kosten van de spacecrafts.
-
-Zelfde bij simulated annealing gevonden (parcel switch)
-
-Geprobeerd dit te kwantificeren: random gesorteerd op goedkoopste kosten en onderzocht of dit idd vaak dezelfde vloot heeft
-
-Daarnaast ook de hele case afgerond.
-
-## VERSCHILLENDE ALGORITMES
-* first fit
-    * volgorde van cargolist en spacecraft
-    * parcels gesorteerd op massa
-    * parcels gesorteerd op volume
-* random
-* pseudo greedy random
-* hill climber
-    * swap parcels
-    * swap spacecrafts
-* simulated annealing
-    * parcels
-* political constraints (opdracht e)
-
 ## Problem
 The case Spacefreight is a constraint optimization problem (COP). The constraint that needs to be met is to ship all parcels from the cargolist(s). Other constraints are the maximum payload mass and the maximum payload volume of the spacecrafts. Each spacecraft has their own specifications. The maximum payloads of the spacecrafts cant be exceeded while allocating the parcels. Multiple spacecrafts can be deployed to ship all parcels to the International Space Station (ISS).
 
@@ -40,7 +15,7 @@ F = (Mass + Payload-mass) x FtW / (1 - FtW)
 The total amount of fuel is purchased per gram and costs $1 per gram, therefore the total costs of deploying the spacecraft are calculated as follows:
 Base cost + roundup(F x 1000)
 
-### State Space
+### State Space & costs
 #### General
 For the statespace we looked at the properties of each cargolist and of each spacecraft. We calculated the minimum amount of spacecrafts needed to bring all parcels and the (reasonal) maximum amount of spacecrafts needed. With this information we calculate the lower bound and upper bound of the state space as follows:
 
@@ -53,34 +28,32 @@ So the state space for cargolist 1 is:
 + Lower bound = 4^100 = 1,61 * 10^60
 + Upper bound = 8^100 = 2,04 * 10^90
 
+Using this the lower and upper bound for the costs of cargolist 1 are:
+
++ Lower bound = $ 0,807 billion
++ Upper bound = $ 3,668 billion
+
 #### Cargolist 2
 So the state space for cargolist 2 is:
 
 + Lower bound = 5^100 = 7,89 * 10^69
 + Upper bound = 8^100 = 2,04 * 10^90
 
+Using this the lower and upper bound for the costs of cargolist 2 are:
+
++ Lower bound = $ 1,009 billion
++ Upper bound = $ 3,668 billion
+
 ##### Cargolist 3
 So the state space for cargolist 3 is:
 
-+ Lower bound = 46^1000 = 1,89 * 10^166
-+ Upper bound = 84^1000 = 2,68 * 10^192
++ Lower bound = 24^1000 = 1,63 * 10^1380
++ Upper bound = 84^1000 = 1,90 * 10^1924
 
-VRAAG: HEBBEN WE HIER REKENING GEHOUDEN MET DE 6 SPACECRAFTS BIJ LIJST 3 WANT MOETEN WE EIGENLIJK WEL DOEN
+Using this the lower and upper bound for the costs of cargolist 3 are:
 
-### Upper & lower bound costs
-When deploying all four spacecrafts once, we get the following upper- and lowerbound for the costs.
-
-Lower bound = 1.339430662 mld. dollar
-Upper bound = 1.342566901 mld. dollar
-
-The lower bound is calculated by using a payload mass of 0 kg, which comes down to deploying the spacecraft without any payload.
-
-The upper bound is calculated by using the maximum payloas mass of the spacecraft, which comes down to deploying the spacecraft with full capacity.
-
-When deploying all six spacecrafts once, we get the following upper- and lowerbound for the costs calculated similarly.
-
-Lower bound = 2.838094712 mld. dollar
-Upper bound = 2.843961701 mld. dollar
++ Lower bound = $ 16,952 billion
++ Upper bound = $ 27,648 billion
 
 ## Getting Started
 ### Prerequisites
