@@ -1,5 +1,5 @@
 # HEURISTIEKEN
-# April - Mei 2019
+# April - May 2019
 # Space Freight
 # Sofie Löhr, Teska Vaessen & Wies de Wit
 """
@@ -19,10 +19,10 @@ def first_fit(heuristic):
     if heuristic == 'normal':
         cargolist = spacefreight.all_parcels
     elif heuristic == 'sorted mass':
-        # sort the list by mass (reverse=true if you want big to small)
+        # sort the list by ascending mass
         cargolist = sorted(spacefreight.all_parcels, key=lambda x: x.mass)
     elif heuristic == 'sorted vol':
-        # sort the list by volume (reverse=true if you want big to small)
+        # sort the list by descending volume
         cargolist = sorted(spacefreight.all_parcels, key=lambda x: x.volume, \
                            reverse=True)
 

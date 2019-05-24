@@ -1,5 +1,5 @@
 # HEURISTIEKEN
-# April - Mei 2019
+# April - May 2019
 # Space Freight
 # Sofie Löhr, Teska Vaessen & Wies de Wit
 """
@@ -140,7 +140,6 @@ class SpaceFreight():
         This functions prints the spacecrafts, packed parcels, packed mass and
         volume and total costs of a solution.
         """
-        # print(tabulate([['Alice', 24], ['Bob', 19]], headers=['Name', 'Age'], tablefmt='orgtbl'))
         print(Fore.YELLOW + "Best solution of the runs:" + Style.RESET_ALL)
         print("=====================================")
         print(Back.GREEN + 'Total costs: $', solution.costs/billion, 'billion' + \
@@ -160,7 +159,6 @@ class SpaceFreight():
                 print(parcels[count:count+4])
                 count += 4
             print("-------------------------------------")
-
 
     def swap_parcel(self, spacecraft_1, spacecraft_2, parcel_1, parcel_2):
         """
@@ -302,7 +300,6 @@ class SpaceFreight():
         data = [solution.name, solution.costs]
 
         # also add the distribution of spacecrafts
-        # [USA, Russia, Japan, China, Europe]
         constraint_list = countries['spacecrafts'].tolist()
         data.append(constraint_list)
 

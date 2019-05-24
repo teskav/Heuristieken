@@ -1,5 +1,5 @@
 # HEURISTIEKEN
-# April - Mei 2019
+# April - May 2019
 # Space Freight
 # Sofie Löhr, Teska Vaessen & Wies de Wit
 """
@@ -28,10 +28,10 @@ class Spacecraft(object):
         """
         Removes an item from the packed parcel list of an spacecraft
         """
-        # Remove item from the list
+        # remove item from the list
         self.packed_parcels.remove(parcel)
 
-        # Update mass and volume of spacecraft
+        # update mass and volume of spacecraft
         self.packed_mass -= parcel.mass
         self.packed_vol -= parcel.volume
 
@@ -39,9 +39,9 @@ class Spacecraft(object):
         """
         Adds an item from the packed parcel list of an spacecraft
         """
-        # Add item to the list
+        # add item to the list
         self.packed_parcels.append(parcel)
 
-        # Update mass and volume of spacecraft
+        # update mass and volume of spacecraft
         self.packed_mass += parcel.mass
         self.packed_vol += parcel.volume

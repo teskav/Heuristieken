@@ -1,5 +1,5 @@
 # HEURISTIEKEN
-# April - Mei 2019
+# April - May 2019
 # Space Freight
 # Sofie Löhr, Teska Vaessen & Wies de Wit
 
@@ -133,7 +133,6 @@ def political_constraints(countries):
         # add 1 to dataframe
         countries.loc[countries['country'] == spacecraft.country, \
             ['spacecrafts']] += 1
-        # print(countries)
 
         # check if political constraints are not violated
         if not (countries['spacecrafts'].min() >=
