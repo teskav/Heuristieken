@@ -99,13 +99,7 @@ def call_pseudo_greedy_random():
         if solution.costs < best_solution.costs:
             best_solution = solution
 
-<<<<<<< HEAD
-    # plot if more than 1 run
-    if max_runs > 1:
-        plot_costs(runs_dataframe)
-=======
         count += 1
->>>>>>> e3521efd2d45140c72922181849f98548e837fdc
 
     # print the best solution in terminal
     spacefreight.printing(best_solution)
