@@ -7,7 +7,7 @@ This script is used for calling functions from the main
 """
 
 from spacefreight import SpaceFreight
-from random_algorithms_new import *
+from random_algorithms import *
 from first_fit_algorithms import *
 from hill_climber import *
 from simulated_annealing import *
@@ -33,9 +33,9 @@ def call_first_fit(heuristic):
 
     return iterations_dataframe
 
-def call_random_all():
+def call_random():
     """
-    Calls the random algorithm, taking all parcels
+    Calls the random algorithm.
     """
     column_names = ['algorithm_name', 'costs_solution', 'fleet', \
                     'costs_spacecraft', 'packed_mass_vol', 'packed_parcels']
@@ -43,13 +43,13 @@ def call_random_all():
 
     max_runs = 1
     # run all parcels random
-    best_solution = random_all_parcels()
+    best_solution = random_algorithm()
     count = 0
     dataframe_row = spacefreight.save_run_random(best_solution)
     runs_dataframe = runs_dataframe.append(dataframe_row, ignore_index=True)
 
     while count < max_runs:
-        solution = random_all_parcels()
+        solution = random_algorithm()
 
         # save to dataframe
         dataframe_row = spacefreight.save_run_random(solution)
@@ -65,6 +65,7 @@ def call_random_all():
     if max_runs > 1:
         plot_costs(runs_dataframe)
 
+    # print the best solution in terminal
     spacefreight.printing(best_solution)
 
     # set column names
@@ -72,39 +73,45 @@ def call_random_all():
 
     return runs_dataframe
 
-def call_pseudo_greedy_random_all():
+def call_pseudo_greedy_random():
     """
-    Calls the constrained algorithm, taking all parcels
+    Calls the pseudo greedy random algorithm (with constraints).
     """
-    iterations_dataframe = pd.DataFrame()
-    max_iterations = 1000
-    # run all parcels constrained
-    best_solution = pseudo_greedy_random_all()
-    count = 0
-    dataframe_row = spacefreight.save_iteration(best_solution, count)
-    iterations_dataframe = iterations_dataframe.append(dataframe_row, \
-                            ignore_index=True)
+    column_names = ['algorithm_name', 'costs_solution', 'fleet', \
+                    'costs_spacecraft', 'packed_mass_vol', 'packed_parcels']
+    runs_dataframe = pd.DataFrame()
 
-    while count < max_iterations:
-        count += 1
-        solution = pseudo_greedy_random_all()
+    max_runs = 1
+    # run all parcels random
+    best_solution = pseudo_greedy_random()
+    count = 0
+    dataframe_row = spacefreight.save_run_random(best_solution)
+    runs_dataframe = runs_dataframe.append(dataframe_row, ignore_index=True)
+
+    while count < max_runs:
+        solution = pseudo_greedy_random()
 
         # save to dataframe
-        dataframe_row = spacefreight.save_iteration(solution, count)
-        iterations_dataframe = iterations_dataframe.append(dataframe_row, \
-                                ignore_index=True)
+        dataframe_row = spacefreight.save_run_random(solution)
+        runs_dataframe = runs_dataframe.append(dataframe_row, ignore_index=True)
 
         # check if costs better
         if solution.costs < best_solution.costs:
             best_solution = solution
 
+        count += 1
+
     # plot if more than 1 run
     if max_runs > 1:
         plot_costs(runs_dataframe)
 
+    # print the best solution in terminal
     spacefreight.printing(best_solution)
 
-    return iterations_dataframe
+    # set column names
+    runs_dataframe.columns = column_names
+
+    return runs_dataframe
 
 def call_hill_climber(heuristic):
     """
@@ -124,7 +131,7 @@ def call_hill_climber(heuristic):
 
     max_iterations = 2000
     runs = 0
-    max_runs = 3
+    max_runs = 1
 
     # set lists for plots
     costs_runs = []
@@ -152,6 +159,7 @@ def call_hill_climber(heuristic):
     runs_dataframe.columns = column_names_runs
     iterations_dataframe.columns = column_names_iterations
 
+    # print the best solution in terminal
     spacefreight.printing(end_solution)
 
     return iterations_dataframe, runs_dataframe
@@ -199,7 +207,7 @@ def call_simulated_annealing(heuristic, cooling):
 
         runs += 1
 
-    # plot & print
+    # plot & print the solution
     plot_iterative(max_iterations, costs_runs)
     spacefreight.printing(end_solution)
 
