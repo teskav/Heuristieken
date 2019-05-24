@@ -41,7 +41,7 @@ def call_random_all():
                     'costs_spacecraft', 'packed_mass_vol', 'packed_parcels']
     runs_dataframe = pd.DataFrame()
 
-    max_runs = 100
+    max_runs = 1
     # run all parcels random
     best_solution = random_all_parcels()
     count = 0
@@ -60,6 +60,10 @@ def call_random_all():
             best_solution = solution
 
         count += 1
+
+    # plot if more than 1 run
+    if max_runs > 1:
+        plot_costs(runs_dataframe)
 
     spacefreight.printing(best_solution)
 
@@ -94,7 +98,10 @@ def call_pseudo_greedy_random_all():
         if solution.costs < best_solution.costs:
             best_solution = solution
 
-    print("Iterations:", count)
+    # plot if more than 1 run
+    if max_runs > 1:
+        plot_costs(runs_dataframe)        
+
     spacefreight.printing(best_solution)
 
     return iterations_dataframe
@@ -216,7 +223,7 @@ def call_political_constraints():
                     'packed_parcels']
 
     runs_dataframe = pd.DataFrame()
-    max_runs = 10000
+    max_runs = 1
     count = 0
 
     while count < max_runs:
@@ -237,8 +244,10 @@ def call_political_constraints():
     # set column names
     runs_dataframe.columns = column_names
 
-    # print(runs_dataframe)
-    # plot alle oplossingen samen
-    plot_costs(runs_dataframe)
+    # plot if more than 1 run
+    if max_runs > 1:
+        plot_costs(runs_dataframe)
+
+    spacefreight.printing(solution)
 
     return runs_dataframe

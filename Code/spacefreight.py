@@ -149,21 +149,18 @@ class SpaceFreight():
         print(Back.CYAN + "Fleet and payloads:" + Style.RESET_ALL)
         print("=====================================")
         for spacecraft in solution.used_spacecrafts:
-            print(Fore.CYAN + spacecraft.name + ':' + Style.RESET_ALL)
+            print('\n' + Fore.YELLOW + spacecraft.name + ':' + Style.RESET_ALL)
             parcels = []
             for parcel in spacecraft.packed_parcels:
                 parcels.append(parcel.ID)
             print(tabulate([["{0:.3f}".format(spacecraft.packed_mass), "{0:.3f}".format(spacecraft.packed_vol)]], headers=['Payload mass', 'Payload volume'], tablefmt='orgtbl'))
-            print('Packed parcels:', parcels)
-            # print(parcels)
+            print('Packed parcels:')
+            count = 0
+            for number in range(math.ceil(len(parcels)/4)):
+                print(parcels[count:count+4])
+                count += 4
             print("-------------------------------------")
-            # print("Payload mass:", "{0:.3f}".format(spacecraft.packed_mass))
-            # print("Payload volume:", "{0:.3f}".format(spacecraft.packed_vol))
-
-        print('Unpacked parcels:')
-        print(solution.unpacked_parcels)
-        # print('Number of packed parcels: ', len(self.all_parcels) - \
-        #       solution.not_bring)
+            
 
     def swap_parcel(self, spacecraft_1, spacecraft_2, parcel_1, parcel_2):
         """
