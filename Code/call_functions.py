@@ -41,7 +41,7 @@ def call_random_all():
                     'costs_spacecraft', 'packed_mass_vol', 'packed_parcels']
     runs_dataframe = pd.DataFrame()
 
-    max_runs = 1
+    max_runs = 10
     # run all parcels random
     best_solution = random_all_parcels()
     count = 0
@@ -100,7 +100,7 @@ def call_pseudo_greedy_random_all():
 
     # plot if more than 1 run
     if max_runs > 1:
-        plot_costs(runs_dataframe)        
+        plot_costs(runs_dataframe)
 
     spacefreight.printing(best_solution)
 
