@@ -7,7 +7,7 @@ This script is used for calling functions from the main
 """
 
 from spacefreight import SpaceFreight
-from random_algorithms_new import *
+from random_algorithms import *
 from first_fit_algorithms import *
 from hill_climber import *
 from simulated_annealing import *

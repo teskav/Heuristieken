@@ -8,7 +8,7 @@ of the HILL CLIMBER algorithms
 """
 
 from spacefreight import SpaceFreight
-from random_algorithms_new import *
+from random_algorithms import *
 from helpers import *
 import random
 import numpy as np
