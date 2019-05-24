@@ -9,8 +9,8 @@ import pandas as pd
 import sys
 
 # import csv data from algorithm
-output_location = '/Random/random_CL2_100000.csv'
-data = pd.read_csv('../Outputs' + output_location, index_col=0)
+# output_location = '/Random/random_CL2_100000.csv'
+# data = pd.read_csv('../Outputs' + output_location, index_col=0)
 
 # check imput argument
 if sys.argv[1] == 'sort':
@@ -40,7 +40,7 @@ elif sys.argv[1] == 'differences':
     simulated annealing run.
     """
 
-    output_location = '../Outputs/Simulated_Annealing/runs_SA_CL1_sig_30x2000.csv'
+    output_location = '../Outputs/Simulated_Annealing/runs_SA_CL1_lin_30x2000.csv'
     data = pd.read_csv(output_location, index_col=0)
 
     # create dataframe with differences between the start and end costs per run
