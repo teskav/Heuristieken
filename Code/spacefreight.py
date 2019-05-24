@@ -31,11 +31,15 @@ list = input("Please give cargolist number: ")
 if list == '1':
     INPUT = INPUT_1
 
-if list == '2':
+elif list == '2':
     INPUT = INPUT_2
 
-if list == '3':
+elif list == '3':
     INPUT = INPUT_3
+
+else:
+    print("This is not an option.")
+    exit()
 
 billion = 1000000000
 

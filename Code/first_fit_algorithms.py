@@ -25,6 +25,9 @@ def first_fit(heuristic):
         # sort the list by descending volume
         cargolist = sorted(spacefreight.all_parcels, key=lambda x: x.volume, \
                            reverse=True)
+    else:
+        print("This is not an option.")
+        exit()
 
     # set starting
     used_spacecrafts = []

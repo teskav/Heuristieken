@@ -35,18 +35,18 @@ if algorithm == 'first fit':
     heuristic = input("\nPlease give heuristic: ")
     runs_dataframe = call_first_fit(heuristic)
 
-if algorithm == 'random':
+elif algorithm == 'random':
     runs_dataframe = call_random()
 
-if algorithm == 'pseudo greedy random':
+elif algorithm == 'pseudo greedy random':
     runs_dataframe = call_pseudo_greedy_random()
 
-if algorithm == 'hill climber':
+elif algorithm == 'hill climber':
     print("\nNeighbour solution options: \n parcels \n spacecrafts \n combined")
     heuristic = input("\nPlease give neighbour solution: ")
     iterations_dataframe, runs_dataframe = call_hill_climber(heuristic)
 
-if algorithm == 'simulated annealing':
+elif algorithm == 'simulated annealing':
     print("\nNeighbour solution options: \n parcels \n combined")
     heuristic = input("\nPlease give neighbour solution: ")
     print("\nCooling scheme options: \n lineair \n exponential \n sigmoidal")
@@ -54,11 +54,15 @@ if algorithm == 'simulated annealing':
     iterations_dataframe, runs_dataframe = call_simulated_annealing(heuristic, \
                                                                     cooling)
 
-if algorithm == 'political constraints' and list == '3':
+elif algorithm == 'political constraints' and list == '3':
     runs_dataframe = call_political_constraints()
 
-if algorithm == 'political constraints' and list != '3':
+elif algorithm == 'political constraints' and list != '3':
     print('Political constraint is only applicable to cargolist 3.')
+
+else:
+    print("This is not an option.")
+    exit()
 
 # check imput arguments
 if len(sys.argv) > 1:
