@@ -1,5 +1,5 @@
 # HEURISTIEKEN
-# April - Mei 2019
+# April - May 2019
 # Space Freight
 # Sofie Löhr, Teska Vaessen & Wies de Wit
 """
@@ -136,7 +136,7 @@ def call_hill_climber(heuristic):
     # set lists for plots
     costs_runs = []
 
-    # HILL CLIMBER max_runs aantal keer en per running max_iterations
+    # HILL CLIMBER max_runs number of times and max_iterations per run
     while runs < max_runs:
 
         iterations_dataframe, start_solution, end_solution, costs_per_run = \
@@ -189,7 +189,7 @@ def call_simulated_annealing(heuristic, cooling):
     # set lists for plots
     costs_runs = []
 
-    # SIMULATED ANNEALING max_runs aantal keer en per running max_iterations
+    # SIMULATED ANNEALING max_runs number of times and max_iterations per run
     while runs < max_runs:
 
         iterations_dataframe, start_solution, end_solution, costs_per_run = \
@@ -213,9 +213,6 @@ def call_simulated_annealing(heuristic, cooling):
     # plot & print the solution
     plot_iterative(max_iterations, costs_runs)
     spacefreight.printing(end_solution)
-
-    # plot_cooling(iterations_dataframe)
-    # plot_acceptatie(iterations_dataframe)
 
     return iterations_dataframe, runs_dataframe
 

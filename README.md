@@ -54,13 +54,13 @@ Using this the lower and upper bound for the costs of cargolist 3 are:
 
 ## Getting Started
 ### Prerequisites
-This code is written in Python 3. In requirements.txt you will find all the packages you need to run the code successfully. These are easy to install by pip using the following instruction:
+This code is written in Python 3.7. In requirements.txt you will find all the packages you need to run the code successfully. These are easy to install by pip using the following instruction:
 ```
 pip install -r requirements.txt
 ```
 
 ### Structure
-All Python scripts are in the folder Code. The Cargolists folder contains all three cargolists with their input values and in the Outputs folder are all results that are stored by the code.
+All Python scripts are in the folder Code. The Cargolists folder contains all three cargolists with their input values and in the Outputs folder are some of the results that we found.
 
 ### Testing
 To run the code use the following instruction:
@@ -163,7 +163,7 @@ This is based on the average improvement of a hill climber run.
 + Wies de Wit, 10727078
 
 ## Findings
-If you are interested in our findings, please take a look at our presentation in the following link. 
+If you are interested in our findings, please take a look at our presentation in the following link.
 
 ## Ackowledgments
 + StackOverflow
