@@ -35,7 +35,7 @@ def call_first_fit(heuristic):
 
 def call_random():
     """
-    Calls the random algorithm, taking all parcels
+    Calls the random algorithm.
     """
     column_names = ['algorithm_name', 'costs_solution', 'fleet', \
                     'costs_spacecraft', 'packed_mass_vol', 'packed_parcels']
@@ -75,29 +75,31 @@ def call_random():
 
 def call_pseudo_greedy_random():
     """
-    Calls the constrained algorithm, taking all parcels
+    Calls the pseudo greedy random algorithm (with constraints).
     """
-    iterations_dataframe = pd.DataFrame()
-    max_iterations = 1000
-    # run all parcels constrained
+    column_names = ['algorithm_name', 'costs_solution', 'fleet', \
+                    'costs_spacecraft', 'packed_mass_vol', 'packed_parcels']
+    runs_dataframe = pd.DataFrame()
+
+    max_runs = 1
+    # run all parcels random
     best_solution = pseudo_greedy_random()
     count = 0
-    dataframe_row = spacefreight.save_iteration(best_solution, count)
-    iterations_dataframe = iterations_dataframe.append(dataframe_row, \
-                            ignore_index=True)
+    dataframe_row = spacefreight.save_run_random(best_solution)
+    runs_dataframe = runs_dataframe.append(dataframe_row, ignore_index=True)
 
-    while count < max_iterations:
-        count += 1
+    while count < max_runs:
         solution = pseudo_greedy_random()
 
         # save to dataframe
-        dataframe_row = spacefreight.save_iteration(solution, count)
-        iterations_dataframe = iterations_dataframe.append(dataframe_row, \
-                                ignore_index=True)
+        dataframe_row = spacefreight.save_run_random(solution)
+        runs_dataframe = runs_dataframe.append(dataframe_row, ignore_index=True)
 
         # check if costs better
         if solution.costs < best_solution.costs:
             best_solution = solution
+
+        count += 1
 
     # plot if more than 1 run
     if max_runs > 1:
@@ -106,7 +108,10 @@ def call_pseudo_greedy_random():
     # print the best solution in terminal
     spacefreight.printing(best_solution)
 
-    return iterations_dataframe
+    # set column names
+    runs_dataframe.columns = column_names
+
+    return runs_dataframe
 
 def call_hill_climber(heuristic):
     """
