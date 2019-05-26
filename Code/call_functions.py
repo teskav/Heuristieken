@@ -81,28 +81,21 @@ def call_random_fleet():
                     'costs_spacecraft', 'packed_mass_vol', 'packed_parcels']
     runs_dataframe = pd.DataFrame()
 
-    max_runs = 1
-    # run all parcels random
-    best_solution = random_fleet_algorithm()
+    max_runs = 10
     count = 0
-    dataframe_row = spacefreight.save_run_random(best_solution)
-    runs_dataframe = runs_dataframe.append(dataframe_row, ignore_index=True)
 
-    while count < (max_runs - 1):
-        solution = random_fleet_algorithm()
+    while count < (max_runs):
+        solution, check = random_fleet_algorithm()
 
-        # save to dataframe
-        dataframe_row = spacefreight.save_run_random(solution)
-        runs_dataframe = runs_dataframe.append(dataframe_row, ignore_index=True)
+        if check == True:
+            # save to dataframe
+            dataframe_row = spacefreight.save_run_random(solution)
+            runs_dataframe = runs_dataframe.append(dataframe_row, ignore_index=True)
 
-        # check if costs better
-        if solution.costs < best_solution.costs:
-            best_solution = solution
-
-        count += 1
+            count += 1
 
     # print the best solution in terminal
-    spacefreight.printing(best_solution)
+    spacefreight.printing(solution)
 
     # set column names
     runs_dataframe.columns = column_names
@@ -224,7 +217,7 @@ def call_simulated_annealing(heuristic, cooling):
 
     max_iterations = 2000
     runs = 0
-    max_runs = 1
+    max_runs = 4
 
     # set lists for plots
     costs_runs = []
@@ -233,7 +226,7 @@ def call_simulated_annealing(heuristic, cooling):
     while runs < max_runs:
 
         iterations_dataframe, start_solution, end_solution, costs_per_run = \
-            simulated_annealing(iterations_dataframe, max_iterations, \
+            simulated_annealing_fleet(iterations_dataframe, max_iterations, \
                                  heuristic, cooling)
 
         # save run

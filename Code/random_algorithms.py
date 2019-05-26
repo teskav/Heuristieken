@@ -82,30 +82,32 @@ def random_fleet_algorithm():
     # every single run of the function sets unpacked_parcels at starting point
     spacefreight.unpacked_parcels = set_up_unpacked()
 
-    while len(spacefreight.unpacked_parcels) > 0:
-        for spacecraft_number in spacecraft_randoms:
-            spacecraft = copy.copy(spacecrafts_list[spacecraft_number])
+    for spacecraft_number in spacecraft_randoms:
+        spacecraft = copy.copy(spacecrafts_list[spacecraft_number])
 
-            # set variables at 0
-            empty_single_spacecraft(spacecraft)
+        # set variables at 0
+        empty_single_spacecraft(spacecraft)
 
-            for parcel_number in parcel_randoms:
-                parcel = spacefreight.all_parcels[parcel_number]
-                if (spacefreight.check(spacecraft, parcel) and
-                        parcel.ID in spacefreight.unpacked_parcels):
-                    spacecraft = spacefreight.update(spacecraft, parcel)
+        for parcel_number in parcel_randoms:
+            parcel = spacefreight.all_parcels[parcel_number]
+            if (spacefreight.check(spacecraft, parcel) and
+                    parcel.ID in spacefreight.unpacked_parcels):
+                spacecraft = spacefreight.update(spacecraft, parcel)
 
-            #calculate costs spacecraft
-            spacecraft.costs = spacefreight.calculate_costs_spacecraft(spacecraft)
-            total_costs += spacecraft.costs
+        #calculate costs spacecraft
+        spacecraft.costs = spacefreight.calculate_costs_spacecraft(spacecraft)
+        total_costs += spacecraft.costs
 
-            # add spacecraft to used_spacecrafts
-            used_spacecrafts.append(spacecraft)
+        # add spacecraft to used_spacecrafts
+        used_spacecrafts.append(spacecraft)
 
     # save solution
     current_solution = Solution('random all', total_costs, used_spacecrafts)
 
-    return current_solution
+    if len(spacefreight.unpacked_parcels) > 0:
+        return current_solution, False
+    else:
+        return current_solution, True
 
 
 def pseudo_greedy_random():
