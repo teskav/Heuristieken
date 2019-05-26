@@ -17,6 +17,23 @@ import copy
 
 spacefreight = SpaceFreight()
 
+spacecrafts_list = []
+spacecrafts_list.append(Spacecraft('Progress', 2400, 7.6, 7020, \
+                            175000000, 0.74, 'Russia'))
+spacecrafts_list.append(Spacecraft('Progress', 2400, 7.6, 7020, \
+                            175000000, 0.74, 'Russia'))
+spacecrafts_list.append(Spacecraft('Progress', 2400, 7.6, 7020, \
+                            175000000, 0.74, 'Russia'))
+spacecrafts_list.append(Spacecraft('Progress', 2400, 7.6, 7020, \
+                            175000000, 0.74, 'Russia'))
+spacecrafts_list.append(Spacecraft('Progress', 2400, 7.6, 7020, \
+                            175000000, 0.74, 'Russia'))
+spacecrafts_list.append(Spacecraft('Progress', 2400, 7.6, 7020, \
+                            175000000, 0.74, 'Russia'))
+spacecrafts_list.append(Spacecraft('Dragon', 6000, 10, 12200, \
+                            347000000, 0.72, 'USA'))
+
+
 def random_algorithm():
     """
     Random allocate the parcels in spacecrafts
@@ -51,6 +68,45 @@ def random_algorithm():
     current_solution = Solution('random all', total_costs, used_spacecrafts)
 
     return current_solution
+
+def random_fleet_algorithm():
+    """
+    Random allocate the parcels in spacecrafts
+    """
+    # set starting settings random
+    parcel_randoms = random.sample(range(100), 100)
+    spacecraft_randoms = random.sample(range(7),7)
+    used_spacecrafts = []
+    total_costs = 0
+
+    # every single run of the function sets unpacked_parcels at starting point
+    spacefreight.unpacked_parcels = set_up_unpacked()
+
+    while len(spacefreight.unpacked_parcels) > 0:
+        for spacecraft_number in spacecraft_randoms:
+            spacecraft = spacecrafts_list[spacecraft_number]
+
+            # set variables at 0
+            empty_single_spacecraft(spacecraft)
+
+            for parcel_number in parcel_randoms:
+                parcel = spacefreight.all_parcels[parcel_number]
+                if (spacefreight.check(spacecraft, parcel) and
+                        parcel.ID in spacefreight.unpacked_parcels):
+                    spacecraft = spacefreight.update(spacecraft, parcel)
+
+            #calculate costs spacecraft
+            spacecraft.costs = spacefreight.calculate_costs_spacecraft(spacecraft)
+            total_costs += spacecraft.costs
+
+            # add spacecraft to used_spacecrafts
+            used_spacecrafts.append(spacecraft)
+
+    # save solution
+    current_solution = Solution('random all', total_costs, used_spacecrafts)
+
+    return current_solution
+
 
 def pseudo_greedy_random():
     """

@@ -5,13 +5,15 @@
 """
 This script gives us outputs for our presentation
 """
-
+import csv
+import random
 import pandas as pd
 from spacecraft import Spacecraft
 from solution import Solution
+from parcel import Parcel
 from plot import *
 import math
-INPUT = "CargoLists/CargoList1.csv"
+INPUT = "../CargoLists/CargoList1.csv"
 
 data = pd.read_csv('../Outputs/Random/random_CL1_100000.csv', index_col=0)
 
@@ -33,49 +35,14 @@ spacecrafts_list.append(Spacecraft('Progress', 2400, 7.6, 7020, \
 spacecrafts_list.append(Spacecraft('Dragon', 6000, 10, 12200, \
                             347000000, 0.72, 'USA'))
 
-parcel_list = load_parcels(INPUT)
-print(parcel_list)
-
-max_runs = 1
-# run all parcels random
-best_solution = random_algorithm()
-count = 0
-dataframe_row = save_run_random(best_solution)
-runs_dataframe = runs_dataframe.append(dataframe_row, ignore_index=True)
-
-while count < (max_runs - 1):
-    solution = random_algorithm()
-
-    # save to dataframe
-    dataframe_row = save_run_random(solution)
-    runs_dataframe = runs_dataframe.append(dataframe_row, ignore_index=True)
-
-    # check if costs better
-    if solution.costs < best_solution.costs:
-        best_solution = solution
-
-    count += 1
-
-# print the best solution in terminal
-printing(best_solution)
-
-# set column names
-runs_dataframe.columns = column_names
-
-# plot if more than 1 run
-if max_runs > 1:
-    plot_costs(runs_dataframe)
-
-print(runs_dataframe)
-
-
 def random_algorithm():
     """
     Random allocate the parcels in spacecrafts
     """
     # set starting settings random
-    parcel_randoms = random.sample(range(100, 100))
-    spacecraft_randoms = random.sample(7,7)
+    parcel_randoms = random.sample(range(100), 100)
+    spacecraft_randoms = random.sample(range(7),7)
+    print(spacecraft_randoms)
     used_spacecrafts = []
     total_costs = 0
     # every single run of the function sets unpacked_parcels at starting point
@@ -125,7 +92,7 @@ def load_parcels(file):
 
     return parcels
 
-def check(self, spacecraft, parcel):
+def check(spacecraft, parcel):
         """
         Checks if payload mass and volume of spacecraft doesn't get exceeded.
         Boolean.
@@ -136,7 +103,7 @@ def check(self, spacecraft, parcel):
         else:
             return False
 
-def update(self, spacecraft, parcel):
+def update(spacecraft, parcel):
     """
     Updates spacecraft's packed parcels, mass, volume.
     Updates list of unpacked parcels. Returns the spacecraft.
@@ -147,11 +114,11 @@ def update(self, spacecraft, parcel):
     spacecraft.packed_vol += parcel.volume
 
     # update unpacked parcels
-    self.unpacked_parcels.remove(parcel.ID)
+    unpacked_parcels.remove(parcel.ID)
 
     return spacecraft
 
-def calculate_costs_spacecraft(self, spacecraft):
+def calculate_costs_spacecraft(spacecraft):
     """
     This function calculates and returns the costs of a spacecraft.
     """
@@ -162,7 +129,7 @@ def calculate_costs_spacecraft(self, spacecraft):
 
     return costs_spacecraft
 
-def calculate_costs(self, solution):
+def calculate_costs(solution):
     """
     This function calculates and returns the total costs.
     """
@@ -173,7 +140,7 @@ def calculate_costs(self, solution):
 
     return total_costs
 
-def printing(self, solution):
+def printing(solution):
     """
     This functions prints the spacecrafts, packed parcels, packed mass and
     volume and total costs of a solution.
@@ -198,7 +165,7 @@ def printing(self, solution):
             count += 4
         print("-------------------------------------")
 
-def save_run_random(self, solution):
+def save_run_random(solution):
     """
     Saves and returns the solution from a run in a dataframe.
     """
@@ -230,3 +197,49 @@ def save_run_random(self, solution):
     row = pd.DataFrame([data])
 
     return row
+
+def empty_single_spacecraft(spacecraft_item):
+    """
+    Sets variables at 0 after run for one spacecraft and returns spacecraft.
+    """
+    spacecraft_item.packed_parcels = []
+    spacecraft_item.packed_mass = 0
+    spacecraft_item.packed_vol = 0
+
+    return spacecraft_item
+
+
+parcel_list = load_parcels(INPUT)
+
+max_runs = 1
+# run all parcels random
+best_solution = random_algorithm()
+count = 0
+dataframe_row = save_run_random(best_solution)
+runs_dataframe = runs_dataframe.append(dataframe_row, ignore_index=True)
+
+while count < (max_runs - 1):
+    solution = random_algorithm()
+
+    # save to dataframe
+    dataframe_row = save_run_random(solution)
+    runs_dataframe = runs_dataframe.append(dataframe_row, ignore_index=True)
+
+    # check if costs better
+    if solution.costs < best_solution.costs:
+        best_solution = solution
+
+    count += 1
+
+# print the best solution in terminal
+printing(best_solution)
+
+# set column names
+runs_dataframe.columns = column_names
+
+# plot if more than 1 run
+if max_runs > 1:
+    plot_costs(runs_dataframe)
+
+print(runs_dataframe)
+
