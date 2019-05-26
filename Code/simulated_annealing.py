@@ -86,7 +86,10 @@ def simulated_annealing_fleet(iterations_dataframe, max_iterations, heuristic, c
     costs_per_run = []
 
     # starting solution -> use random algorithm
-    current_solution = random_fleet_algorithm()
+    hoi = False
+    while hoi == False:
+        current_solution, hoi = random_fleet_algorithm()
+
     start_solution = copy.copy(current_solution)
 
     # select neighbouring solution

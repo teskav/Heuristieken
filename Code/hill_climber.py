@@ -74,7 +74,9 @@ def hill_climber_fleet(iterations_dataframe, max_iterations, heuristic):
     costs_per_run = []
 
     # starting solution is random
-    current_solution = random_fleet_algorithm()
+    hoi = False:
+    while hoi = False:
+        current_solution, hoi = random_fleet_algorithm()
     start_solution = copy.copy(current_solution)
 
     # select neighbour solution
