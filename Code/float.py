@@ -9,7 +9,6 @@ This script gives us outputs for our presentation
 import pandas as pd
 from spacecraft import Spacecraft
 from solution import Solution
-from helpers import *
 from plot import *
 import math
 INPUT = "CargoLists/CargoList1.csv"
@@ -80,9 +79,9 @@ def random_algorithm():
     used_spacecrafts = []
     total_costs = 0
     # every single run of the function sets unpacked_parcels at starting point
-	unpacked = []
-  	for p in parcel_list:
-  		unpacked.append(p.ID)
+    unpacked = []
+    for p in parcel_list:
+        unpacked.append(p.ID)
 
 
     while len(unpacked) > 0:
@@ -109,7 +108,6 @@ def random_algorithm():
     current_solution = Solution('random all', total_costs, used_spacecrafts)
 
     return current_solution
-
 
 def load_parcels(file):
     """
@@ -152,7 +150,7 @@ def update(self, spacecraft, parcel):
     self.unpacked_parcels.remove(parcel.ID)
 
     return spacecraft
- 
+
 def calculate_costs_spacecraft(self, spacecraft):
     """
     This function calculates and returns the costs of a spacecraft.
