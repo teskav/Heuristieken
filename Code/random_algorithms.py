@@ -9,6 +9,7 @@ of the random algorithms
 """
 
 from spacefreight import SpaceFreight
+from spacecraft import Spacecraft
 from solution import Solution
 from helpers import *
 import random
@@ -32,7 +33,6 @@ spacecrafts_list.append(Spacecraft('Progress', 2400, 7.6, 7020, \
                             175000000, 0.74, 'Russia'))
 spacecrafts_list.append(Spacecraft('Dragon', 6000, 10, 12200, \
                             347000000, 0.72, 'USA'))
-
 
 def random_algorithm():
     """
@@ -84,7 +84,7 @@ def random_fleet_algorithm():
 
     while len(spacefreight.unpacked_parcels) > 0:
         for spacecraft_number in spacecraft_randoms:
-            spacecraft = spacecrafts_list[spacecraft_number]
+            spacecraft = copy.copy(spacecrafts_list[spacecraft_number])
 
             # set variables at 0
             empty_single_spacecraft(spacecraft)

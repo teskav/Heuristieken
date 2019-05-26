@@ -38,6 +38,9 @@ if algorithm == 'first fit':
 elif algorithm == 'random':
     runs_dataframe = call_random()
 
+elif algorithm == 'random fleet':
+    runs_dataframe = call_random_fleet()
+
 elif algorithm == 'pseudo greedy random':
     runs_dataframe = call_pseudo_greedy_random()
 

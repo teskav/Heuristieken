@@ -73,6 +73,46 @@ def call_random():
 
     return runs_dataframe
 
+def call_random_fleet():
+    """
+    Calls the random algorithm.
+    """
+    column_names = ['algorithm_name', 'costs_solution', 'fleet', \
+                    'costs_spacecraft', 'packed_mass_vol', 'packed_parcels']
+    runs_dataframe = pd.DataFrame()
+
+    max_runs = 1
+    # run all parcels random
+    best_solution = random_fleet_algorithm()
+    count = 0
+    dataframe_row = spacefreight.save_run_random(best_solution)
+    runs_dataframe = runs_dataframe.append(dataframe_row, ignore_index=True)
+
+    while count < (max_runs - 1):
+        solution = random_fleet_algorithm()
+
+        # save to dataframe
+        dataframe_row = spacefreight.save_run_random(solution)
+        runs_dataframe = runs_dataframe.append(dataframe_row, ignore_index=True)
+
+        # check if costs better
+        if solution.costs < best_solution.costs:
+            best_solution = solution
+
+        count += 1
+
+    # print the best solution in terminal
+    spacefreight.printing(best_solution)
+
+    # set column names
+    runs_dataframe.columns = column_names
+
+    # plot if more than 1 run
+    if max_runs > 1:
+        plot_costs(runs_dataframe)
+
+    return runs_dataframe
+
 def call_pseudo_greedy_random():
     """
     Calls the pseudo greedy random algorithm (with constraints).
@@ -131,7 +171,7 @@ def call_hill_climber(heuristic):
 
     max_iterations = 2000
     runs = 0
-    max_runs = 1
+    max_runs = 3
 
     # set lists for plots
     costs_runs = []
@@ -140,7 +180,7 @@ def call_hill_climber(heuristic):
     while runs < max_runs:
 
         iterations_dataframe, start_solution, end_solution, costs_per_run = \
-            hill_climber(iterations_dataframe, max_iterations, heuristic)
+            hill_climber_fleet(iterations_dataframe, max_iterations, heuristic)
 
         # save run
         dataframe_row = spacefreight.save_run_hill_climber(start_solution, \
