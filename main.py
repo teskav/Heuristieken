@@ -71,7 +71,7 @@ else:
 if len(sys.argv) > 1:
     if sys.argv[1] == 'save':
         # save runs
-        runs_dataframe.to_csv(r'../Heuristieken/Outputs/Results_fleet/SA_runs_saved.csv')
+        runs_dataframe.to_csv(r'../Heuristieken/Outputs/Results_fleet/HC_runs_saved.csv')
         # if iterative, save iterations dataframe also
         if algorithm == 'hill climber' or algorithm == 'simulated annealing':
-            iterations_dataframe.to_csv(r'../Heuristieken/Outputs/iterations_saved.csv')
+            iterations_dataframe.to_csv(r'../Heuristieken/Outputs/Results_fleet/HC_iterations_saved.csv')

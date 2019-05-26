@@ -164,7 +164,7 @@ def call_hill_climber(heuristic):
 
     max_iterations = 2000
     runs = 0
-    max_runs = 3
+    max_runs = 30
 
     # set lists for plots
     costs_runs = []
