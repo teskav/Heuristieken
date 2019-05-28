@@ -167,7 +167,7 @@ To cover the whole case, we also implemented the political constraints algorithm
 
 ## Findings
 If you are interested in our findings, please take a look at our presentation in the following link.
-We will add this link on monday 27th of May, after the presentations.
+https://docs.google.com/presentation/d/1ylso2RBgQ8e9Gx_gz97j_lJkJLqhsM0l0NgKgL27aew/edit?usp=sharing
 
 ## Authors
 + Sofie Löhr, 11038926
